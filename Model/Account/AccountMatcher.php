@@ -36,7 +36,8 @@ class AccountMatcher
         }
         $customerId = $this->findCustomerId((string)$profile->email, $websiteId);
         if ($customerId !== null) {
-            return $profile->emailVerified && $linkMode === Config::LINK_AUTO
+            // Only an address the provider is authoritative for may sign in to an existing account.
+            return $profile->emailTrusted && $linkMode === Config::LINK_AUTO
                 ? new Decision(Decision::LINK_EXISTING, $customerId)
                 : new Decision(Decision::ASK_PASSWORD, $customerId);
         }

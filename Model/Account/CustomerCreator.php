@@ -8,14 +8,13 @@ declare(strict_types=1);
 
 namespace Softaware\SocialLogin\Model\Account;
 
-use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Api\Data\CustomerInterfaceFactory;
 use Magento\Customer\Api\GroupManagementInterface;
-use Magento\Customer\Model\AccountConfirmation;
 use Magento\Customer\Model\EmailNotificationInterface;
 use Magento\Framework\Event\ManagerInterface as EventManager;
+use Magento\Framework\Math\Random;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
 use Softaware\SocialLogin\Model\Config;
@@ -24,19 +23,26 @@ use Softaware\SocialLogin\Model\Profile;
 /**
  * Creates the store account for a new social sign-up (no password; the customer can set one later
  * with "Forgot your password?").
+ *
+ * Email confirmation:
+ * - Address verified by the provider: no confirmation, even when the store requires it (the provider has
+ *   already proved it).
+ * - Address NOT verified (typed in by the customer, Amazon, ...): the customer always has to confirm it with
+ *   Magento's confirmation email, whether or not the store requires confirmation. Otherwise anybody could
+ *   create an account in someone else's name and keep a back door into it through the linked provider
+ *   ("pre-account hijacking").
  */
 class CustomerCreator
 {
     public function __construct(
         private readonly CustomerInterfaceFactory $customerFactory,
         private readonly CustomerRepositoryInterface $customerRepository,
-        private readonly AccountManagementInterface $accountManagement,
-        private readonly AccountConfirmation $accountConfirmation,
         private readonly GroupManagementInterface $groupManagement,
         private readonly EmailNotificationInterface $emailNotification,
         private readonly StoreManagerInterface $storeManager,
         private readonly EventManager $eventManager,
         private readonly Config $config,
+        private readonly Random $random,
         private readonly LoggerInterface $logger
     ) {
     }
@@ -60,27 +66,21 @@ class CustomerCreator
             ->setStoreId($storeId)
             ->setGroupId($groupId);
 
-        if (!$profile->emailVerified
-            && $this->accountConfirmation->isConfirmationRequired($websiteId, null, $email)
-        ) {
-            // Unverified address and the store requires confirmation: same as a normal registration.
-            $saved = $this->accountManagement->createAccount($customer);
-            $needsConfirmation = true;
-        } else {
-            $saved = $this->customerRepository->save($customer);
-            $needsConfirmation = false;
-            if ($this->config->isWelcomeEmailEnabled($storeId)) {
-                try {
-                    $this->emailNotification->newAccount(
-                        $saved,
-                        EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED_NO_PASSWORD,
-                        '',
-                        $storeId
-                    );
-                } catch (\Exception $e) {
-                    $this->logger->warning('Social login: welcome email not sent: ' . $e->getMessage());
-                }
-            }
+        $needsConfirmation = !$profile->emailVerified;
+        if ($needsConfirmation) {
+            $customer->setConfirmation($this->random->getUniqueHash());
+        }
+        $saved = $this->customerRepository->save($customer);
+        if (!$needsConfirmation && (string)$saved->getConfirmation() !== '') {
+            // The store requires confirmation, but the provider has verified the address already.
+            $saved->setConfirmation(null);
+            $saved = $this->customerRepository->save($saved);
+        }
+
+        if ($needsConfirmation) {
+            $this->sendEmail($saved, EmailNotificationInterface::NEW_ACCOUNT_EMAIL_CONFIRMATION, $storeId);
+        } elseif ($this->config->isWelcomeEmailEnabled($storeId)) {
+            $this->sendEmail($saved, EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED_NO_PASSWORD, $storeId);
         }
 
         $this->eventManager->dispatch('softaware_sociallogin_customer_created', [
@@ -90,5 +90,14 @@ class CustomerCreator
         ]);
 
         return ['customer' => $saved, 'needs_confirmation' => $needsConfirmation];
+    }
+
+    private function sendEmail(CustomerInterface $customer, string $type, int $storeId): void
+    {
+        try {
+            $this->emailNotification->newAccount($customer, $type, '', $storeId);
+        } catch (\Exception $e) {
+            $this->logger->warning(sprintf('Social login: %s email not sent: %s', $type, $e->getMessage()));
+        }
     }
 }

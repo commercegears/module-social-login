@@ -64,14 +64,32 @@ class Google extends AbstractOidcProvider
     protected function buildProfile(array $claims, array $tokenResponse, AuthRequest $request, array $callbackParams): Profile
     {
         [$first, $last] = $this->namesFromClaims($claims);
+        $email = isset($claims['email']) && $claims['email'] !== '' ? (string)$claims['email'] : null;
+        $verified = $email !== null && self::isTrue($claims['email_verified'] ?? false);
         return new Profile(
             $this->getCode(),
             (string)$claims['sub'],
-            isset($claims['email']) ? (string)$claims['email'] : null,
-            self::isTrue($claims['email_verified'] ?? false),
+            $email,
+            $verified,
             $first,
             $last,
-            (string)($claims['name'] ?? '')
+            (string)($claims['name'] ?? ''),
+            $verified && self::isAuthoritative((string)$email, (string)($claims['hd'] ?? ''))
         );
+    }
+
+    /**
+     * Google is only authoritative for Gmail addresses and Google Workspace accounts ("hd" claim). Other
+     * addresses were verified once when the Google account was created, but may have changed hands since
+     * (Google's guidance: ask for another proof before linking them to an existing account).
+     */
+    public static function isAuthoritative(string $email, string $hostedDomain): bool
+    {
+        $domain = strtolower((string)substr(strrchr($email, '@') ?: '', 1));
+        if ($domain === 'gmail.com' || $domain === 'googlemail.com') {
+            return true;
+        }
+        // Workspace accounts carry "hd"; the address may be on one of the organisation's secondary domains.
+        return $hostedDomain !== '';
     }
 }

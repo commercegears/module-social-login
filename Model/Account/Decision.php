@@ -15,9 +15,9 @@ class Decision
 {
     /** Identity already linked: sign in that customer. */
     public const LOGIN_LINKED = 'login_linked';
-    /** Verified email of an existing customer and auto-linking is on: link, then sign in. */
+    /** Trusted email of an existing customer and auto-linking is on: link, then sign in. */
     public const LINK_EXISTING = 'link_existing';
-    /** Existing customer, but email unverified or auto-linking off: ask for the store password. */
+    /** Existing customer, but email not trusted or auto-linking off: ask for the store password. */
     public const ASK_PASSWORD = 'ask_password';
     /** No email (or no name) from the provider: ask the customer to complete the details. */
     public const ASK_DETAILS = 'ask_details';

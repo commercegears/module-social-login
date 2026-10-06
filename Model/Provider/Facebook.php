@@ -13,7 +13,9 @@ use Softaware\SocialLogin\Model\Profile;
 
 /**
  * Facebook Login (manual OAuth flow) and the Graph API "me" endpoint, signed with appsecret_proof.
- * Facebook only returns an email address the person has confirmed, so it is treated as verified.
+ * Facebook only returns an email address the person has confirmed, so a new store account needs no
+ * email confirmation. The Graph API has no verification flag and Facebook is not the mailbox provider,
+ * so the address is not trusted to sign in to an existing store account without its password.
  */
 class Facebook extends AbstractProvider
 {
@@ -79,7 +81,8 @@ class Facebook extends AbstractProvider
             $email !== null,
             (string)($me['first_name'] ?? ''),
             (string)($me['last_name'] ?? ''),
-            (string)($me['name'] ?? '')
+            (string)($me['name'] ?? ''),
+            false
         );
     }
 }
