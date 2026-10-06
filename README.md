@@ -24,18 +24,27 @@ Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
   - ID tokens of Google, Microsoft, Apple and LinkedIn are validated against the provider's JWKS (RS256/ES256,
     `alg` whitelist, issuer, audience, expiry, nonce). Keys are cached and refreshed on rotation.
   - Email addresses are only treated as verified when the provider says so (`email_verified`, GitHub verified
-    flag, Microsoft only for personal accounts or `xms_edov`). Amazon and typed-in addresses never count as
-    verified.
+    flag, X `confirmed_email`, Microsoft only for personal accounts or `xms_edov`). Amazon and typed-in addresses
+    never count as verified.
+  - Signing in to an EXISTING account by email (without its password) additionally requires that the provider
+    is responsible for the address: Google only for Gmail and Google Workspace addresses (as Google advises),
+    Apple, Microsoft (as above), GitHub, LinkedIn, X. Facebook addresses always ask for the password once.
+  - New accounts from an unverified address must be confirmed with Magento's confirmation email before they can
+    be used, even when the store does not require confirmation (protects against "pre-account hijacking").
+  - The session id is regenerated on every sign-in (Magento's `setCustomerDataAsLoggedIn()`).
   - Callback is CSRF-safe through the state; all customer-side state changes use POST with form key.
-  - Return URLs are restricted to this installation (no open redirect). Secrets, codes and tokens are never
+  - Return URLs are restricted to this installation and parsed strictly (no open redirect). Secrets, codes and tokens are never
     logged.
 - **Account matching**
   - An identity that is already linked signs in its customer.
-  - An existing customer with the same, **verified** email is linked automatically, or (configurable) only after
-    entering the account password. Unverified emails always require the password.
+  - An existing customer with the same, **trusted** email (see Security) is linked automatically, or
+    (configurable) only after entering the account password. Other emails always require the password.
   - New customers are created with name and email from the provider, in a configurable customer group, with an
-    optional welcome email ("Welcome Email (without password)" template). If the store requires email
-    confirmation and the email is not verified, the normal confirmation email is sent instead.
+    optional welcome email ("Welcome Email (without password)" template). Addresses the provider has not verified
+    get Magento's confirmation email instead; the account can be used once it is confirmed.
+  - **Create New Accounts** can be switched off: then only existing customers can sign in with a provider.
+  - Works with Softaware Customer Approval: social sign-ups get an approval status like any registration, and
+    pending or rejected customers are not signed in (they see the approval message).
   - When the provider returns no email (X; Apple when the customer hides it on a later sign-in) or no name, the
     customer completes a short form.
 - **My Account > Connected Accounts**: see linked providers, connect another, disconnect. Disconnecting is refused
@@ -45,7 +54,8 @@ Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
 - **GDPR**: links are deleted together with the customer (foreign key `ON DELETE CASCADE`). Pending sign-in data is
   deleted after 15 minutes (cron).
 - **Test provider** (development only): a local identity provider to try the whole flow without provider apps.
-  Disabled by default, works only in developer mode, and its addresses are never treated as verified.
+  Disabled by default, works only in developer mode, and its addresses are never treated as verified (new
+  accounts made with it therefore need the confirmation email).
 
 ## Configuration
 
@@ -56,7 +66,7 @@ Softaware > Social Login > Configuration.
 | --- | --- |
 | General | Enabled, sign-in window (redirect/popup), button style, button colour |
 | Where to Show the Buttons | Sign-in page, create-account page, authentication popup and checkout sign-in, checkout email step |
-| Accounts | Existing account with the same email (link automatically / ask for password), welcome email, customer group, after sign-in (stay on page / My Account / custom URL) |
+| Accounts | Create new accounts (yes/no), existing account with the same email (link automatically / ask for password), welcome email, customer group, after sign-in (stay on page / My Account / custom URL) |
 | Google … X | Enabled (with the callback URL), client ID, client secret, button label, sort order; Apple: Services ID, Team ID, Key ID, private key; Microsoft: tenant; Facebook: Graph API version; X: request email |
 | Test Provider | Enabled (developer mode only) |
 
@@ -110,7 +120,8 @@ bin/magento softaware:social-login:self-test [--accounts]
 ```
 
 `self-test` checks PKCE (RFC 7636 test vector), ID token validation incl. tampering, wrong issuer/audience/nonce,
-expired tokens and `alg` confusion, the Apple ES256 client secret, the state store and, with `--accounts`, the
+expired tokens and `alg` confusion, the Apple ES256 client secret, the state store, return URL (open redirect)
+handling, the email trust rules and, with `--accounts`, the
 account matching rules using temporary "Test SocialLogin" customers that are deleted afterwards. It makes no
 calls to providers.
 
@@ -125,8 +136,11 @@ calls to providers.
 
 - Real provider sign-ins could not be tested on the development server (no provider apps); the protocol pieces
   are covered by the self-test and the full flow by the test provider.
-- Facebook only returns confirmed email addresses, so they are treated as verified. Amazon does not say, so
-  Amazon addresses are treated as unverified (existing customers confirm with their password once).
+- Facebook only returns confirmed email addresses, so new accounts need no confirmation; an existing account with
+  the same address is only connected after its password is entered once (Facebook gives no verification flag).
+  Google addresses outside Gmail/Workspace are handled the same way. Amazon does not say whether an address is
+  verified, so Amazon addresses are treated as unverified (new accounts get the confirmation email, existing
+  customers confirm with their password once).
 - One identity per provider per customer.
 - Microsoft: given/family name are only returned when configured as optional claims; otherwise the display
   name is split.
