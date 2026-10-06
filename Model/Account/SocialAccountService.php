@@ -12,6 +12,7 @@ use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Model\AuthenticationInterface;
+use Magento\Customer\Model\CustomerRegistry;
 use Magento\Customer\Model\Config\Share as ShareConfig;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\Validator\EmailAddress as EmailValidator;
@@ -45,7 +46,8 @@ class SocialAccountService
         private readonly ShareConfig $shareConfig,
         private readonly ProviderPool $providerPool,
         private readonly Config $config,
-        private readonly EmailValidator $emailValidator
+        private readonly EmailValidator $emailValidator,
+        private readonly CustomerRegistry $customerRegistry
     ) {
     }
 
@@ -81,10 +83,15 @@ class SocialAccountService
                 return new Result(Result::NEEDS_PASSWORD, $decision->customerId, false, $request->returnUrl);
 
             case Decision::ASK_DETAILS:
+                if ($profile->hasEmail()) {
+                    // Only the name is missing and no account has this email: a new account would be created.
+                    $this->assertRegistrationAllowed($profile, $storeId);
+                }
                 $this->pendingStorage->save($profile, $storeId, $request->returnUrl);
                 return new Result(Result::NEEDS_DETAILS, 0, false, $request->returnUrl);
 
             default:
+                $this->assertRegistrationAllowed($profile, $storeId);
                 try {
                     return $this->createAndSignIn($profile, $storeId, $request->returnUrl);
                 } catch (\Magento\Framework\Exception\InputException | \Magento\Framework\Validator\Exception $e) {
@@ -112,14 +119,9 @@ class SocialAccountService
             }
             $profile = $profile->withEmail($email, false);
         }
-        $profile = new Profile(
-            $profile->provider,
-            $profile->providerUserId,
-            $profile->email,
-            $profile->emailVerified,
+        $profile = $profile->withNames(
             trim($firstName) !== '' ? trim($firstName) : $profile->firstName,
-            trim($lastName) !== '' ? trim($lastName) : $profile->lastName,
-            $profile->displayName
+            trim($lastName) !== '' ? trim($lastName) : $profile->lastName
         );
         if (trim($profile->firstName) === '' || trim($profile->lastName) === '') {
             throw new SocialLoginException(__('Please enter your first and last name.'));
@@ -132,6 +134,7 @@ class SocialAccountService
             $this->pendingStorage->save($profile, $storeId, $pending['return_url'], $existingId);
             return new Result(Result::NEEDS_PASSWORD, $existingId, false, $pending['return_url']);
         }
+        $this->assertRegistrationAllowed($profile, $storeId);
         $this->pendingStorage->clear();
         return $this->createAndSignIn($profile, $storeId, $pending['return_url']);
     }
@@ -233,19 +236,49 @@ class SocialAccountService
         if ($this->authentication->isLocked((int)$customer->getId())) {
             throw new SocialLoginException(__('Your account is temporarily locked. Please try again later.'));
         }
-        $status = $this->accountManagement->getConfirmationStatus((int)$customer->getId());
-        if ($status === AccountManagementInterface::ACCOUNT_CONFIRMATION_REQUIRED) {
-            $sameVerifiedEmail = $profile->emailVerified
-                && strcasecmp((string)$profile->email, (string)$customer->getEmail()) === 0;
-            if (!$sameVerifiedEmail) {
-                throw new SocialLoginException(
-                    __('This account is not confirmed yet. Please use the confirmation link we sent to your email address.')
-                );
-            }
-            // The provider has verified the address, which is what the confirmation email would prove.
-            $customer->setConfirmation(null);
-            $this->customerRepository->save($customer);
+        if ((string)$customer->getConfirmation() === '') {
+            return;
         }
+        $customerId = (int)$customer->getId();
+        $required = $this->accountManagement->getConfirmationStatus($customerId)
+            === AccountManagementInterface::ACCOUNT_CONFIRMATION_REQUIRED;
+        if (!$required && $this->hasPassword($customerId)) {
+            // The store does not require confirmation and the customer can sign in with the password anyway.
+            return;
+        }
+        // Unconfirmed: the store requires confirmation, or the account was created from an address the
+        // provider had not verified (social accounts have no password, so nothing else proves the address).
+        $sameTrustedEmail = $profile->emailTrusted
+            && strcasecmp((string)$profile->email, (string)$customer->getEmail()) === 0;
+        if (!$sameTrustedEmail) {
+            throw new SocialLoginException(
+                __('This account is not confirmed yet. Please use the confirmation link we sent to your email address.')
+            );
+        }
+        // The provider vouches for the address, which is what the confirmation email would prove.
+        $customer->setConfirmation(null);
+        $this->customerRepository->save($customer);
+    }
+
+    private function hasPassword(int $customerId): bool
+    {
+        return (string)$this->customerRegistry->retrieveSecureData($customerId)->getPasswordHash() !== '';
+    }
+
+    /**
+     * "Create new accounts" is off: social sign-in only works for existing customers.
+     */
+    private function assertRegistrationAllowed(Profile $profile, int $storeId): void
+    {
+        if ($this->config->isRegistrationAllowed($storeId)) {
+            return;
+        }
+        throw SocialLoginException::withDetail(
+            $profile->hasEmail()
+                ? __('There is no account with the email address %1. Please create an account first, then connect it on the "Connected Accounts" page.', $profile->email)
+                : __('There is no account with this email address. Please create an account first, then connect it on the "Connected Accounts" page.'),
+            sprintf('%s: no matching account and new accounts are switched off', $profile->provider)
+        );
     }
 
     private function assertNoOtherIdentity(int $customerId, string $provider): void

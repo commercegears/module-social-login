@@ -14,6 +14,7 @@ use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Psr\Log\LoggerInterface;
+use Softaware\SocialLogin\Exception\LoginRefusedException;
 use Softaware\SocialLogin\Model\Account\SocialAccountService;
 use Softaware\SocialLogin\Model\FlowResponder;
 
@@ -42,6 +43,11 @@ class CompletePost implements HttpPostActionInterface
                 (string)$this->request->getParam('lastname')
             );
             return $this->responder->forResult($result, $pending ? $pending['profile']->provider : '', false);
+        } catch (LoginRefusedException $e) {
+            if (!$e->isExplained()) {
+                $this->messageManager->addErrorMessage($e->getMessage());
+            }
+            return $this->redirectFactory->create()->setPath('customer/account/login');
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
         } catch (\Throwable $e) {

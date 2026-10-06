@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Softaware\SocialLogin\Exception;
 
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Phrase;
 
 /**
  * Raised when a sign-in cannot be completed. The message is safe to show to the customer;
@@ -18,10 +19,10 @@ class SocialLoginException extends LocalizedException
 {
     private string $logDetail = '';
 
-    public static function withDetail(string $customerMessage, string $logDetail): self
+    public static function withDetail(string|Phrase $customerMessage, string $logDetail): static
     {
         // phpcs:ignore Magento2.Exceptions.DirectThrow
-        $exception = new self(__($customerMessage));
+        $exception = new static($customerMessage instanceof Phrase ? $customerMessage : __($customerMessage));
         $exception->logDetail = $logDetail;
         return $exception;
     }

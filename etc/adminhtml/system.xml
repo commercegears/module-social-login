@@ -50,14 +50,19 @@
             </group>
             <group id="account" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Accounts</label>
+                <field id="allow_registration" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create New Accounts</label>
+                    <comment><![CDATA[Set to "No" to let only existing customers sign in with a provider (for example a trade-only shop). Shoppers without an account are asked to register first.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
                 <field id="link_mode" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Existing Account with the Same Email</label>
-                    <comment><![CDATA[Addresses that the provider has not verified, or that the shopper typed in, always require the account password.]]></comment>
+                    <comment><![CDATA[Automatic linking only applies to addresses the provider is responsible for (Gmail and Google Workspace, Apple, personal Microsoft accounts, verified GitHub, LinkedIn and X addresses). Other addresses, and addresses the shopper typed in, always require the account password.]]></comment>
                     <source_model>Softaware\SocialLogin\Model\Config\Source\LinkMode</source_model>
                 </field>
                 <field id="send_welcome_email" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Send Welcome Email to New Customers</label>
-                    <comment><![CDATA[Uses the template "Welcome Email (without password)" from Customer Configuration &gt; Create New Account Options.]]></comment>
+                    <comment><![CDATA[Uses the template "Welcome Email (without password)" from Customer Configuration &gt; Create New Account Options. Addresses the provider has not verified (or that the shopper typed in) get the confirmation email instead, and the account can be used once it is confirmed.]]></comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="customer_group" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">

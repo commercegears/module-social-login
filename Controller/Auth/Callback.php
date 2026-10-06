@@ -19,6 +19,7 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
+use Softaware\SocialLogin\Exception\LoginRefusedException;
 use Softaware\SocialLogin\Exception\SocialLoginException;
 use Softaware\SocialLogin\Model\Account\SocialAccountService;
 use Softaware\SocialLogin\Model\AuthRequest;
@@ -131,6 +132,9 @@ class Callback implements HttpGetActionInterface, HttpPostActionInterface, CsrfA
             $profile = $provider->fetchProfile($authRequest, $params);
             $result = $this->accountService->handle($profile, $authRequest);
             return $this->responder->forResult($result, $provider->getCode(), $popup);
+        } catch (LoginRefusedException $e) {
+            $this->logger->info(sprintf('Social login [%s]: %s', $code, $e->getLogDetail()));
+            return $this->responder->forError($e->isExplained() ? '' : $e->getMessage(), $popup, $isLink);
         } catch (SocialLoginException $e) {
             $this->logger->warning(sprintf('Social login [%s]: %s', $code, $e->getLogDetail()));
             return $this->responder->forError($e->getMessage(), $popup, $isLink);

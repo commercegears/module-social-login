@@ -17,6 +17,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\State\UserLockedException;
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Psr\Log\LoggerInterface;
+use Softaware\SocialLogin\Exception\LoginRefusedException;
 use Softaware\SocialLogin\Model\Account\SocialAccountService;
 use Softaware\SocialLogin\Model\FlowResponder;
 
@@ -60,6 +61,11 @@ class ConfirmPost implements HttpPostActionInterface
             );
         } catch (AuthenticationException $e) {
             $this->messageManager->addErrorMessage(__('The password is not correct. Please try again.'));
+        } catch (LoginRefusedException $e) {
+            if (!$e->isExplained()) {
+                $this->messageManager->addErrorMessage($e->getMessage());
+            }
+            return $this->redirectFactory->create()->setPath('customer/account/login');
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
         } catch (\Throwable $e) {

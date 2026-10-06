@@ -15,6 +15,7 @@
                 <checkout>0</checkout>
             </display>
             <account>
+                <allow_registration>1</allow_registration>
                 <link_mode>auto</link_mode>
                 <send_welcome_email>1</send_welcome_email>
                 <customer_group>0</customer_group>

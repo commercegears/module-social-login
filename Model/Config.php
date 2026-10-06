@@ -77,6 +77,14 @@ class Config
             : self::LINK_AUTO;
     }
 
+    /**
+     * False: only existing customers can sign in with a provider; no new accounts are created.
+     */
+    public function isRegistrationAllowed(?int $storeId = null): bool
+    {
+        return $this->flag('account/allow_registration', $storeId);
+    }
+
     public function isWelcomeEmailEnabled(?int $storeId = null): bool
     {
         return $this->flag('account/send_welcome_email', $storeId);

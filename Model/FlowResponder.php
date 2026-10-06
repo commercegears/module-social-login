@@ -72,9 +72,14 @@ class FlowResponder
         return $this->go($url, $popup);
     }
 
+    /**
+     * @param string $message Shown to the customer; '' when another module has already explained the problem
+     */
     public function forError(string $message, bool $popup, bool $isLink): ResultInterface
     {
-        $this->messageManager->addErrorMessage($message);
+        if ($message !== '') {
+            $this->messageManager->addErrorMessage($message);
+        }
         return $this->go(
             $isLink ? $this->redirectResolver->getConnectedAccountsUrl() : $this->redirectResolver->getLoginUrl(),
             $popup
