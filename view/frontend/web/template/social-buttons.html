@@ -1,0 +1,27 @@
+<!--
+/**
+ * Softaware Social Login: buttons for Knockout-rendered areas.
+ */
+-->
+<!-- ko if: buttons.length -->
+<div data-bind="attr: {class: getCssClass()}">
+    <!-- ko if: heading -->
+    <p class="sw-social__heading" data-bind="text: heading"></p>
+    <!-- /ko -->
+    <div class="sw-social__buttons" data-bind="foreach: buttons">
+        <a class="sw-social__btn" rel="nofollow"
+           data-bind="attr: {
+                href: url,
+                'data-sw-social': code,
+                'data-sw-social-popup': $parent.popup ? '1' : false,
+                title: $parent.isIconOnly() ? label : false
+           }">
+            <span class="sw-social__icon" data-bind="html: icon"></span>
+            <span class="sw-social__label" data-bind="text: label"></span>
+        </a>
+    </div>
+    <!-- ko if: showDivider -->
+    <div class="sw-social__divider"><span data-bind="i18n: 'or'"></span></div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

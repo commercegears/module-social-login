@@ -1,0 +1,197 @@
+// Softaware Social Login (Luma / blank based themes)
+
+@sw-social__border: #c6c6c6;
+@sw-social__text: #1f1f1f;
+@sw-social__dark: #1f1f1f;
+
+& when (@media-common = true) {
+    .sw-social {
+        margin: 0 0 30px;
+
+        &__heading {
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+
+        &__buttons {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        }
+
+        &__btn {
+            align-items: center;
+            background: #fff;
+            border: 1px solid @sw-social__border;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: @sw-social__text;
+            display: flex;
+            font-size: 1.4rem;
+            font-weight: 600;
+            gap: 10px;
+            justify-content: center;
+            line-height: 1.2;
+            min-height: 44px;
+            padding: 6px 16px;
+            text-decoration: none;
+            transition: background-color .15s ease, border-color .15s ease;
+
+            &:visited {
+                color: @sw-social__text;
+            }
+
+            &:hover,
+            &:active {
+                background: #f5f5f5;
+                border-color: #8f8f8f;
+                color: @sw-social__text;
+                text-decoration: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid #1979c3;
+                outline-offset: 2px;
+            }
+        }
+
+        &__icon {
+            display: inline-flex;
+            flex: 0 0 auto;
+
+            svg {
+                display: block;
+            }
+        }
+
+        &__divider {
+            align-items: center;
+            color: #666;
+            display: flex;
+            font-size: 1.3rem;
+            gap: 12px;
+            margin: 24px 0 0;
+
+            &:before,
+            &:after {
+                border-top: 1px solid #e3e3e3;
+                content: '';
+                flex: 1;
+            }
+        }
+
+        &--dark &__btn {
+            background: @sw-social__dark;
+            border-color: @sw-social__dark;
+            color: #fff;
+
+            &:visited {
+                color: #fff;
+            }
+
+            &:hover,
+            &:active {
+                background: #000;
+                border-color: #000;
+                color: #fff;
+            }
+        }
+
+        &--icon &__buttons {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        &--icon &__btn {
+            height: 44px;
+            padding: 0;
+            width: 44px;
+        }
+
+        &--icon &__label {
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        // Inside the authentication popup / checkout sign-in dropdown
+        &--auth_popup,
+        &--checkout_auth {
+            margin: 0 0 20px;
+        }
+
+        &--checkout_auth &__buttons,
+        &--auth_popup &__buttons {
+            grid-template-columns: 1fr;
+        }
+
+        &--checkout_email {
+            margin: 0 0 20px;
+            max-width: 600px;
+        }
+    }
+
+    .sw-social-page {
+        max-width: 640px;
+
+        .sw-social-accounts {
+            border-top: 1px solid #e3e3e3;
+            list-style: none;
+            margin: 0 0 25px;
+            padding: 0;
+        }
+
+        .sw-social-accounts__item {
+            align-items: center;
+            border-bottom: 1px solid #e3e3e3;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        .sw-social-accounts__icon {
+            display: inline-flex;
+            flex: 0 0 auto;
+        }
+
+        .sw-social-accounts__info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sw-social-accounts__name {
+            display: block;
+            font-weight: 600;
+        }
+
+        .sw-social-accounts__meta {
+            color: #666;
+            display: block;
+            font-size: 1.3rem;
+            overflow-wrap: anywhere;
+        }
+
+        .sw-social-accounts__action {
+            flex: 0 0 auto;
+
+            form {
+                margin: 0;
+            }
+        }
+
+        .sw-social-identity {
+            align-items: center;
+            background: #f5f5f5;
+            display: flex;
+            gap: 12px;
+            margin: 0 0 20px;
+            padding: 12px 15px;
+        }
+    }
+}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">softaware_sociallogin_link_listing.softaware_sociallogin_link_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>softaware_sociallogin_link_columns</spinner>
+        <deps>
+            <dep>softaware_sociallogin_link_listing.softaware_sociallogin_link_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="softaware_sociallogin_link_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">link_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Softaware_SocialLogin::links</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="softaware_sociallogin_link_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>link_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext">
+            <settings>
+                <placeholder translate="true">Search by email or name</placeholder>
+            </settings>
+        </filterSearch>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Remove the selected links? The customer accounts are kept; the customers can no longer sign in with these providers until they connect them again.</message>
+                        <title translate="true">Remove links</title>
+                    </confirm>
+                    <url path="softaware_sociallogin/link/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Remove link</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="softaware_sociallogin_link_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>link_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="link_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="customer_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer</label>
+            </settings>
+        </column>
+        <column name="customer_email">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Email</label>
+            </settings>
+        </column>
+        <column name="provider" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Softaware\SocialLogin\Model\Config\Source\Provider"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Provider</label>
+            </settings>
+        </column>
+        <column name="provider_email">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email at Provider</label>
+            </settings>
+        </column>
+        <column name="display_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name at Provider</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="website_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Magento\Store\Model\ResourceModel\Website\Collection"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Website</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Linked</label>
+            </settings>
+        </column>
+        <column name="last_login_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Last Sign-in</label>
+            </settings>
+        </column>
+        <column name="login_count">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Sign-ins</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Softaware\SocialLogin\Ui\Component\Listing\Column\LinkActions">
+            <settings>
+                <indexField>link_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

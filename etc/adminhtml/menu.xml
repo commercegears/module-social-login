@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Softaware_SocialLogin::social_login" title="Social Login" translate="title" module="Softaware_SocialLogin"
+             sortOrder="60" parent="Softaware_Base::base" resource="Softaware_SocialLogin::social_login"/>
+        <add id="Softaware_SocialLogin::links" title="Linked Accounts" translate="title" module="Softaware_SocialLogin"
+             sortOrder="10" parent="Softaware_SocialLogin::social_login" action="softaware_sociallogin/link/index"
+             resource="Softaware_SocialLogin::links"/>
+        <add id="Softaware_SocialLogin::config" title="Configuration" translate="title" module="Softaware_SocialLogin"
+             sortOrder="20" parent="Softaware_SocialLogin::social_login"
+             action="adminhtml/system_config/edit/section/softaware_sociallogin" resource="Softaware_SocialLogin::config"/>
+    </menu>
+</config>

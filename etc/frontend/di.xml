@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Block\Account\AuthenticationPopup">
+        <plugin name="softaware_sociallogin_authentication_popup" type="Softaware\SocialLogin\Plugin\AuthenticationPopupPlugin"/>
+    </type>
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="softawareSocialLogin" xsi:type="object">Softaware\SocialLogin\Block\Checkout\LayoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="sociallogin" xsi:type="string">/sociallogin/</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

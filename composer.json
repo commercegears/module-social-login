@@ -1,0 +1,31 @@
+{
+    "name": "softaware/module-social-login",
+    "description": "Sign in and register with Google, Apple, Facebook, Microsoft, GitHub, LinkedIn, Amazon and X for Magento 2 (Luma and Hyvä). OAuth 2.0 / OpenID Connect implemented without third-party SDKs.",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "require": {
+        "php": "~8.2.0||~8.3.0||~8.4.0||~8.5.0",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "magento/framework": "~103.0.7",
+        "softaware/module-base": "^1.2",
+        "magento/module-backend": "*",
+        "magento/module-checkout": "*",
+        "magento/module-config": "*",
+        "magento/module-customer": "*",
+        "magento/module-store": "*",
+        "magento/module-ui": "*",
+        "magento/module-widget": "*"
+    },
+    "suggest": {
+        "hyva-themes/magento2-default-theme": "Hyvä storefront templates are included"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Softaware\\SocialLogin\\": ""
+        }
+    }
+}

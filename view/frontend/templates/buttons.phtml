@@ -1,0 +1,37 @@
+<?php
+/**
+ * Softaware Social Login: sign-in buttons (Luma).
+ *
+ * @var \Softaware\SocialLogin\Block\Buttons $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$style = $block->getButtonStyle();
+$iconOnly = $style === \Softaware\SocialLogin\Model\Config::STYLE_ICON;
+$popup = $block->isPopupMode();
+$heading = $block->getHeading();
+?>
+<div class="sw-social sw-social--<?= $escaper->escapeHtmlAttr($style) ?> sw-social--<?= $escaper->escapeHtmlAttr($block->getButtonTheme()) ?> sw-social--<?= $escaper->escapeHtmlAttr($block->getPlace()) ?>"
+    <?= $block->isGuestOnly() ? 'data-sw-social-guest-only' : '' ?>>
+    <?php if ($heading !== ''): ?>
+        <p class="sw-social__heading"><?= $escaper->escapeHtml($heading) ?></p>
+    <?php endif; ?>
+    <div class="sw-social__buttons">
+        <?php foreach ($block->getButtons() as $button): ?>
+            <a class="sw-social__btn sw-social__btn--<?= $escaper->escapeHtmlAttr($button['code']) ?>"
+               href="<?= $escaper->escapeUrl($button['url']) ?>"
+               rel="nofollow"
+               data-sw-social="<?= $escaper->escapeHtmlAttr($button['code']) ?>"
+               <?= $popup ? 'data-sw-social-popup="1"' : '' ?>
+               <?php if ($iconOnly): ?>title="<?= $escaper->escapeHtmlAttr($button['label']) ?>"<?php endif; ?>>
+                <span class="sw-social__icon"><?= /* @noEscape */ $button['icon'] ?></span>
+                <span class="sw-social__label"><?= $escaper->escapeHtml($button['label']) ?></span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <?php if ($block->showDivider()): ?>
+        <div class="sw-social__divider"><span><?= $escaper->escapeHtml(__('or')) ?></span></div>
+    <?php endif; ?>
+</div>
+<script type="text/x-magento-init">
+    {"*": {"Softaware_SocialLogin/js/social-login": {}}}
+</script>

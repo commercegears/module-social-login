@@ -1,0 +1,70 @@
+<?php
+/**
+ * Softaware Social Login: My Account > Connected Accounts (Hyvä).
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Softaware\SocialLogin\ViewModel\ConnectedAccounts $viewModel
+ */
+$viewModel = $block->getData('view_model');
+$rows = $viewModel->getRows();
+?>
+<div class="max-w-2xl">
+    <p class="mb-6"><?= $escaper->escapeHtml(__('Connect an account to sign in to this store without typing your password.')) ?></p>
+    <?php if ($rows === []): ?>
+        <div class="message info"><span><?= $escaper->escapeHtml(__('No sign-in providers are available.')) ?></span></div>
+    <?php else: ?>
+        <ul class="card divide-y divide-gray-200 p-0 mb-6">
+            <?php foreach ($rows as $row): ?>
+                <?php $link = $row['link']; ?>
+                <li class="flex flex-wrap items-center gap-4 px-5 py-4">
+                    <span class="inline-flex shrink-0"><?= /* @noEscape */ $row['icon'] ?></span>
+                    <span class="min-w-0 flex-1">
+                        <span class="block font-semibold"><?= $escaper->escapeHtml($row['name']) ?></span>
+                        <span class="block text-sm text-gray-600 break-words">
+                            <?php if ($link): ?>
+                                <?= $escaper->escapeHtml(__('Connected on %1', $viewModel->formatDate($link->getCreatedAt()))) ?>
+                                <?php if ($link->getProviderEmail()): ?>
+                                    &middot; <?= $escaper->escapeHtml($link->getProviderEmail()) ?>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <?= $escaper->escapeHtml(__('Not connected')) ?>
+                            <?php endif; ?>
+                        </span>
+                    </span>
+                    <span class="shrink-0">
+                        <?php if ($link && $row['can_unlink']): ?>
+                            <form action="<?= $escaper->escapeUrl($viewModel->getUnlinkUrl()) ?>" method="post">
+                                <?= $block->getBlockHtml('formkey') ?>
+                                <input type="hidden" name="provider" value="<?= $escaper->escapeHtmlAttr($row['code']) ?>">
+                                <button type="submit" class="btn btn-secondary">
+                                    <?= $escaper->escapeHtml(__('Disconnect')) ?>
+                                </button>
+                            </form>
+                        <?php elseif ($link): ?>
+                            <span class="text-sm text-gray-600"><?= $escaper->escapeHtml(__('Only sign-in method')) ?></span>
+                        <?php elseif ($row['available']): ?>
+                            <form action="<?= $escaper->escapeUrl($viewModel->getConnectUrl()) ?>" method="post">
+                                <?= $block->getBlockHtml('formkey') ?>
+                                <input type="hidden" name="provider" value="<?= $escaper->escapeHtmlAttr($row['code']) ?>">
+                                <input type="hidden" name="intent" value="link">
+                                <button type="submit" class="btn btn-primary">
+                                    <?= $escaper->escapeHtml(__('Connect')) ?>
+                                </button>
+                            </form>
+                        <?php endif; ?>
+                    </span>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+    <?php if (!$viewModel->hasPassword()): ?>
+        <div class="message info mb-6">
+            <span>
+                <?= $escaper->escapeHtml(__('Your account does not have a password yet. To set one, use')) ?>
+                <a href="<?= $escaper->escapeUrl($viewModel->getForgotPasswordUrl()) ?>"><?= $escaper->escapeHtml(__('Forgot Your Password?')) ?></a>
+            </span>
+        </div>
+    <?php endif; ?>
+    <a class="underline" href="<?= $escaper->escapeUrl($viewModel->getBackUrl()) ?>"><?= $escaper->escapeHtml(__('Back')) ?></a>
+</div>

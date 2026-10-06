@@ -1,0 +1,58 @@
+<?php
+/**
+ * Softaware Social Login: customer edit tab.
+ *
+ * @var \Softaware\SocialLogin\Block\Adminhtml\Customer\SocialTab $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$links = $block->getLinks();
+?>
+<style>.sw-social-admin-icon{display:inline-flex;vertical-align:middle;margin-right:6px}.sw-social-admin-table{width:100%}.sw-social-admin-table td{vertical-align:middle}.sw-social-admin-table .nowrap{white-space:nowrap}</style>
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?= $escaper->escapeHtml(__('Linked Sign-in Providers')) ?></span>
+    </div>
+    <?php if ($links === []): ?>
+        <p><?= $escaper->escapeHtml(__('This customer has not connected any sign-in provider.')) ?></p>
+    <?php else: ?>
+        <table class="data-table admin__table-primary sw-social-admin-table">
+            <thead>
+            <tr>
+                <th><?= $escaper->escapeHtml(__('Provider')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Email at Provider')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Name at Provider')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Linked')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Last Sign-in')) ?></th>
+                <th><?= $escaper->escapeHtml(__('Sign-ins')) ?></th>
+                <?php if ($block->canRemove()): ?><th></th><?php endif; ?>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($links as $link): ?>
+                <tr>
+                    <td class="nowrap">
+                        <span class="sw-social-admin-icon"><?= /* @noEscape */ $block->getIcon($link->getProvider()) ?></span>
+                        <?= $escaper->escapeHtml($block->getProviderName($link->getProvider())) ?>
+                    </td>
+                    <td><?= $escaper->escapeHtml($link->getProviderEmail() ?: '—') ?></td>
+                    <td><?= $escaper->escapeHtml($link->getDisplayName() ?: '—') ?></td>
+                    <td class="nowrap"><?= $escaper->escapeHtml($block->formatDateTime($link->getCreatedAt())) ?></td>
+                    <td class="nowrap"><?= $escaper->escapeHtml($block->formatDateTime($link->getLastLoginAt())) ?></td>
+                    <td><?= (int)$link->getLoginCount() ?></td>
+                    <?php if ($block->canRemove()): ?>
+                        <td>
+                            <form action="<?= $escaper->escapeUrl($block->getRemoveUrl($link)) ?>" method="post"
+                                  data-mage-init='<?= $escaper->escapeHtmlAttr(json_encode(['Softaware_SocialLogin/js/confirm-submit' => [
+                                      'title' => (string)__('Remove link'),
+                                      'message' => (string)__('Remove this link? The customer account is kept.'),
+                                  ]])) ?>'>
+                                <input type="hidden" name="form_key" value="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>">
+                                <button type="submit" class="action-secondary"><span><?= $escaper->escapeHtml(__('Remove')) ?></span></button>
+                            </form>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+</div>

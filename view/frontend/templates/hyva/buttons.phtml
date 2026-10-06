@@ -1,0 +1,47 @@
+<?php
+/**
+ * Softaware Social Login: sign-in buttons (Hyvä, Tailwind).
+ *
+ * @var \Softaware\SocialLogin\Block\Buttons $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$style = $block->getButtonStyle();
+$iconOnly = $style === \Softaware\SocialLogin\Model\Config::STYLE_ICON;
+$dark = $block->getButtonTheme() === \Softaware\SocialLogin\Model\Config::THEME_DARK;
+$popup = $block->isPopupMode();
+$heading = $block->getHeading();
+
+$buttonClasses = 'flex items-center justify-center gap-2.5 rounded-md border font-semibold text-sm no-underline '
+    . 'transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 ';
+$buttonClasses .= $dark
+    ? 'border-gray-900 bg-gray-900 text-white hover:bg-black hover:text-white '
+    : 'border-gray-300 bg-white text-gray-900 hover:bg-gray-50 hover:border-gray-400 hover:text-gray-900 ';
+$buttonClasses .= $iconOnly ? 'size-11' : 'min-h-11 px-4';
+?>
+<div class="sw-social mb-6 w-full"
+    <?= $block->isGuestOnly() ? 'data-sw-social-guest-only' : '' ?>>
+    <?php if ($heading !== ''): ?>
+        <p class="mb-3 text-base font-semibold"><?= $escaper->escapeHtml($heading) ?></p>
+    <?php endif; ?>
+    <div class="<?= $iconOnly ? 'flex flex-wrap gap-2.5' : 'grid gap-2.5 grid-cols-[repeat(auto-fill,minmax(210px,1fr))]' ?>">
+        <?php foreach ($block->getButtons() as $button): ?>
+            <a class="<?= $escaper->escapeHtmlAttr($buttonClasses) ?>"
+               href="<?= $escaper->escapeUrl($button['url']) ?>"
+               rel="nofollow"
+               data-sw-social="<?= $escaper->escapeHtmlAttr($button['code']) ?>"
+               <?= $popup ? 'data-sw-social-popup="1"' : '' ?>
+               <?php if ($iconOnly): ?>title="<?= $escaper->escapeHtmlAttr($button['label']) ?>"<?php endif; ?>>
+                <span class="inline-flex shrink-0"><?= /* @noEscape */ $button['icon'] ?></span>
+                <span class="<?= $iconOnly ? 'sr-only' : '' ?>"><?= $escaper->escapeHtml($button['label']) ?></span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <?php if ($block->showDivider()): ?>
+        <div class="mt-6 flex items-center gap-3 text-sm text-gray-500 before:flex-1 before:border-t before:border-gray-200 before:content-[''] after:flex-1 after:border-t after:border-gray-200 after:content-['']">
+            <span><?= $escaper->escapeHtml(__('or')) ?></span>
+        </div>
+    <?php endif; ?>
+</div>
+<?php if (!$block->getData('without_script')): ?>
+    <script src="<?= $escaper->escapeUrl($block->getScriptUrl()) ?>" defer></script>
+<?php endif; ?>

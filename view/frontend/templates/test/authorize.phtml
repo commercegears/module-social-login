@@ -1,0 +1,50 @@
+<?php
+/**
+ * Softaware Social Login: consent page of the TEST provider (developer mode only).
+ * Uses class names of both Luma and Hyvä so one template serves both.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Softaware\SocialLogin\ViewModel\TestAuthorize $viewModel
+ */
+$viewModel = $block->getData('view_model');
+$fields = [
+    'subject' => [__('Subject (user ID at the provider)'), 'test-user-1', 'text'],
+    'email' => [__('Email (leave empty to simulate a provider that returns no email)'), 'test.social@example.com', 'email'],
+    'firstname' => [__('First name'), 'Test', 'text'],
+    'lastname' => [__('Last name'), 'Social', 'text'],
+];
+?>
+<div class="mb-12">
+    <div class="w-full md:w-1/2 card my-8">
+        <div class="message warning mb-6">
+            <span><?= $escaper->escapeHtml(__('Test provider for development only. It is available in developer mode only, and its email addresses are never treated as verified.')) ?></span>
+        </div>
+        <form class="form" action="<?= $escaper->escapeUrl($viewModel->getPostUrl()) ?>" method="post">
+            <?= $block->getBlockHtml('formkey') ?>
+            <?php foreach (['state', 'nonce', 'redirect_uri'] as $name): ?>
+                <input type="hidden" name="<?= $escaper->escapeHtmlAttr($name) ?>" value="<?= $escaper->escapeHtmlAttr($viewModel->getParam($name)) ?>">
+            <?php endforeach; ?>
+            <fieldset class="fieldset">
+                <?php foreach ($fields as $name => [$label, $default, $type]): ?>
+                    <div class="field">
+                        <label class="label" for="sw-test-<?= $escaper->escapeHtmlAttr($name) ?>"><span><?= $escaper->escapeHtml($label) ?></span></label>
+                        <div class="control">
+                            <input type="<?= $escaper->escapeHtmlAttr($type) ?>" class="input-text form-input w-full"
+                                   name="<?= $escaper->escapeHtmlAttr($name) ?>" id="sw-test-<?= $escaper->escapeHtmlAttr($name) ?>"
+                                   value="<?= $escaper->escapeHtmlAttr($default) ?>">
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" name="decision" value="allow" class="action submit primary btn btn-primary"><span><?= $escaper->escapeHtml(__('Allow')) ?></span></button>
+                </div>
+                <div class="secondary">
+                    <button type="submit" name="decision" value="deny" class="action btn btn-secondary"><span><?= $escaper->escapeHtml(__('Deny')) ?></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

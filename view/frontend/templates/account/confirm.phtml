@@ -1,0 +1,48 @@
+<?php
+/**
+ * Softaware Social Login: "Connect your account" password step (Luma).
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Softaware\SocialLogin\ViewModel\PendingSignIn $viewModel
+ */
+$viewModel = $block->getData('view_model');
+$profile = $viewModel->getProfile();
+if ($profile === null) {
+    return;
+}
+?>
+<div class="sw-social-page">
+    <div class="sw-social-identity">
+        <span class="sw-social-accounts__icon"><?= /* @noEscape */ $viewModel->getProviderIcon() ?></span>
+        <span><?= $escaper->escapeHtml($profile->displayName !== ''
+            ? __('%1 account: %2', $viewModel->getProviderName(), $profile->displayName)
+            : __('%1 account', $viewModel->getProviderName())) ?></span>
+    </div>
+    <p>
+        <?= $escaper->escapeHtml(__('You already have an account with us. Enter your password once to connect your %1 account; after that you can sign in with %1 directly.', $viewModel->getProviderName())) ?>
+    </p>
+    <form class="form" action="<?= $escaper->escapeUrl($viewModel->getConfirmPostUrl()) ?>" method="post">
+        <?= $block->getBlockHtml('formkey') ?>
+        <fieldset class="fieldset">
+            <div class="field">
+                <span class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></span>
+                <div class="control"><strong><?= $escaper->escapeHtml($viewModel->getAccountEmail()) ?></strong></div>
+            </div>
+            <div class="field password required">
+                <label class="label" for="sw-social-password"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
+                <div class="control">
+                    <input type="password" name="password" id="sw-social-password" class="input-text" required autocomplete="current-password">
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary"><span><?= $escaper->escapeHtml(__('Connect and Sign In')) ?></span></button>
+            </div>
+            <div class="secondary">
+                <a class="action remind" href="<?= $escaper->escapeUrl($viewModel->getForgotPasswordUrl()) ?>"><span><?= $escaper->escapeHtml(__('Forgot Your Password?')) ?></span></a>
+            </div>
+        </div>
+    </form>
+</div>

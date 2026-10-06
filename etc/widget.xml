@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="softaware_sociallogin_buttons" class="Softaware\SocialLogin\Block\Buttons" is_email_compatible="false">
+        <label translate="true">Softaware Social Login Buttons</label>
+        <description translate="true">Sign-in buttons of the enabled providers. Hidden for signed-in customers.</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" visible="true" sort_order="10">
+                <label translate="true">Heading</label>
+                <description translate="true">Leave empty for no heading.</description>
+            </parameter>
+            <parameter name="button_style" xsi:type="select" visible="true" sort_order="20">
+                <label translate="true">Button Style</label>
+                <options>
+                    <option name="config" value="" selected="true">
+                        <label translate="true">Use configuration</label>
+                    </option>
+                    <option name="icon_text" value="icon_text">
+                        <label translate="true">Icon and text</label>
+                    </option>
+                    <option name="icon" value="icon">
+                        <label translate="true">Icon only</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="button_theme" xsi:type="select" visible="true" sort_order="30">
+                <label translate="true">Button Colour</label>
+                <options>
+                    <option name="config" value="" selected="true">
+                        <label translate="true">Use configuration</label>
+                    </option>
+                    <option name="light" value="light">
+                        <label translate="true">Light</label>
+                    </option>
+                    <option name="dark" value="dark">
+                        <label translate="true">Dark</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

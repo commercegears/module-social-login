@@ -1,0 +1,26 @@
+<?php
+/**
+ * Softaware Social Login: adds the buttons to Hyvä's authentication popup ("Checkout using your account").
+ * The popup template has no child slot, so the buttons are rendered into a <template> and moved
+ * in front of the popup's login form.
+ *
+ * @var \Softaware\SocialLogin\Block\Buttons $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Hyva\Theme\ViewModel\HyvaCsp $hyvaCsp
+ */
+$block->setData('without_script', true);
+?>
+<template id="sw-social-auth-popup">
+    <?= /* @noEscape */ $block->fetchView($block->getTemplateFile(\Softaware\SocialLogin\Block\Buttons::TEMPLATE_HYVA)) ?>
+</template>
+<script>
+    (() => {
+        const source = document.getElementById('sw-social-auth-popup');
+        const form = document.querySelector('#authentication-popup .block-customer-login form');
+        if (source && form && !form.parentNode.querySelector('.sw-social')) {
+            form.parentNode.insertBefore(source.content.cloneNode(true), form);
+        }
+    })();
+</script>
+<?php isset($hyvaCsp) && $hyvaCsp->registerInlineScript() ?>
+<script src="<?= $escaper->escapeUrl($block->getScriptUrl()) ?>" defer></script>

@@ -1,0 +1,50 @@
+<?php
+/**
+ * Softaware Social Login: "Connect your account" password step (Hyvä).
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Softaware\SocialLogin\ViewModel\PendingSignIn $viewModel
+ */
+$viewModel = $block->getData('view_model');
+$profile = $viewModel->getProfile();
+if ($profile === null) {
+    return;
+}
+?>
+<div class="mb-12">
+    <div class="w-full md:w-1/2 card my-8">
+        <div class="mb-6 flex items-center gap-3 rounded-sm bg-gray-100 px-4 py-3">
+            <span class="inline-flex shrink-0"><?= /* @noEscape */ $viewModel->getProviderIcon() ?></span>
+            <span><?= $escaper->escapeHtml($profile->displayName !== ''
+            ? __('%1 account: %2', $viewModel->getProviderName(), $profile->displayName)
+            : __('%1 account', $viewModel->getProviderName())) ?></span>
+        </div>
+        <form action="<?= $escaper->escapeUrl($viewModel->getConfirmPostUrl()) ?>" method="post">
+            <?= $block->getBlockHtml('formkey') ?>
+            <fieldset class="fieldset">
+                <legend class="mb-6">
+                    <?= $escaper->escapeHtml(__('You already have an account with us. Enter your password once to connect your %1 account; after that you can sign in with %1 directly.', $viewModel->getProviderName())) ?>
+                </legend>
+                <div class="field">
+                    <span class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></span>
+                    <div class="control font-semibold"><?= $escaper->escapeHtml($viewModel->getAccountEmail()) ?></div>
+                </div>
+                <div class="field password required">
+                    <label class="label" for="sw-social-password"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
+                    <div class="control">
+                        <input type="password" name="password" id="sw-social-password" class="form-input w-full" required autocomplete="current-password">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action submit btn btn-primary"><span><?= $escaper->escapeHtml(__('Connect and Sign In')) ?></span></button>
+                </div>
+                <div class="secondary">
+                    <a class="action remind underline" href="<?= $escaper->escapeUrl($viewModel->getForgotPasswordUrl()) ?>"><span><?= $escaper->escapeHtml(__('Forgot Your Password?')) ?></span></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<?php
+/**
+ * Softaware Social Login: "Complete your account" (Luma).
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Softaware\SocialLogin\ViewModel\PendingSignIn $viewModel
+ */
+$viewModel = $block->getData('view_model');
+$profile = $viewModel->getProfile();
+if ($profile === null) {
+    return;
+}
+$needsEmail = $viewModel->needsEmail();
+?>
+<div class="sw-social-page">
+    <div class="sw-social-identity">
+        <span class="sw-social-accounts__icon"><?= /* @noEscape */ $viewModel->getProviderIcon() ?></span>
+        <span>
+            <?php if ($profile->displayName !== ''): ?>
+                <?= $escaper->escapeHtml(__('%1 account: %2', $viewModel->getProviderName(), $profile->displayName)) ?>
+            <?php else: ?>
+                <?= $escaper->escapeHtml(__('%1 account', $viewModel->getProviderName())) ?>
+            <?php endif; ?>
+        </span>
+    </div>
+    <p>
+        <?php if ($needsEmail): ?>
+            <?= $escaper->escapeHtml(__('%1 did not share your email address with us. Enter it to finish creating your account. We use it for order confirmations.', $viewModel->getProviderName())) ?>
+        <?php else: ?>
+            <?= $escaper->escapeHtml(__('Please check your name to finish creating your account.')) ?>
+        <?php endif; ?>
+    </p>
+    <form class="form" action="<?= $escaper->escapeUrl($viewModel->getCompletePostUrl()) ?>" method="post">
+        <?= $block->getBlockHtml('formkey') ?>
+        <fieldset class="fieldset">
+            <?php if ($needsEmail): ?>
+                <div class="field email required">
+                    <label class="label" for="sw-social-email"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+                    <div class="control">
+                        <input type="email" name="email" id="sw-social-email" class="input-text" required autocomplete="email">
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="field">
+                    <span class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></span>
+                    <div class="control"><strong><?= $escaper->escapeHtml((string)$profile->email) ?></strong></div>
+                </div>
+            <?php endif; ?>
+            <div class="field required">
+                <label class="label" for="sw-social-firstname"><span><?= $escaper->escapeHtml(__('First Name')) ?></span></label>
+                <div class="control">
+                    <input type="text" name="firstname" id="sw-social-firstname" class="input-text" required maxlength="255"
+                           autocomplete="given-name" value="<?= $escaper->escapeHtmlAttr($profile->firstName) ?>">
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="sw-social-lastname"><span><?= $escaper->escapeHtml(__('Last Name')) ?></span></label>
+                <div class="control">
+                    <input type="text" name="lastname" id="sw-social-lastname" class="input-text" required maxlength="255"
+                           autocomplete="family-name" value="<?= $escaper->escapeHtmlAttr($profile->lastName) ?>">
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary"><span><?= $escaper->escapeHtml(__('Continue')) ?></span></button>
+            </div>
+            <div class="secondary">
+                <a class="action cancel" href="<?= $escaper->escapeUrl($viewModel->getLoginUrl()) ?>"><span><?= $escaper->escapeHtml(__('Cancel')) ?></span></a>
+            </div>
+        </div>
+    </form>
+</div>
