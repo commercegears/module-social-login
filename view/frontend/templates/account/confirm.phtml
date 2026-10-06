@@ -45,4 +45,7 @@ if ($profile === null) {
             </div>
         </div>
     </form>
+    <p class="sw-social-hint">
+        <?= $escaper->escapeHtml(__('No password because you signed up with another provider? Sign in with that provider, then connect %1 under My Account > Connected Accounts.', $viewModel->getProviderName())) ?>
+    </p>
 </div>

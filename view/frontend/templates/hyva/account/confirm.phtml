@@ -46,5 +46,8 @@ if ($profile === null) {
                 </div>
             </div>
         </form>
+        <p class="mt-6 text-sm text-gray-600">
+            <?= $escaper->escapeHtml(__('No password because you signed up with another provider? Sign in with that provider, then connect %1 under My Account > Connected Accounts.', $viewModel->getProviderName())) ?>
+        </p>
     </div>
 </div>

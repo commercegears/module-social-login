@@ -62,3 +62,6 @@
 "We could not read your profile from the sign-in provider.","Ihr Profil konnte beim Anmeldeanbieter nicht gelesen werden."
 "Your sign-in request is not valid. Please try again.","Ihre Anmeldeanfrage ist ungültig. Bitte versuchen Sie es erneut."
 "or","oder"
+"There is no account with the email address %1. Please create an account first, then connect it on the ""Connected Accounts"" page.","Es gibt kein Kundenkonto mit der E-Mail-Adresse %1. Bitte legen Sie zuerst ein Kundenkonto an und verbinden Sie es dann unter „Verbundene Konten“."
+"There is no account with this email address. Please create an account first, then connect it on the ""Connected Accounts"" page.","Es gibt kein Kundenkonto mit dieser E-Mail-Adresse. Bitte legen Sie zuerst ein Kundenkonto an und verbinden Sie es dann unter „Verbundene Konten“."
+"No password because you signed up with another provider? Sign in with that provider, then connect %1 under My Account > Connected Accounts.","Kein Passwort, weil Sie sich mit einem anderen Anbieter registriert haben? Melden Sie sich mit diesem Anbieter an und verbinden Sie %1 dann unter Mein Konto > Verbundene Konten."

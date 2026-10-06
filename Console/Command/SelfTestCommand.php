@@ -29,6 +29,8 @@ use Softaware\SocialLogin\Model\Jwt\JwtException;
 use Softaware\SocialLogin\Model\Jwt\JwtValidator;
 use Softaware\SocialLogin\Model\Profile;
 use Softaware\SocialLogin\Model\Provider\AbstractProvider;
+use Softaware\SocialLogin\Model\Provider\Google;
+use Softaware\SocialLogin\Model\RedirectResolver;
 use Softaware\SocialLogin\Model\StateStore;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -59,7 +61,8 @@ class SelfTestCommand extends Command
         private readonly CustomerInterfaceFactory $customerFactory,
         private readonly StoreManagerInterface $storeManager,
         private readonly Registry $registry,
-        private readonly AppState $appState
+        private readonly AppState $appState,
+        private readonly RedirectResolver $redirectResolver
     ) {
         parent::__construct();
     }
@@ -89,6 +92,8 @@ class SelfTestCommand extends Command
         $this->testRs256();
         $this->testEs256AndApple();
         $this->testStateStore();
+        $this->testRedirects();
+        $this->testEmailTrust();
         if ($input->getOption('accounts')) {
             $this->testAccounts();
         }
@@ -200,6 +205,46 @@ class SelfTestCommand extends Command
         $this->stateStore->deleteExpired();
     }
 
+    private function testRedirects(): void
+    {
+        $this->output->writeln('<info>Return URLs (open redirect protection)</info>');
+        $base = rtrim((string)$this->storeManager->getDefaultStoreView()->getBaseUrl(), '/');
+        $host = (string)parse_url($base, PHP_URL_HOST);
+        $this->check('own URL accepted', $this->redirectResolver->sanitize($base . '/checkout/cart/?a=1#b') !== '');
+        $evil = [
+            'other host' => 'https://evil.example/',
+            'protocol-relative' => '//evil.example/',
+            'empty host' => 'https:///evil.example/',
+            'empty host, extra slashes' => 'https:////evil.example/',
+            'backslash before @' => 'https://evil.example\\@' . $host . '/',
+            'backslash after host' => 'https://' . $host . '\\@evil.example/',
+            'user info' => 'https://' . $host . '@evil.example/',
+            'user info on own host' => 'https://evil.example@' . $host . '/',
+            'tab in host' => "https://" . $host . "\t.evil.example/",
+            'javascript' => 'javascript:alert(1)',
+            'data' => 'data:text/html,x',
+            'own host as prefix' => 'https://' . $host . '.evil.example/',
+            'sign-in callback' => $base . '/sociallogin/auth/callback/provider/google/',
+        ];
+        foreach ($evil as $label => $url) {
+            $this->check('rejected: ' . $label, $this->redirectResolver->sanitize($url) === '');
+        }
+    }
+
+    private function testEmailTrust(): void
+    {
+        $this->output->writeln('<info>Email trust per provider</info>');
+        $this->check('Google: Gmail address is authoritative', Google::isAuthoritative('ada@gmail.com', ''));
+        $this->check('Google: Workspace account (hd) is authoritative', Google::isAuthoritative('ada@example.co.uk', 'example.co.uk'));
+        $this->check('Google: other address is not authoritative', !Google::isAuthoritative('ada@example.co.uk', ''));
+        $profile = new Profile('facebook', '1', 'ada@example.co.uk', true, 'Ada', 'Lovelace', '', false);
+        $this->check('verified but untrusted email keeps both flags', $profile->emailVerified && !$profile->emailTrusted);
+        $copy = Profile::fromArray($profile->toArray());
+        $this->check('trust survives the pending sign-in storage', $copy->emailVerified && !$copy->emailTrusted);
+        $this->check('typed-in email is neither verified nor trusted', !$profile->withEmail('x@example.com', false)->emailTrusted);
+        $this->check('unverified email is never trusted', !(new Profile('x', '1', 'a@b.c', false, '', '', '', true))->emailTrusted);
+    }
+
     private function testAccounts(): void
     {
         $this->output->writeln('<info>Account matching (temporary customers)</info>');
@@ -214,6 +259,7 @@ class SelfTestCommand extends Command
         $customerId = (int)$customer->getId();
         try {
             $verified = new Profile('google', 'g-' . $suffix, $email, true, 'Test', 'SocialLogin');
+            $verifiedNotTrusted = new Profile('facebook', 'f-' . $suffix, $email, true, 'Test', 'SocialLogin', '', false);
             $unverified = new Profile('amazon', 'a-' . $suffix, $email, false, 'Test', 'SocialLogin');
             $noEmail = new Profile('twitter', 'x-' . $suffix, null, false, 'Test', 'SocialLogin');
             $newPerson = new Profile('google', 'g2-' . $suffix, 'new.' . $email, true, 'New', 'Person');
@@ -221,6 +267,7 @@ class SelfTestCommand extends Command
 
             $this->check('verified email + auto-link => link existing', $this->accountMatcher->decide($verified, $websiteId, Config::LINK_AUTO)->type === Decision::LINK_EXISTING);
             $this->check('verified email + "ask password" => ask password', $this->accountMatcher->decide($verified, $websiteId, Config::LINK_PASSWORD)->type === Decision::ASK_PASSWORD);
+            $this->check('verified but not trusted email (Facebook, Google non-Gmail) => ask password', $this->accountMatcher->decide($verifiedNotTrusted, $websiteId, Config::LINK_AUTO)->type === Decision::ASK_PASSWORD);
             $this->check('unverified email => ask password', $this->accountMatcher->decide($unverified, $websiteId, Config::LINK_AUTO)->type === Decision::ASK_PASSWORD);
             $this->check('no email => ask for details', $this->accountMatcher->decide($noEmail, $websiteId, Config::LINK_AUTO)->type === Decision::ASK_DETAILS);
             $this->check('unknown email => create', $this->accountMatcher->decide($newPerson, $websiteId, Config::LINK_AUTO)->type === Decision::CREATE);
