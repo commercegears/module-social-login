@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Softaware_SocialLogin::social_login" title="Social Login" translate="title" module="Softaware_SocialLogin"
-             sortOrder="60" parent="Softaware_Base::base" resource="Softaware_SocialLogin::social_login"/>
+             sortOrder="60" parent="Softaware_Core::core" resource="Softaware_SocialLogin::social_login"/>
         <add id="Softaware_SocialLogin::links" title="Linked Accounts" translate="title" module="Softaware_SocialLogin"
              sortOrder="10" parent="Softaware_SocialLogin::social_login" action="softaware_sociallogin/link/index"
              resource="Softaware_SocialLogin::links"/>

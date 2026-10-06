@@ -3,7 +3,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Softaware_Base::base">
+                <resource id="Softaware_Core::core">
                     <resource id="Softaware_SocialLogin::social_login" title="Social Login" translate="title" sortOrder="60">
                         <resource id="Softaware_SocialLogin::links" title="Linked Accounts" translate="title" sortOrder="10">
                             <resource id="Softaware_SocialLogin::links_delete" title="Remove Links" translate="title" sortOrder="10"/>
