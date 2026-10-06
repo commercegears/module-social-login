@@ -66,6 +66,21 @@ class RedirectResolver
         if ($url === '' || strlen($url) > 2048 || preg_match('#^https?://#i', $url) !== 1) {
             return '';
         }
+        // Browsers read "\" as "/" and drop tabs/newlines, PHP's parse_url() does not: refuse anything where the
+        // two could disagree about the host (e.g. "https://evil.example\@shop.example/", "https:///evil.example").
+        if (preg_match('/[\\\\\x00-\x20\x7f]/', $url) === 1) {
+            return '';
+        }
+        $parts = parse_url($url);
+        if (!is_array($parts) || empty($parts['host']) || isset($parts['user']) || isset($parts['pass'])) {
+            return '';
+        }
+        // The authority must be exactly scheme://host[:port], so the host PHP sees is the host the browser uses.
+        if (preg_match('#^https?://([^/?\#]*)#i', $url, $authority) !== 1
+            || strcasecmp($authority[1], $parts['host'] . (isset($parts['port']) ? ':' . $parts['port'] : '')) !== 0
+        ) {
+            return '';
+        }
         if (!$this->hostChecker->isOwnOrigin($url)) {
             return '';
         }
