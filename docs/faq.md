@@ -1,8 +1,11 @@
 # Social Login for Magento 2 — FAQ
 
 **Which providers are supported?**
-Google, Apple, Facebook, Microsoft (personal and work/school accounts), GitHub, LinkedIn, Amazon and X (Twitter).
-Each one can be switched on separately, per website or store view.
+Google, Facebook and X (Twitter). Each one can be switched on separately, per website or store view.
+
+**Can I offer Apple, Microsoft, LinkedIn, Amazon or GitHub as well?**
+Yes, with the add-on **Social Login Pro**. It adds these five providers to the same configuration section, buttons,
+Connected Accounts page and admin tools; everything described here applies to them too.
 
 **Does it work with Hyvä?**
 Yes. Hyvä templates are included (Hyvä 1.3+, tested with 1.5). On the Hyvä checkout the Luma checkout fallback is
@@ -30,8 +33,7 @@ Yes, with Softaware Customer Approval: social sign-ups get an approval status li
 pending or rejected customers are not signed in.
 
 **What if the provider does not give an email address?**
-X never returns one unless your app has the email permission, and Apple can hide it. The customer then enters an
-email address once; an account created from a typed-in address must be confirmed by email before it can be used.
+X never returns one unless your app has the email permission. The customer then enters an email address once; an account created from a typed-in address must be confirmed by email before it can be used.
 
 **Can customers remove a connection?**
 Yes, under **My Account > Connected Accounts**. The module refuses to remove the last way to sign in (no password
@@ -52,8 +54,12 @@ Yes. All settings, including the credentials, can be set per website and store v
 store view URL at the provider.
 
 **Can I add another provider?**
-Yes, developers can implement `ProviderInterface` (or extend `AbstractOidcProvider`) and register it in `di.xml`.
-See the README.
+Yes, developers can implement `ProviderInterface` (or extend `AbstractOidcProvider`) and register it in `di.xml`;
+icons, settings and self-test checks have extension points too. See the README.
+
+**What happens to links of a provider that is not installed (for example after removing an add-on)?**
+They are kept and shown with their provider code in the admin and under Connected Accounts, where they can be
+removed. They are not counted as a way to sign in, so customers are never left without one.
 
 **Which Magento and PHP versions are supported?**
 Magento Open Source and Adobe Commerce 2.4.7 – 2.4.9, PHP 8.2 – 8.5.

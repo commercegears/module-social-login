@@ -1,7 +1,7 @@
 # Social Login for Magento 2 — User Guide
 
-Let customers sign in and register with **Google, Apple, Facebook, Microsoft, GitHub, LinkedIn, Amazon and X**
-in one click. This guide covers installation, configuration, provider setup and day-to-day use.
+Let customers sign in and register with **Google, Facebook and X (Twitter)** in one click. This guide covers
+installation, configuration, provider setup and day-to-day use.
 
 - Demo (Luma): https://demo.softawarecommerce.com/customer/account/login/
 - Demo (Hyvä): https://demo.softawarecommerce.com/hyva/customer/account/login/
@@ -103,19 +103,14 @@ register one callback URL per store view URL.
 | Provider | Where to create the app | What to enter in Magento |
 | --- | --- | --- |
 | Google | Google Cloud Console > APIs & Services > Credentials > Create OAuth client ID (Web application); add the callback under "Authorised redirect URIs". | Client ID, Client Secret |
-| Apple | Apple Developer > Certificates, Identifiers & Profiles: a Services ID with "Sign in with Apple" (your domain + the callback as Return URL) and a key with "Sign in with Apple". | Services ID, Team ID, Key ID, contents of the .p8 key file |
 | Facebook | Meta for Developers: add the Facebook Login product, enter the callback under "Valid OAuth Redirect URIs", request the `email` permission. | App ID, App Secret, Graph API version |
-| Microsoft | Microsoft Entra admin centre > App registrations: "Accounts in any organisational directory and personal Microsoft accounts", Web redirect URI, a client secret. | Application (client) ID, Client Secret, Tenant (default `common`) |
-| GitHub | GitHub > Settings > Developer settings > OAuth Apps; "Authorization callback URL". | Client ID, Client Secret |
-| LinkedIn | LinkedIn Developers: add the product "Sign In with LinkedIn using OpenID Connect", add the authorised redirect URL. | Client ID, Client Secret |
-| Amazon | Login with Amazon: a security profile, callback under "Allowed Return URLs". | Client ID, Client Secret |
 | X | X Developer Portal > User authentication settings: OAuth 2.0, type "Web App", callback URL. | Client ID, Client Secret; "Request Email Address" only if the app has the email permission |
 
 ## 6. What your customers see
 
 **Signing in or registering.** The customer clicks a button, approves at the provider and is signed in. A new
-customer gets an account with the name and email from the provider. If the provider gives no email (X, or Apple
-when the customer hides it on a later sign-in) or no name, the customer fills in a short form once.
+customer gets an account with the name and email from the provider. If the provider gives no email (X without the
+email permission) or no name, the customer fills in a short form once.
 
 **Existing customers.** If a customer with the same email already exists, the identity is linked to that account
 (automatically or after the password, see *Accounts*). From then on the provider signs them in directly.
@@ -161,6 +156,9 @@ so it is safe on full-page-cached pages.
 - **Customers > edit customer > Social Login** tab: the customer's links.
 - **ACL**: separate permissions for viewing links, removing links and the configuration.
 
+Links of a provider that is not installed (for example after removing an add-on) stay visible with their provider
+code and can be removed; customers can remove them under Connected Accounts too.
+
 ## 9. Command line
 
 ```bash
@@ -169,8 +167,9 @@ bin/magento softaware:social-login:unlink <link_id>
 bin/magento softaware:social-login:self-test [--accounts]
 ```
 
-`self-test` checks the security pieces (PKCE, ID token validation including tampered, expired and wrong-audience
-tokens, the Apple client secret, return URL handling, email trust rules) without calling any provider. With
+`self-test` lists the registered providers and checks the security pieces (PKCE, ID token validation including
+tampered, expired and wrong-audience tokens, return URL handling, email trust rules) without calling any provider.
+Installed add-ons such as Social Login Pro add their own checks. With
 `--accounts` it also checks the account-matching rules using temporary test customers that are deleted afterwards.
 
 ## 10. Privacy (GDPR)
@@ -191,12 +190,21 @@ tokens, the Apple client secret, return URL handling, email trust rules) without
 | Customer is asked for the password | Expected when the provider has not verified the address or is not responsible for it (see *Accounts*). It happens once; afterwards the provider signs them in directly. |
 | Sign-in fails | See `var/log/softaware_sociallogin.log` for the technical reason (no secrets or tokens are logged). |
 
-## 12. Uninstall
+## 12. More providers: Social Login Pro
+
+The add-on **Social Login Pro** (`softaware/module-social-login-pro`) adds Sign in with Apple, Microsoft (Entra
+ID), LinkedIn, Amazon and GitHub. After installing it (`composer require softaware/module-social-login-pro`, then
+the `bin/magento` commands from section 2), the new providers appear as groups in the same configuration section and
+use all the settings in this guide. Its own user guide describes the provider setup.
+
+## 13. Uninstall
 
 ```bash
 bin/magento module:disable Softaware_SocialLogin
 composer remove softaware/module-social-login
 bin/magento setup:upgrade
 ```
+
+If Social Login Pro is installed, remove it first (`composer remove softaware/module-social-login-pro`).
 
 Customers created through social sign-in keep their accounts; they can set a password with "Forgot Your Password?".

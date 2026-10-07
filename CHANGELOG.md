@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.3.0 (2026-10-07)
+
+### Added
+
+- Works with **Social Login Pro** (Apple, Microsoft, LinkedIn, Amazon and GitHub): the add-on's providers appear in
+  the same configuration section, button rows, Connected Accounts page, admin grid and self-test.
+- Extension points for modules that add providers: button icons per provider code (`icons` argument of
+  `ViewModel\ProviderIcons`), self-test checks (`Model\SelfTest\CheckInterface`, `checks` argument of the
+  self-test command), and the callback URL comment for the admin (documented in the README together with the
+  provider pool and the settings).
+- Links of providers that are not installed are handled safely: the Linked Accounts grid (column and filter), the
+  customer tab and Connected Accounts show them with their provider code, customers and admins can remove them, and
+  they do not count as a way to sign in when the customer disconnects another provider.
+- Self-test: lists the registered providers; ES256 ID token checks (valid token, tampered payload, algorithm
+  whitelist); a rejected issuer for issuer patterns; the handling of links whose provider is not installed.
+
+### Documentation
+
+- README, user guide and FAQ: provider extension points for developers, Social Login Pro; new screenshots.
+
 ## 1.2.1 (2026-10-07)
 
 ### Documentation
@@ -23,13 +43,13 @@
   sent the customer to another site after signing in. Return URLs are now parsed strictly (no backslashes,
   control characters, user info or empty hosts) before the host check.
 - Pre-account hijacking: an account created from an email address the provider has not verified (typed in by
-  the shopper, Amazon, the test provider) now always needs Magento's email confirmation before it can be used,
+  the shopper, the test provider) now always needs Magento's email confirmation before it can be used,
   whether or not the store requires confirmation. Before, anybody could create an account in someone else's name
   through a provider without email (e.g. X) and keep access through the linked provider after the real owner
   had reset the password.
 - Linking to an existing account by email is limited to providers that are responsible for the address: Google
-  only for Gmail and Google Workspace addresses (Google's own guidance), Facebook no longer (the Graph API has no
-  verification flag). Everything else asks for the account password once, as before for unverified addresses.
+  only for Gmail and Google Workspace addresses (Google's own guidance); Facebook addresses ask for the password
+  once (the Graph API has no verification flag). Everything else asks for the account password once, as before for unverified addresses.
   The same rule applies when an unconfirmed account is confirmed through a provider.
 
 ### Added
@@ -53,11 +73,10 @@
 
 First release.
 
-- Sign-in and registration with Google, Sign in with Apple, Facebook, Microsoft (Entra ID), GitHub, LinkedIn,
-  Amazon and X (Twitter), implemented directly on OAuth 2.0 / OpenID Connect (no provider SDKs).
-- State, nonce and PKCE (S256) where supported; ID token signature validation via JWKS (RS256/ES256) for Google,
-  Microsoft, Apple and LinkedIn; browser-bound, single-use state stored server-side.
-- Apple: ES256 client secret from the .p8 key, `form_post` callback with session restore.
+- Sign-in and registration with Google, Facebook and X (Twitter), implemented directly on OAuth 2.0 / OpenID
+  Connect (no provider SDKs).
+- State, nonce and PKCE (S256) where supported; ID token signature validation via JWKS (RS256/ES256) for Google;
+  browser-bound, single-use state stored server-side.
 - Buttons on the sign-in and create-account pages, the Luma authentication popup, the checkout sign-in and
   (optional) checkout email step, the Hyvä authentication popup, a CMS widget and a layout block. Icon+text or
   icon-only, light or dark, popup or full-page redirect.
