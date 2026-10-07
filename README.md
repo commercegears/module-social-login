@@ -6,6 +6,16 @@ no provider SDKs or JWT libraries are installed. Works with Luma-based themes an
 
 Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
 
+![Sign-in page with social login buttons](docs/images/01-luma-sign-in.png)
+
+## Demo and documentation
+
+- Storefront demo: [Luma](https://demo.softawarecommerce.com/customer/account/login/) ·
+  [Hyvä](https://demo.softawarecommerce.com/hyva/customer/account/login/)
+- Admin demo: https://demo.softawarecommerce.com/try-admin/social-login
+- [User guide](docs/user-guide.md) (installation, settings, provider setup, troubleshooting) · [FAQ](docs/faq.md) ·
+  [Changelog](CHANGELOG.md)
+
 ## Features
 
 - **Providers**: Google (OpenID Connect + PKCE), Sign in with Apple (client secret JWT from the .p8 key,
@@ -127,10 +137,10 @@ calls to providers.
 
 ## Compatibility
 
-- Magento Open Source / Adobe Commerce 2.4.6 – 2.4.9, PHP 8.2 – 8.5, ext-openssl.
+- Magento Open Source / Adobe Commerce 2.4.7 – 2.4.9, PHP 8.2 – 8.5, ext-openssl.
 - Luma, Blank and themes based on them; Hyvä 1.3+ (tested with Hyvä 1.5). The Hyvä checkout uses the Luma
   checkout fallback, so the checkout buttons are the Luma ones.
-- Requires `softaware/module-core` ^1.2.
+- Requires `softaware/module-core` ^1.0.
 
 ## Limitations
 

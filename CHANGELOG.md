@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.1 (2026-10-07)
+
+### Documentation
+
+- User guide (`docs/user-guide.md`) with installation, every setting, provider setup, admin tools, CLI, privacy
+  and troubleshooting; FAQ (`docs/faq.md`); screenshots (`docs/images/`).
+- README: demo links, links to the guide and FAQ; compatibility corrected to Magento 2.4.7 – 2.4.9 (what the
+  package requires) and `softaware/module-core` ^1.0.
+
 ## 1.2.0 (2026-10-06)
 
 ### Changed
