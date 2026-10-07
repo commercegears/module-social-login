@@ -14,8 +14,8 @@ namespace Softaware\SocialLogin\Model;
  * Two levels of trust in the email address:
  * - $emailVerified: the provider states that the address was verified. A new store account with this address
  *   needs no email confirmation.
- * - $emailTrusted: the provider is authoritative for the address now (e.g. Gmail or Google Workspace, Apple,
- *   a personal Microsoft account). Only then may the identity sign in to an EXISTING store account with the same
+ * - $emailTrusted: the provider is authoritative for the address now (e.g. a Gmail or Google Workspace
+ *   address at Google). Only then may the identity sign in to an EXISTING store account with the same
  *   address without its password, or confirm an unconfirmed one. Defaults to $emailVerified.
  */
 class Profile

@@ -15,7 +15,7 @@ use Softaware\SocialLogin\Model\Jwt\Base64Url;
 /**
  * Random value in a short-lived cookie that ties a pending authorisation to the browser that
  * started it (protects the callback against login CSRF). SameSite=None so that it also arrives
- * with Apple's cross-site form_post callback.
+ * with cross-site form_post callbacks (response_mode=form_post).
  */
 class BrowserBinding
 {

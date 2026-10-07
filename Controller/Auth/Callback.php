@@ -36,7 +36,7 @@ use Softaware\SocialLogin\Model\StateStore;
  *
  * CSRF protection is the OAuth "state": random, single-use, stored server-side and bound to the
  * browser cookie that started the sign-in. Magento's form key cannot be used here because the
- * request comes from the provider (and Apple posts it).
+ * request comes from the provider (some providers post it, response_mode=form_post).
  */
 class Callback implements HttpGetActionInterface, HttpPostActionInterface, CsrfAwareActionInterface
 {
@@ -148,7 +148,7 @@ class Callback implements HttpGetActionInterface, HttpPostActionInterface, CsrfA
     }
 
     /**
-     * Apple's form_post: store the posted values with the state, restore the browser's session
+     * form_post callback (response_mode=form_post): store the posted values with the state, restore the browser's session
      * cookie and continue with a same-site GET (which carries the session cookie).
      */
     private function handleFormPost(string $code, string $state, string $binding): ResultInterface

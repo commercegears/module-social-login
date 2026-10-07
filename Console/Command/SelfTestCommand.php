@@ -24,13 +24,15 @@ use Softaware\SocialLogin\Model\AuthRequest;
 use Softaware\SocialLogin\Model\Config;
 use Softaware\SocialLogin\Model\Jwt\Base64Url;
 use Softaware\SocialLogin\Model\Jwt\Der;
-use Softaware\SocialLogin\Model\Jwt\Es256Signer;
 use Softaware\SocialLogin\Model\Jwt\JwtException;
 use Softaware\SocialLogin\Model\Jwt\JwtValidator;
 use Softaware\SocialLogin\Model\Profile;
 use Softaware\SocialLogin\Model\Provider\AbstractProvider;
 use Softaware\SocialLogin\Model\Provider\Google;
+use Softaware\SocialLogin\Model\Provider\ProviderPool;
 use Softaware\SocialLogin\Model\RedirectResolver;
+use Softaware\SocialLogin\Model\SelfTest\CheckInterface;
+use Softaware\SocialLogin\Model\SelfTest\Reporter;
 use Softaware\SocialLogin\Model\StateStore;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,18 +41,22 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Checks the security-relevant building blocks without contacting any provider:
- * PKCE, JWT/JWKS validation (RS256, ES256) incl. tampering, the Apple client secret,
- * the state store and (with --accounts) the account matching rules.
+ * PKCE, JWT/JWKS validation (RS256, ES256) incl. tampering, the state store, return URLs, email trust
+ * and (with --accounts) the account matching rules. Modules can add checks (Model\SelfTest\CheckInterface,
+ * di.xml argument "checks").
  */
 class SelfTestCommand extends Command
 {
-    private int $passed = 0;
-    private int $failed = 0;
-    private ?OutputInterface $output = null;
+    private const UNREGISTERED_PROVIDER = 'sw-selftest-unregistered';
 
+    private ?OutputInterface $output = null;
+    private ?Reporter $reporter = null;
+
+    /**
+     * @param CheckInterface[] $checks
+     */
     public function __construct(
         private readonly JwtValidator $jwtValidator,
-        private readonly Es256Signer $es256Signer,
         private readonly StateStore $stateStore,
         private readonly ResourceConnection $resource,
         private readonly AccountMatcher $accountMatcher,
@@ -62,7 +68,9 @@ class SelfTestCommand extends Command
         private readonly StoreManagerInterface $storeManager,
         private readonly Registry $registry,
         private readonly AppState $appState,
-        private readonly RedirectResolver $redirectResolver
+        private readonly RedirectResolver $redirectResolver,
+        private readonly ProviderPool $providerPool,
+        private readonly array $checks = []
     ) {
         parent::__construct();
     }
@@ -70,19 +78,21 @@ class SelfTestCommand extends Command
     protected function configure(): void
     {
         $this->setName('softaware:social-login:self-test')
-            ->setDescription('Tests PKCE, ID token validation, the Apple client secret, the state store and account matching (no provider calls).')
+            ->setDescription('Tests PKCE, ID token validation, the state store, return URLs, email trust and account matching (no provider calls).')
             ->addOption('accounts', null, InputOption::VALUE_NONE, 'Also test account matching with temporary "Test SocialLogin" customers (removed afterwards).');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->output = $output;
+        $this->reporter = new Reporter($output);
         try {
             $this->appState->setAreaCode(Area::AREA_ADMINHTML);
         } catch (\Exception $e) {
             // Area already set.
         }
 
+        $output->writeln('Registered providers: ' . implode(', ', array_keys($this->providerPool->getAll())));
         $output->writeln('<info>PKCE and encoding</info>');
         $this->check('RFC 7636 appendix B challenge', AbstractProvider::codeChallenge('dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk') === 'E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM');
         $token = StateStore::randomToken(48);
@@ -90,16 +100,28 @@ class SelfTestCommand extends Command
         $this->check('base64url round trip', Base64Url::decode(Base64Url::encode("\x00\xff\xfe binary")) === "\x00\xff\xfe binary");
 
         $this->testRs256();
-        $this->testEs256AndApple();
+        $this->testEs256();
         $this->testStateStore();
         $this->testRedirects();
         $this->testEmailTrust();
         if ($input->getOption('accounts')) {
             $this->testAccounts();
         }
+        foreach ($this->checks as $name => $check) {
+            if (!$check instanceof CheckInterface) {
+                $this->check('check "' . $name . '" implements CheckInterface', false);
+                continue;
+            }
+            try {
+                $check->run($this->reporter);
+            } catch (\Throwable $e) {
+                $this->check('check "' . $name . '": ' . $e->getMessage(), false);
+            }
+        }
 
-        $output->writeln(sprintf('%s%d passed, %d failed%s', $this->failed ? '<error>' : '<info>', $this->passed, $this->failed, $this->failed ? '</error>' : '</info>'));
-        return $this->failed ? Command::FAILURE : Command::SUCCESS;
+        $failed = $this->reporter->getFailed();
+        $output->writeln(sprintf('%s%d passed, %d failed%s', $failed ? '<error>' : '<info>', $this->reporter->getPassed(), $failed, $failed ? '</error>' : '</info>'));
+        return $failed ? Command::FAILURE : Command::SUCCESS;
     }
 
     private function testRs256(): void
@@ -136,46 +158,38 @@ class SelfTestCommand extends Command
         $none = Base64Url::encode(json_encode(['alg' => 'none'])) . '.' . Base64Url::encode(json_encode($claims)) . '.';
         $this->expectInvalid('alg "none" rejected', $none, $jwks, $expect);
         $this->expectInvalid('alg HS256 rejected', $sign(['alg' => 'HS256', 'kid' => 'k1'], $claims), $jwks, $expect);
-        $this->expectValid('issuer pattern (Microsoft style)', $sign(['alg' => 'RS256', 'kid' => 'k1'], ['iss' => 'https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0'] + $claims), $jwks, ['issuer_pattern' => '#^https://login\.microsoftonline\.com/[0-9a-f\-]{36}/v2\.0$#'] + array_diff_key($expect, ['issuer' => 1]));
+        $patternExpect = ['issuer_pattern' => '#^https://login\.example\.com/[0-9a-f\-]{36}/v2\.0$#'] + array_diff_key($expect, ['issuer' => 1]);
+        $this->expectValid('issuer pattern (multi-tenant issuers)', $sign(['alg' => 'RS256', 'kid' => 'k1'], ['iss' => 'https://login.example.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0'] + $claims), $jwks, $patternExpect);
+        $this->expectInvalid('issuer pattern: other issuer rejected', $sign(['alg' => 'RS256', 'kid' => 'k1'], ['iss' => 'https://login.example.com.evil.example/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0'] + $claims), $jwks, $patternExpect);
     }
 
-    private function testEs256AndApple(): void
+    private function testEs256(): void
     {
-        $this->output->writeln('<info>ES256 and Sign in with Apple client secret</info>');
+        $this->output->writeln('<info>ID token validation (ES256 / JWKS)</info>');
         $key = openssl_pkey_new(['private_key_type' => OPENSSL_KEYTYPE_EC, 'curve_name' => 'prime256v1']);
-        openssl_pkey_export($key, $pem);
         $details = openssl_pkey_get_details($key);
         $jwks = ['keys' => [[
-            'kty' => 'EC', 'crv' => 'P-256', 'kid' => 'ABC123DEFG',
+            'kty' => 'EC', 'crv' => 'P-256', 'kid' => 'ec1',
             'x' => Base64Url::encode($details['ec']['x']), 'y' => Base64Url::encode($details['ec']['y']),
         ]]];
-        // .p8 pasted into a password field loses its line breaks: rebuild and sign.
-        $flattened = str_replace("\n", ' ', $pem);
         $now = time();
-        try {
-            $secret = $this->es256Signer->sign(
-                ['iss' => 'TEAMID1234', 'iat' => $now, 'exp' => $now + 300, 'aud' => 'https://appleid.apple.com', 'sub' => 'com.example.signin'],
-                $flattened,
-                ['kid' => 'ABC123DEFG']
-            );
-            [$header] = $this->jwtValidator->decodeUnverified($secret);
-            $this->check('client secret header has alg ES256 and kid', $header['alg'] === 'ES256' && $header['kid'] === 'ABC123DEFG');
-            $this->check('raw R||S signature is 64 bytes', strlen(Base64Url::decode(explode('.', $secret)[2])) === 64);
-            $claims = $this->jwtValidator->validate($secret, $jwks, [
-                'issuer' => 'TEAMID1234', 'audience' => 'https://appleid.apple.com', 'algorithms' => ['ES256'],
-            ]);
-            $this->check('client secret verifies with the public key', $claims['sub'] === 'com.example.signin');
-        } catch (\Throwable $e) {
-            $this->check('client secret: ' . $e->getMessage(), false);
-        }
+        $claims = ['iss' => 'https://issuer.example', 'aud' => 'client-1', 'sub' => 'user-1', 'iat' => $now, 'exp' => $now + 300];
+        $expect = ['issuer' => 'https://issuer.example', 'audience' => 'client-1', 'algorithms' => ['ES256']];
+        $sign = static function (array $payload) use ($key): string {
+            $input = Base64Url::encode(json_encode(['alg' => 'ES256', 'kid' => 'ec1']))
+                . '.' . Base64Url::encode(json_encode($payload));
+            openssl_sign($input, $der, $key, OPENSSL_ALGO_SHA256);
+            return $input . '.' . Base64Url::encode(Der::derToRawSignature($der));
+        };
+        $valid = $sign($claims);
+        $this->check('raw R||S signature is 64 bytes', strlen(Base64Url::decode(explode('.', $valid)[2])) === 64);
+        $this->expectValid('valid token accepted', $valid, $jwks, $expect);
+        $parts = explode('.', $valid);
+        $tampered = $parts[0] . '.' . Base64Url::encode(json_encode(['sub' => 'admin'] + $claims)) . '.' . $parts[2];
+        $this->expectInvalid('tampered payload rejected', $tampered, $jwks, $expect);
+        $this->expectInvalid('ES256 refused when only RS256 is allowed', $valid, $jwks, ['algorithms' => ['RS256']] + $expect);
         $raw = random_bytes(64);
         $this->check('DER <-> raw signature conversion', Der::derToRawSignature(Der::rawToDerSignature($raw)) === $raw);
-        try {
-            $this->es256Signer->sign(['a' => 1], 'not a key');
-            $this->check('invalid .p8 key rejected', false);
-        } catch (JwtException $e) {
-            $this->check('invalid .p8 key rejected', true);
-        }
     }
 
     private function testStateStore(): void
@@ -260,10 +274,10 @@ class SelfTestCommand extends Command
         try {
             $verified = new Profile('google', 'g-' . $suffix, $email, true, 'Test', 'SocialLogin');
             $verifiedNotTrusted = new Profile('facebook', 'f-' . $suffix, $email, true, 'Test', 'SocialLogin', '', false);
-            $unverified = new Profile('amazon', 'a-' . $suffix, $email, false, 'Test', 'SocialLogin');
+            $unverified = new Profile('test', 't-' . $suffix, $email, false, 'Test', 'SocialLogin');
             $noEmail = new Profile('twitter', 'x-' . $suffix, null, false, 'Test', 'SocialLogin');
             $newPerson = new Profile('google', 'g2-' . $suffix, 'new.' . $email, true, 'New', 'Person');
-            $noName = new Profile('apple', 'ap-' . $suffix, 'new2.' . $email, true, '', '');
+            $noName = new Profile('google', 'g3-' . $suffix, 'new2.' . $email, true, '', '');
 
             $this->check('verified email + auto-link => link existing', $this->accountMatcher->decide($verified, $websiteId, Config::LINK_AUTO)->type === Decision::LINK_EXISTING);
             $this->check('verified email + "ask password" => ask password', $this->accountMatcher->decide($verified, $websiteId, Config::LINK_PASSWORD)->type === Decision::ASK_PASSWORD);
@@ -295,6 +309,15 @@ class SelfTestCommand extends Command
             } catch (\Exception $e) {
                 $this->check('second identity for the same provider refused', true);
             }
+
+            // A link whose provider is not installed (any more), e.g. after removing an add-on.
+            $orphan = $this->linkFactory->create()
+                ->setCustomerId($customerId)->setWebsiteId($websiteId)
+                ->setProvider(self::UNREGISTERED_PROVIDER)->setProviderUserId('u-' . $suffix);
+            $this->linkRepository->save($orphan);
+            $this->linkRepository->delete($second);
+            $this->check('link of a provider that is not installed does not count as a sign-in method', !$this->accountService->canUnlink($customerId, 'twitter', false));
+            $this->check('link of a provider that is not installed can always be removed', $this->accountService->canUnlink($customerId, self::UNREGISTERED_PROVIDER, false));
         } finally {
             $this->registry->register('isSecureArea', true, true);
             $this->customerRepository->deleteById($customerId);
@@ -325,7 +348,6 @@ class SelfTestCommand extends Command
 
     private function check(string $label, bool $ok): void
     {
-        $ok ? $this->passed++ : $this->failed++;
-        $this->output->writeln(sprintf('  %s %s', $ok ? '<info>PASS</info>' : '<error>FAIL</error>', $label));
+        $this->reporter->check($label, $ok);
     }
 }

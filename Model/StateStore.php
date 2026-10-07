@@ -14,8 +14,8 @@ use Magento\Framework\Serialize\Serializer\Json;
 use Softaware\SocialLogin\Model\Jwt\Base64Url;
 
 /**
- * Pending authorisation requests, stored server-side (not in the PHP session, which Apple's
- * cross-site form_post callback does not carry). Rows are keyed by SHA-256 of the state,
+ * Pending authorisation requests, stored server-side (not in the PHP session, which a cross-site
+ * form_post callback does not carry). Rows are keyed by SHA-256 of the state,
  * bound to the browser cookie, single-use and expire after 15 minutes.
  */
 class StateStore

@@ -11,31 +11,35 @@ namespace Softaware\SocialLogin\ViewModel;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 
 /**
- * Inline SVG brand marks for the buttons. Marks that are black in the brand guidelines
- * (Apple, GitHub, X, the Amazon "a") use currentColor so they turn white on dark buttons.
+ * Inline SVG brand marks for the buttons, per provider code (di.xml argument "icons", which add-on modules
+ * extend with their providers' marks). Marks that are black in the brand guidelines (such as X) use
+ * currentColor so they turn white on dark buttons. Codes without an icon get a neutral person icon.
  */
 class ProviderIcons implements ArgumentInterface
 {
-    private const ICONS = [
-        'google' => '<svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>',
-        'apple' => '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>',
-        'facebook' => '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0866FF"/><path fill="#fff" d="M16.1 15.47l.53-3.47h-3.33V9.75c0-.95.47-1.88 1.95-1.88h1.51V4.92s-1.37-.23-2.69-.23c-2.74 0-4.53 1.66-4.53 4.67V12H6.5v3.47h3.04V24h3.76v-8.53h2.8z"/></svg>',
-        'microsoft' => '<svg viewBox="0 0 24 24"><rect x="1" y="1" width="10.5" height="10.5" fill="#F25022"/><rect x="12.5" y="1" width="10.5" height="10.5" fill="#7FBA00"/><rect x="1" y="12.5" width="10.5" height="10.5" fill="#00A4EF"/><rect x="12.5" y="12.5" width="10.5" height="10.5" fill="#FFB900"/></svg>',
-        'github' => '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>',
-        'linkedin' => '<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M7.12 9.4H4.56V19.5h2.56V9.4zM5.84 8.2a1.48 1.48 0 1 0 0-2.96 1.48 1.48 0 0 0 0 2.96zM19.5 13.9c0-2.72-1.45-4.7-4.08-4.7-1.27 0-2.2.6-2.67 1.37V9.4h-2.46V19.5h2.56v-5.02c0-1.33.25-2.62 1.9-2.62 1.63 0 1.65 1.52 1.65 2.7v4.94h2.6V13.9z"/></svg>',
-        'amazon' => '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M13.96 9.67c0-.86-.06-1.6-.66-2.12-.48-.42-1.18-.55-1.8-.55-1.3 0-2.6.62-2.88 2.05l-2.3-.22C6.82 6.06 9.33 5 11.6 5c1.16 0 2.67.31 3.58 1.18 1.16 1.08 1.05 2.53 1.05 4.1v3.72c0 1.12.46 1.6.9 2.21.15.21.18.47-.01.63-.48.4-1.34 1.15-1.81 1.57a.5.5 0 0 1-.56.06c-.79-.66-.93-.96-1.36-1.58-1.3 1.32-2.21 1.72-3.89 1.72-1.99 0-3.53-1.23-3.53-3.68 0-1.92 1.04-3.22 2.52-3.86 1.28-.56 3.07-.66 4.44-.82v-.58zm0 2.28c-1.13 0-2.6.03-3.48.73-.42.34-.67.84-.67 1.5 0 1.05.55 1.6 1.42 1.6.72 0 1.36-.44 1.77-1.16.5-.89.96-1.72.96-2.67z"/><path fill="#FF9900" d="M20.6 18.3c-2.43 1.8-5.96 2.75-9 2.75-4.26 0-8.1-1.57-11-4.2-.23-.2-.03-.48.25-.32 3.13 1.82 7 2.92 11 2.92 2.7 0 5.66-.56 8.39-1.72.41-.18.76.27.36.57zm1.02-1.16c-.31-.4-2.05-.19-2.83-.1-.24.03-.27-.18-.06-.33 1.38-.97 3.65-.69 3.92-.37.26.33-.07 2.6-1.37 3.69-.2.17-.39.08-.3-.14.29-.73.95-2.36.64-2.75z"/></svg>',
-        'twitter' => '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>',
-        'test' => '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#6B7280"/><path fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" d="M7.5 7.5h9M12 7.5v9.5"/></svg>',
-    ];
+    public const GOOGLE = '<svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
+    public const FACEBOOK = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0866FF"/><path fill="#fff" d="M16.1 15.47l.53-3.47h-3.33V9.75c0-.95.47-1.88 1.95-1.88h1.51V4.92s-1.37-.23-2.69-.23c-2.74 0-4.53 1.66-4.53 4.67V12H6.5v3.47h3.04V24h3.76v-8.53h2.8z"/></svg>';
+    public const X = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>';
+    public const TEST = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#6B7280"/><path fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" d="M7.5 7.5h9M12 7.5v9.5"/></svg>';
+    public const GENERIC = '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"/><path fill="currentColor" d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>';
 
-    private const GENERIC = '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"/><path fill="currentColor" d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>';
+    /**
+     * @param array<string, string> $icons Provider code => static, trusted SVG markup
+     */
+    public function __construct(
+        private readonly array $icons = []
+    ) {
+    }
 
     /**
      * SVG markup (static, trusted) sized for the buttons.
      */
     public function getSvg(string $code, int $size = 20): string
     {
-        $svg = self::ICONS[$code] ?? self::GENERIC;
+        $svg = $this->icons[$code] ?? '';
+        if (!is_string($svg) || !str_starts_with($svg, '<svg ')) {
+            $svg = self::GENERIC;
+        }
         return str_replace(
             '<svg ',
             sprintf('<svg width="%1$d" height="%1$d" aria-hidden="true" focusable="false" ', $size),

@@ -26,38 +26,12 @@
                 <client_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
                 <sort_order>10</sort_order>
             </google>
-            <apple>
-                <enabled>0</enabled>
-                <private_key backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
-                <sort_order>20</sort_order>
-            </apple>
             <facebook>
                 <enabled>0</enabled>
                 <client_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
                 <graph_version>v23.0</graph_version>
                 <sort_order>30</sort_order>
             </facebook>
-            <microsoft>
-                <enabled>0</enabled>
-                <client_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
-                <tenant>common</tenant>
-                <sort_order>40</sort_order>
-            </microsoft>
-            <github>
-                <enabled>0</enabled>
-                <client_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
-                <sort_order>50</sort_order>
-            </github>
-            <linkedin>
-                <enabled>0</enabled>
-                <client_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
-                <sort_order>60</sort_order>
-            </linkedin>
-            <amazon>
-                <enabled>0</enabled>
-                <client_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
-                <sort_order>70</sort_order>
-            </amazon>
             <twitter>
                 <enabled>0</enabled>
                 <client_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>

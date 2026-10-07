@@ -22,7 +22,7 @@ use Softaware\SocialLogin\Model\Profile;
  * - Its email addresses are never treated as verified, so it can never sign in to an existing
  *   account without that account's password.
  * - Issues RS256 ID tokens signed with a locally generated key and validates them through the
- *   same JWKS code path as Google, Microsoft, Apple and LinkedIn.
+ *   same JWKS code path as the OpenID Connect providers.
  */
 class TestProvider extends AbstractOidcProvider
 {

@@ -27,7 +27,7 @@ use Softaware\SocialLogin\Model\Profile;
  * Email confirmation:
  * - Address verified by the provider: no confirmation, even when the store requires it (the provider has
  *   already proved it).
- * - Address NOT verified (typed in by the customer, Amazon, ...): the customer always has to confirm it with
+ * - Address NOT verified (typed in by the customer, or from a provider without a verification flag): the customer always has to confirm it with
  *   Magento's confirmation email, whether or not the store requires confirmation. Otherwise anybody could
  *   create an account in someone else's name and keep a back door into it through the linked provider
  *   ("pre-account hijacking").

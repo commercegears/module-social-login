@@ -10,12 +10,12 @@ namespace Softaware\SocialLogin\Model\Provider;
 
 use Softaware\SocialLogin\Model\Config;
 use Softaware\SocialLogin\Model\Http\HttpClient;
-use Softaware\SocialLogin\Model\Jwt\Es256Signer;
 use Softaware\SocialLogin\Model\Jwt\JwksProvider;
 use Softaware\SocialLogin\Model\Jwt\JwtValidator;
 
 /**
- * Shared dependencies of all providers (keeps provider constructors empty).
+ * Shared dependencies of all providers. A provider that needs more declares its own constructor
+ * arguments and passes the context on to parent::__construct().
  */
 class ProviderContext
 {
@@ -23,8 +23,7 @@ class ProviderContext
         public readonly Config $config,
         public readonly HttpClient $httpClient,
         public readonly JwksProvider $jwksProvider,
-        public readonly JwtValidator $jwtValidator,
-        public readonly Es256Signer $es256Signer
+        public readonly JwtValidator $jwtValidator
     ) {
     }
 }

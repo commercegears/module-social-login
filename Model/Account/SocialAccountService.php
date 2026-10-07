@@ -174,14 +174,17 @@ class SocialAccountService
 
     /**
      * True when the customer could still sign in after removing the given link.
+     *
+     * Links of providers that are not installed (for example after an add-on was removed) are no way to sign
+     * in: they can always be removed and do not count as a remaining sign-in method.
      */
     public function canUnlink(int $customerId, string $provider, bool $hasPassword): bool
     {
-        if ($hasPassword) {
+        if ($hasPassword || $this->providerPool->get($provider) === null) {
             return true;
         }
         foreach ($this->linkRepository->getListByCustomerId($customerId) as $link) {
-            if ($link->getProvider() !== $provider) {
+            if ($link->getProvider() !== $provider && $this->providerPool->get($link->getProvider()) !== null) {
                 return true;
             }
         }

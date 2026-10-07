@@ -123,31 +123,12 @@ Google,Google
 "Button Label","Button Label"
 "Leave empty for ""Continue with Google"".","Leave empty for ""Continue with Google""."
 "Sort Order","Sort Order"
-Apple,Apple
-"Services ID","Services ID"
-"The identifier of the Services ID, e.g. <code>com.example.shop.signin</code> (not the App ID).","The identifier of the Services ID, e.g. <code>com.example.shop.signin</code> (not the App ID)."
-"Team ID","Team ID"
-"Key ID","Key ID"
-"Private Key (.p8)","Private Key (.p8)"
-"Paste the whole contents of the .p8 file, including the BEGIN/END lines. Stored encrypted.","Paste the whole contents of the .p8 file, including the BEGIN/END lines. Stored encrypted."
-"Leave empty for ""Continue with Apple"".","Leave empty for ""Continue with Apple""."
 Facebook,Facebook
 "App ID","App ID"
 "App Secret","App Secret"
 "Graph API Version","Graph API Version"
 "For example <code>v23.0</code>. Change it when Meta retires the version.","For example <code>v23.0</code>. Change it when Meta retires the version."
 "Leave empty for ""Continue with Facebook"".","Leave empty for ""Continue with Facebook""."
-Microsoft,Microsoft
-"Application (client) ID","Application (client) ID"
-Tenant,Tenant
-"<code>common</code> (work, school and personal accounts), <code>consumers</code>, <code>organizations</code> or your tenant ID.","<code>common</code> (work, school and personal accounts), <code>consumers</code>, <code>organizations</code> or your tenant ID."
-"Leave empty for ""Continue with Microsoft"".","Leave empty for ""Continue with Microsoft""."
-GitHub,GitHub
-"Leave empty for ""Continue with GitHub"".","Leave empty for ""Continue with GitHub""."
-LinkedIn,LinkedIn
-"Leave empty for ""Continue with LinkedIn"".","Leave empty for ""Continue with LinkedIn""."
-Amazon,Amazon
-"Leave empty for ""Continue with Amazon"".","Leave empty for ""Continue with Amazon""."
 "X (Twitter)","X (Twitter)"
 "OAuth 2.0 Client ID (not the API key).","OAuth 2.0 Client ID (not the API key)."
 "Leave empty for a public client (PKCE only). Stored encrypted.","Leave empty for a public client (PKCE only). Stored encrypted."
@@ -168,7 +149,6 @@ ID,ID
 Customer,Customer
 "Customer Email","Customer Email"
 Website,Website
-"Sign in with Apple is not configured correctly.","Sign in with Apple is not configured correctly."
 "Sign-in was cancelled.","Sign-in was cancelled."
 "The sign-in could not be verified. Please try again.","The sign-in could not be verified. Please try again."
 "The sign-in provider did not return a token.","The sign-in provider did not return a token."
@@ -181,7 +161,7 @@ Website,Website
 "or","or"
 "Create New Accounts","Create New Accounts"
 "Set to ""No"" to let only existing customers sign in with a provider (for example a trade-only shop). Shoppers without an account are asked to register first.","Set to ""No"" to let only existing customers sign in with a provider (for example a trade-only shop). Shoppers without an account are asked to register first."
-"Automatic linking only applies to addresses the provider is responsible for (Gmail and Google Workspace, Apple, personal Microsoft accounts, verified GitHub, LinkedIn and X addresses). Other addresses, and addresses the shopper typed in, always require the account password.","Automatic linking only applies to addresses the provider is responsible for (Gmail and Google Workspace, Apple, personal Microsoft accounts, verified GitHub, LinkedIn and X addresses). Other addresses, and addresses the shopper typed in, always require the account password."
+"Automatic linking only applies to addresses the provider has verified and is responsible for (for example Gmail and Google Workspace addresses at Google, or a verified X address). Other addresses, and addresses the shopper typed in, always require the account password.","Automatic linking only applies to addresses the provider has verified and is responsible for (for example Gmail and Google Workspace addresses at Google, or a verified X address). Other addresses, and addresses the shopper typed in, always require the account password."
 "Uses the template ""Welcome Email (without password)"" from Customer Configuration &gt; Create New Account Options. Addresses the provider has not verified (or that the shopper typed in) get the confirmation email instead, and the account can be used once it is confirmed.","Uses the template ""Welcome Email (without password)"" from Customer Configuration &gt; Create New Account Options. Addresses the provider has not verified (or that the shopper typed in) get the confirmation email instead, and the account can be used once it is confirmed."
 "There is no account with the email address %1. Please create an account first, then connect it on the ""Connected Accounts"" page.","There is no account with the email address %1. Please create an account first, then connect it on the ""Connected Accounts"" page."
 "There is no account with this email address. Please create an account first, then connect it on the ""Connected Accounts"" page.","There is no account with this email address. Please create an account first, then connect it on the ""Connected Accounts"" page."

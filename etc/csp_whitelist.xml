@@ -8,12 +8,7 @@
         <policy id="form-action">
             <values>
                 <value id="sw_social_google" type="host">accounts.google.com</value>
-                <value id="sw_social_apple" type="host">appleid.apple.com</value>
                 <value id="sw_social_facebook" type="host">www.facebook.com</value>
-                <value id="sw_social_microsoft" type="host">login.microsoftonline.com</value>
-                <value id="sw_social_github" type="host">github.com</value>
-                <value id="sw_social_linkedin" type="host">www.linkedin.com</value>
-                <value id="sw_social_amazon" type="host">www.amazon.com</value>
                 <value id="sw_social_x" type="host">x.com</value>
                 <value id="sw_social_twitter" type="host">twitter.com</value>
             </values>

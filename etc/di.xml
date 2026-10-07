@@ -3,17 +3,16 @@
     <preference for="Softaware\SocialLogin\Api\LinkRepositoryInterface" type="Softaware\SocialLogin\Model\LinkRepository"/>
     <preference for="Softaware\SocialLogin\Api\Data\LinkInterface" type="Softaware\SocialLogin\Model\Link"/>
 
-    <!-- Providers: add your own by implementing ProviderInterface and adding it here -->
+    <!--
+        Providers: add your own by implementing ProviderInterface (or extending AbstractProvider /
+        AbstractOidcProvider) and adding it to this argument from your module's di.xml. Its settings live in
+        softaware_sociallogin/<code>/... (add a group with that id to the section in your system.xml).
+    -->
     <type name="Softaware\SocialLogin\Model\Provider\ProviderPool">
         <arguments>
             <argument name="providers" xsi:type="array">
                 <item name="google" xsi:type="object">Softaware\SocialLogin\Model\Provider\Google</item>
-                <item name="apple" xsi:type="object">Softaware\SocialLogin\Model\Provider\Apple</item>
                 <item name="facebook" xsi:type="object">Softaware\SocialLogin\Model\Provider\Facebook</item>
-                <item name="microsoft" xsi:type="object">Softaware\SocialLogin\Model\Provider\Microsoft</item>
-                <item name="github" xsi:type="object">Softaware\SocialLogin\Model\Provider\Github</item>
-                <item name="linkedin" xsi:type="object">Softaware\SocialLogin\Model\Provider\LinkedIn</item>
-                <item name="amazon" xsi:type="object">Softaware\SocialLogin\Model\Provider\Amazon</item>
                 <item name="twitter" xsi:type="object">Softaware\SocialLogin\Model\Provider\X</item>
                 <item name="test" xsi:type="object">Softaware\SocialLogin\Model\Provider\TestProvider</item>
             </argument>
@@ -92,6 +91,21 @@
         </arguments>
     </type>
 
+    <!--
+        Button icons (inline SVG) per provider code. Add-ons add theirs to the "icons" argument;
+        unknown codes get a neutral icon.
+    -->
+    <type name="Softaware\SocialLogin\ViewModel\ProviderIcons">
+        <arguments>
+            <argument name="icons" xsi:type="array">
+                <item name="google" xsi:type="const">Softaware\SocialLogin\ViewModel\ProviderIcons::GOOGLE</item>
+                <item name="facebook" xsi:type="const">Softaware\SocialLogin\ViewModel\ProviderIcons::FACEBOOK</item>
+                <item name="twitter" xsi:type="const">Softaware\SocialLogin\ViewModel\ProviderIcons::X</item>
+                <item name="test" xsi:type="const">Softaware\SocialLogin\ViewModel\ProviderIcons::TEST</item>
+            </argument>
+        </arguments>
+    </type>
+
     <!-- CLI -->
     <type name="Magento\Framework\Console\CommandListInterface">
         <arguments>
@@ -102,48 +116,28 @@
             </argument>
         </arguments>
     </type>
+    <!-- Extra self-test checks (Model\SelfTest\CheckInterface): add-ons add theirs to the "checks" argument -->
+    <type name="Softaware\SocialLogin\Console\Command\SelfTestCommand">
+        <arguments>
+            <argument name="providerPool" xsi:type="object">Softaware\SocialLogin\Model\Provider\ProviderPool\Proxy</argument>
+            <argument name="checks" xsi:type="array"/>
+        </arguments>
+    </type>
 
-    <!-- Admin config: callback URL shown under each provider's "Enabled" switch -->
+    <!--
+        Admin config: callback URL shown under each provider's "Enabled" switch. For another provider, declare
+        a virtual type of Softaware\SocialLogin\Model\Config\Comment\CallbackUrl with its providerCode and hint.
+    -->
     <virtualType name="Softaware\SocialLogin\Model\Config\Comment\GoogleCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
         <arguments>
             <argument name="providerCode" xsi:type="string">google</argument>
             <argument name="hint" xsi:type="string">Google Cloud Console &gt; APIs &amp; Services &gt; Credentials: create an OAuth client ID of type "Web application" and add this URL under "Authorised redirect URIs".</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Softaware\SocialLogin\Model\Config\Comment\AppleCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
-        <arguments>
-            <argument name="providerCode" xsi:type="string">apple</argument>
-            <argument name="hint" xsi:type="string">Apple Developer &gt; Certificates, Identifiers &amp; Profiles: create a Services ID with "Sign in with Apple", add your domain and this URL as Return URL, and create a key with "Sign in with Apple" enabled.</argument>
-        </arguments>
-    </virtualType>
     <virtualType name="Softaware\SocialLogin\Model\Config\Comment\FacebookCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
         <arguments>
             <argument name="providerCode" xsi:type="string">facebook</argument>
             <argument name="hint" xsi:type="string">Meta for Developers &gt; your app &gt; Facebook Login &gt; Settings: add this URL to "Valid OAuth Redirect URIs". The app needs the "email" permission.</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Softaware\SocialLogin\Model\Config\Comment\MicrosoftCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
-        <arguments>
-            <argument name="providerCode" xsi:type="string">microsoft</argument>
-            <argument name="hint" xsi:type="string">Microsoft Entra admin centre &gt; App registrations: register an app for "Accounts in any organisational directory and personal Microsoft accounts", add this URL as a "Web" redirect URI and create a client secret.</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Softaware\SocialLogin\Model\Config\Comment\GithubCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
-        <arguments>
-            <argument name="providerCode" xsi:type="string">github</argument>
-            <argument name="hint" xsi:type="string">GitHub &gt; Settings &gt; Developer settings &gt; OAuth Apps: create an app and enter this URL as "Authorization callback URL".</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Softaware\SocialLogin\Model\Config\Comment\LinkedinCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
-        <arguments>
-            <argument name="providerCode" xsi:type="string">linkedin</argument>
-            <argument name="hint" xsi:type="string">LinkedIn Developers &gt; your app &gt; Products: add "Sign In with LinkedIn using OpenID Connect"; under Auth add this URL to "Authorized redirect URLs".</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Softaware\SocialLogin\Model\Config\Comment\AmazonCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
-        <arguments>
-            <argument name="providerCode" xsi:type="string">amazon</argument>
-            <argument name="hint" xsi:type="string">Amazon Developer Console &gt; Login with Amazon: create a security profile and add this URL under Web Settings &gt; "Allowed Return URLs".</argument>
         </arguments>
     </virtualType>
     <virtualType name="Softaware\SocialLogin\Model\Config\Comment\TwitterCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">

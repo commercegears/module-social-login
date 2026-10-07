@@ -14,7 +14,7 @@ use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;
 use Magento\Framework\Stdlib\CookieManagerInterface;
 
 /**
- * Apple posts its callback cross-site, so the browser does not send the SameSite=Lax session
+ * Providers that post their callback (response_mode=form_post) do so cross-site, so the browser does not send the SameSite=Lax session
  * cookie and Magento starts a new, empty session. This puts the original session cookie back
  * (its id was stored server-side with the state, bound to the browser) before redirecting to
  * the same-site step that signs the customer in, so the cart and session survive.
