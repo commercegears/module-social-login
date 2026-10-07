@@ -6,7 +6,7 @@ installed. Works with Luma-based themes and Hyvä.
 
 Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
 
-![Sign-in page with social login buttons](docs/images/01-luma-sign-in.png)
+![Sign-in page with social login buttons](docs/images/sign-in-luma.png)
 
 ## Demo and documentation
 

@@ -1,0 +1,171 @@
+{
+    "tagline": "One-click sign-in and registration with Google, Facebook and X — on the sign-in page, at checkout and anywhere you place the buttons.",
+    "key_features": [
+        "Google, Facebook and X (Twitter) sign-in",
+        "Buttons on sign-in, registration and checkout",
+        "Popup or full-page sign-in",
+        "Safe linking of existing customer accounts",
+        "Connected Accounts in My Account",
+        "Linked Accounts grid in the admin",
+        "Hyvä and Luma templates included",
+        "No third-party SDKs"
+    ],
+    "benefits": [
+        {
+            "icon": "bolt",
+            "title": "Sign up in one click",
+            "text": "Shoppers use the account they already have. No form to fill in and no new password to remember."
+        },
+        {
+            "icon": "cart",
+            "title": "Sign in at checkout",
+            "text": "The buttons sit in the checkout sign-in popup and above the email field, right where shoppers decide."
+        },
+        {
+            "icon": "shield",
+            "title": "Safe by design",
+            "text": "Every ID token is validated and accounts are only linked when the email address can be trusted."
+        }
+    ],
+    "showcase": [
+        {
+            "label": "Sign-in page",
+            "title": "One click instead of a form",
+            "text": "Buttons above the sign-in and registration forms. Icon and text or icon only, light or dark, in the order you choose.",
+            "image": "docs/images/sign-in-luma.png"
+        },
+        {
+            "label": "Checkout",
+            "title": "Sign in without leaving the checkout",
+            "text": "The \"Sign In\" popup on the checkout page and the authentication popup show the same buttons, so returning customers check out faster.",
+            "image": "docs/images/checkout-popup.png"
+        },
+        {
+            "label": "Hyvä",
+            "title": "Native Hyvä templates",
+            "text": "Alpine.js and Tailwind templates for Hyvä 1.3+, picked automatically. Luma, Blank and their child themes work out of the box.",
+            "image": "docs/images/sign-in-hyva.png"
+        },
+        {
+            "label": "Mobile",
+            "title": "Made for small screens",
+            "text": "Buttons stack into full-width rows on phones, where typing an email address and a password is hardest.",
+            "image": "docs/images/mobile.png"
+        },
+        {
+            "label": "My Account",
+            "title": "Customers manage their connections",
+            "text": "My Account › Connected Accounts lists the linked providers. Customers connect another one or disconnect one — never the last way to sign in.",
+            "image": "docs/images/connected-accounts.png"
+        },
+        {
+            "label": "Settings",
+            "title": "One settings page, per store view",
+            "text": "Choose where the buttons appear, how they look, what happens after sign-in and which customer group new accounts join.",
+            "image": "docs/images/admin-settings.png"
+        },
+        {
+            "label": "Provider setup",
+            "title": "The exact callback URL, ready to copy",
+            "text": "Each provider shows the callback URL to register for the current store view, with short setup steps. Secrets are stored encrypted.",
+            "image": "docs/images/admin-provider.png"
+        }
+    ],
+    "feature_groups": [
+        {
+            "title": "Providers",
+            "items": [
+                "Google (OpenID Connect with PKCE)",
+                "Facebook (Graph API with appsecret_proof)",
+                "X / Twitter (OAuth 2.0 with PKCE, optional email)",
+                "Your own button labels and order",
+                "More providers with Social Login Pro"
+            ]
+        },
+        {
+            "title": "Where the buttons appear",
+            "items": [
+                "Sign-in page",
+                "Create-account page",
+                "Authentication popup and checkout sign-in",
+                "Checkout email step (guests)",
+                "CMS widget and layout block"
+            ]
+        },
+        {
+            "title": "Accounts",
+            "items": [
+                "New accounts in the customer group you choose",
+                "Optional welcome email",
+                "Link existing customers automatically or after their password",
+                "Existing customers only mode for B2B and trade shops",
+                "Works with Softaware Customer Approval"
+            ]
+        },
+        {
+            "title": "Customer experience",
+            "items": [
+                "Popup or full-page sign-in",
+                "Icon and text or icon only, light or dark",
+                "Stay on the page, go to My Account or a custom URL",
+                "Connected Accounts in My Account",
+                "Short form when a provider gives no email or name"
+            ]
+        },
+        {
+            "title": "Security and privacy",
+            "items": [
+                "Single-use state bound to the browser",
+                "ID tokens validated: signature, issuer, audience, expiry, nonce",
+                "Email addresses trusted only when verified",
+                "Confirmation email for unverified addresses",
+                "No access tokens stored; links deleted with the customer"
+            ]
+        },
+        {
+            "title": "Admin and developers",
+            "items": [
+                "Linked Accounts grid and customer tab",
+                "Separate ACL permissions",
+                "CLI: list, unlink and self-test",
+                "Per website and store view settings",
+                "Extension point for more providers"
+            ]
+        }
+    ],
+    "demo": {
+        "storefront": [
+            {
+                "label": "Luma storefront",
+                "url": "https://demo.softawarecommerce.com/customer/account/login/",
+                "image": "docs/images/sign-in-luma.png"
+            },
+            {
+                "label": "Hyvä storefront",
+                "url": "https://demo.softawarecommerce.com/hyva/customer/account/login/",
+                "image": "docs/images/sign-in-hyva.png"
+            }
+        ],
+        "admin": [
+            {
+                "label": "Admin panel",
+                "url": "https://demo.softawarecommerce.com/try-admin/social-login",
+                "image": "docs/images/admin-settings.png"
+            }
+        ]
+    },
+    "upsell": {
+        "package": "softaware/module-social-login-pro",
+        "title": "Need Apple, Microsoft, LinkedIn, Amazon or GitHub?",
+        "text": "Social Login Pro adds five more providers to the same buttons, settings and account rules.",
+        "compare": [
+            ["Google, Facebook and X", true, true],
+            ["Apple (Sign in with Apple)", false, true],
+            ["Microsoft personal and work accounts", false, true],
+            ["LinkedIn, Amazon and GitHub", false, true],
+            ["All placements, popup, widget and layout block", true, true],
+            ["Account linking rules and Connected Accounts", true, true],
+            ["Hyvä and Luma", true, true]
+        ]
+    }
+}

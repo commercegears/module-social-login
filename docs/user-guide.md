@@ -8,7 +8,7 @@ installation, configuration, provider setup and day-to-day use.
 - Admin demo: https://demo.softawarecommerce.com/try-admin/social-login
 - Changelog: [CHANGELOG.md](../CHANGELOG.md) · Questions: [FAQ](faq.md)
 
-![Sign-in page with social login buttons](images/01-luma-sign-in.png)
+![Sign-in page with social login buttons](images/sign-in-luma.png)
 
 ## 1. Requirements
 
@@ -52,11 +52,11 @@ To update later: `composer update softaware/module-social-login`, then the same 
    the client ID and secret back into Magento.
 5. **Save Config** and flush the cache. The buttons appear on the sign-in and create-account pages.
 
-![Google provider settings with the callback URL](images/07-admin-provider-google.png)
+![Google provider settings with the callback URL](images/admin-provider.png)
 
 ## 4. Settings
 
-![General, display and account settings](images/06-admin-configuration.png)
+![General, display and account settings](images/admin-settings.png)
 
 All settings can be set per website and store view, so each domain can use its own provider apps.
 
@@ -122,13 +122,13 @@ Magento's confirmation email before it can be used, even if your store does not 
 another one or disconnect one. Disconnecting is refused when it would leave the account without any way to sign
 in (no password and no other provider).
 
-![Connected Accounts in My Account](images/05-connected-accounts.png)
+![Connected Accounts in My Account](images/connected-accounts.png)
 
 **Hyvä and mobile.** The Hyvä templates are included and the buttons stack on small screens.
 
 | Hyvä | Mobile |
 | --- | --- |
-| ![Hyvä sign-in page](images/02-hyva-sign-in.png) | ![Mobile sign-in page](images/04-hyva-mobile.png) |
+| ![Hyvä sign-in page](images/sign-in-hyva.png) | ![Mobile sign-in page](images/mobile.png) |
 
 ## 7. Widget and layout block
 
