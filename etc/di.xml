@@ -131,7 +131,7 @@
     <virtualType name="Softaware\SocialLogin\Model\Config\Comment\GoogleCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
         <arguments>
             <argument name="providerCode" xsi:type="string">google</argument>
-            <argument name="hint" xsi:type="string">Google Cloud Console &gt; APIs &amp; Services &gt; Credentials: create an OAuth client ID of type "Web application" and add this URL under "Authorised redirect URIs".</argument>
+            <argument name="hint" xsi:type="string">Google Cloud console &gt; Google Auth Platform &gt; Clients: create a client of type "Web application" and add this URL under "Authorized redirect URIs".</argument>
         </arguments>
     </virtualType>
     <virtualType name="Softaware\SocialLogin\Model\Config\Comment\FacebookCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">

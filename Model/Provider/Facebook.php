@@ -19,7 +19,7 @@ use Softaware\SocialLogin\Model\Profile;
  */
 class Facebook extends AbstractProvider
 {
-    private const DEFAULT_VERSION = 'v23.0';
+    private const DEFAULT_VERSION = 'v26.0';
 
     public function getCode(): string
     {

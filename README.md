@@ -13,6 +13,7 @@ Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
 - Storefront demo: [Luma](https://demo.softawarecommerce.com/customer/account/login/) ·
   [Hyvä](https://demo.softawarecommerce.com/hyva/customer/account/login/)
 - Admin demo: https://demo.softawarecommerce.com/try-admin/social-login
+- Product page (free): https://softawarecommerce.com/shop/magento-2-extensions/social-login-for-magento-2/
 - [User guide](docs/user-guide.md) (installation, settings, provider setup, troubleshooting) · [FAQ](docs/faq.md) ·
   [Changelog](CHANGELOG.md)
 
@@ -25,6 +26,9 @@ Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
   "Sign In" link on the checkout page, the checkout email step (optional), Hyvä authentication popup, CMS widget
   **Softaware Social Login Buttons**, and a layout block (`Softaware\SocialLogin\Block\Buttons`).
 - **Look**: icon and text, or icon only; light or dark. Sign-in in a **popup window** or a **full-page redirect**.
+- **In-app browsers**: in the built-in browsers of Instagram, Facebook and other apps (where Google blocks OAuth
+  sign-in) a note above the buttons asks the shopper to open the page in their browser, with a "Copy link" button.
+  Detected in the browser (full page cache safe); Luma, checkout and Hyvä.
 - **Security**
   - `state` (random, single use, stored server-side, bound to the browser by a cookie, 15-minute lifetime),
     `nonce` (OIDC) and PKCE S256 (Google, X).
@@ -84,7 +88,8 @@ callback URL segment): `google`, `facebook`, `twitter` (X), `test`.
 
 Register the callback URL shown in the configuration exactly as displayed (one per store view URL):
 
-- **Google**: Google Cloud Console > APIs & Services > Credentials > OAuth client ID (Web application).
+- **Google**: Google Cloud console > Google Auth Platform > Clients > Create client (Web application), "Authorized
+  redirect URIs".
 - **Facebook**: Facebook Login product, "Valid OAuth Redirect URIs", `email` permission.
 - **X**: User authentication settings, OAuth 2.0, type Web App, callback URL. Switch on "Request email" only if
   the app has the email permission.
@@ -109,7 +114,8 @@ browser, so it can be used on full-page-cached pages.
 
 The add-on **Social Login Pro** (`softaware/module-social-login-pro`) adds Sign in with Apple, Microsoft (Entra ID),
 LinkedIn, Amazon and GitHub. Its providers appear in the same configuration section, the same button rows, the
-Connected Accounts page and the admin tools, and use the same settings described here.
+Connected Accounts page and the admin tools, and use the same settings described here. Product page:
+https://softawarecommerce.com/shop/magento-2-extensions/social-login-pro-for-magento-2/
 
 ## Adding a provider (developers)
 

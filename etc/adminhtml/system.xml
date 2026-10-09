@@ -118,9 +118,9 @@
                     <comment><![CDATA[Stored encrypted.]]></comment>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                 </field>
-                <field id="graph_version" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="graph_version" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Graph API Version</label>
-                    <comment><![CDATA[For example <code>v23.0</code>. Change it when Meta retires the version.]]></comment>
+                    <comment><![CDATA[Default: <code>v26.0</code>. Tick "Use system value" to use the version this module ships with, or enter another version, for example when Meta retires the one you use.]]></comment>
                 </field>
                 <field id="label" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button Label</label>

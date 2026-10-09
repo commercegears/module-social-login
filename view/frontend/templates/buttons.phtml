@@ -15,6 +15,12 @@ $heading = $block->getHeading();
     <?php if ($heading !== ''): ?>
         <p class="sw-social__heading"><?= $escaper->escapeHtml($heading) ?></p>
     <?php endif; ?>
+    <div class="sw-social__inapp" data-sw-social-inapp role="note">
+        <p class="sw-social__inapp-text"><?= $escaper->escapeHtml(__('You are using the browser built into another app. Google does not allow sign-in there, and other providers may not work either. Please open this page in your browser, for example with "Open in browser" in the app\'s menu.')) ?></p>
+        <button type="button" class="action secondary sw-social__inapp-copy" data-sw-social-copy
+                data-copied="<?= $escaper->escapeHtmlAttr(__('Link copied. Paste it into your browser.')) ?>"><?= $escaper->escapeHtml(__('Copy link')) ?></button>
+        <span class="sw-social__inapp-url" data-sw-social-url hidden></span>
+    </div>
     <div class="sw-social__buttons">
         <?php foreach ($block->getButtons() as $button): ?>
             <a class="sw-social__btn sw-social__btn--<?= $escaper->escapeHtmlAttr($button['code']) ?>"

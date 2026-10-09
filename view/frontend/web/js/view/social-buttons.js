@@ -3,8 +3,9 @@
  */
 define([
     'uiComponent',
-    'Softaware_SocialLogin/js/social-login'
-], function (Component, socialLogin) {
+    'Softaware_SocialLogin/js/social-login',
+    'mage/translate'
+], function (Component, socialLogin, $t) {
     'use strict';
 
     return Component.extend({
@@ -16,11 +17,17 @@ define([
             buttonStyle: 'icon_text',
             buttonTheme: 'light',
             popup: false,
-            showDivider: false
+            showDivider: false,
+            inAppText: '',
+            copyText: '',
+            copiedText: ''
         },
 
         initialize: function () {
             this._super();
+            this.inAppText = $t('You are using the browser built into another app. Google does not allow sign-in there, and other providers may not work either. Please open this page in your browser, for example with "Open in browser" in the app\'s menu.');
+            this.copyText = $t('Copy link');
+            this.copiedText = $t('Link copied. Paste it into your browser.');
             socialLogin();
             return this;
         },

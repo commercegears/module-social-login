@@ -6,6 +6,8 @@
  * - Popup mode: opens the provider in a popup; the popup tells this window where to go next
  *   (via window.opener, or a BroadcastChannel when the provider cut the opener link).
  * - Widgets marked data-sw-social-guest-only hide themselves for signed-in customers.
+ * - In the built-in browsers of Instagram, Facebook and other apps (where Google refuses OAuth sign-in), shows the
+ *   "open this page in your browser" note rendered with the buttons, with a "Copy link" button.
  */
 (function (factory) {
     'use strict';
@@ -18,7 +20,42 @@
 }(function (customerData) {
     'use strict';
 
-    var CHANNEL = 'sw_social_login';
+    var CHANNEL = 'sw_social_login',
+        // In-app browsers (WebViews): Facebook, Messenger, Instagram, LinkedIn, Snapchat, Pinterest, TikTok,
+        // WeChat, LINE, and Android WebViews in general ("; wv)").
+        IN_APP = /FBAN|FBAV|FB_IAB|FBIOS|Instagram|LinkedInApp|Snapchat|Pinterest|TikTok|musical_ly|BytedanceWebview|MicroMessenger|\bLine\/|; wv\)/;
+
+    function isInAppBrowser() {
+        return IN_APP.test(window.navigator.userAgent || '');
+    }
+
+    function showInAppHints() {
+        // Luma: the class shows the notes through CSS (also those Knockout renders later). Hyvä: unhide them.
+        document.documentElement.classList.add('sw-social-inapp');
+        Array.prototype.forEach.call(document.querySelectorAll('[data-sw-social-inapp][hidden]'), function (node) {
+            node.hidden = false;
+        });
+    }
+
+    function copyLink(button) {
+        var url = window.location.href,
+            done = function () {
+                button.textContent = button.getAttribute('data-copied') || button.textContent;
+            },
+            fallback = function () {
+                // No clipboard access: show the address so it can be selected and copied by hand.
+                var target = button.parentNode && button.parentNode.querySelector('[data-sw-social-url]');
+                if (target) {
+                    target.textContent = url;
+                    target.hidden = false;
+                }
+            };
+        if (window.navigator.clipboard && window.navigator.clipboard.writeText) {
+            window.navigator.clipboard.writeText(url).then(done, fallback);
+        } else {
+            fallback();
+        }
+    }
 
     function withParams(href, popup) {
         var url = href + (href.indexOf('?') === -1 ? '?' : '&') + 'return=' + encodeURIComponent(window.location.href);
@@ -60,6 +97,12 @@
     }
 
     function onClick(event) {
+        var copy = event.target && event.target.closest ? event.target.closest('[data-sw-social-copy]') : null;
+        if (copy) {
+            event.preventDefault();
+            copyLink(copy);
+            return;
+        }
         var link = event.target && event.target.closest ? event.target.closest('a[data-sw-social]') : null;
         if (!link || event.defaultPrevented || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey) {
             return;
@@ -100,6 +143,9 @@
         }
         window.swSocialLoginReady = true;
         document.addEventListener('click', onClick);
+        if (isInAppBrowser()) {
+            showInAppHints();
+        }
         watchCustomer();
     };
 }));

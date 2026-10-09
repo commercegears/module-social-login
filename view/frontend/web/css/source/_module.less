@@ -64,6 +64,35 @@
             }
         }
 
+        &__inapp {
+            background: #fdf6e3;
+            border: 1px solid #e8c56d;
+            border-radius: 4px;
+            display: none;
+            font-size: 1.3rem;
+            margin: 0 0 14px;
+            padding: 10px 12px;
+
+            .sw-social-inapp & {
+                display: block;
+            }
+        }
+
+        &__inapp-text {
+            margin: 0 0 8px;
+        }
+
+        &__inapp-url {
+            display: block;
+            margin-top: 8px;
+            user-select: all;
+            word-break: break-all;
+
+            &[hidden] {
+                display: none;
+            }
+        }
+
         &__divider {
             align-items: center;
             color: #666;

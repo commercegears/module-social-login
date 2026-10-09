@@ -1,5 +1,5 @@
 {
-    "tagline": "One-click sign-in and registration with Google, Facebook and X — on the sign-in page, at checkout and anywhere you place the buttons.",
+    "tagline": "A free extension: one-click sign-in and registration with Google, Facebook and X on the sign-in page, at checkout and anywhere you place the buttons.",
     "key_features": [
         "Google, Facebook and X (Twitter) sign-in",
         "Buttons on sign-in, registration and checkout",
@@ -55,7 +55,7 @@
         {
             "label": "My Account",
             "title": "Customers manage their connections",
-            "text": "My Account › Connected Accounts lists the linked providers. Customers connect another one or disconnect one — never the last way to sign in.",
+            "text": "My Account › Connected Accounts lists the linked providers. Customers connect another one or disconnect one, but never the last way to sign in.",
             "image": "docs/images/connected-accounts.png"
         },
         {
@@ -109,7 +109,8 @@
                 "Icon and text or icon only, light or dark",
                 "Stay on the page, go to My Account or a custom URL",
                 "Connected Accounts in My Account",
-                "Short form when a provider gives no email or name"
+                "Short form when a provider gives no email or name",
+                "\"Open in your browser\" note in Instagram, Facebook and other in-app browsers"
             ]
         },
         {

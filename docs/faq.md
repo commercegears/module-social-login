@@ -7,6 +7,11 @@ Google, Facebook and X (Twitter). Each one can be switched on separately, per we
 Yes, with the add-on **Social Login Pro**. It adds these five providers to the same configuration section, buttons,
 Connected Accounts page and admin tools; everything described here applies to them too.
 
+**What happens when a shopper opens the shop from Instagram or Facebook?**
+Those apps open links in their own built-in browser, where Google does not allow sign-in. Social Login recognises
+these browsers and shows a note above the buttons asking the shopper to open the page in their browser, with a
+"Copy link" button. This works on Luma, the checkout and Hyvä.
+
 **Does it work with Hyvä?**
 Yes. Hyvä templates are included (Hyvä 1.3+, tested with 1.5). On the Hyvä checkout the Luma checkout fallback is
 used, so the checkout buttons are the Luma ones.

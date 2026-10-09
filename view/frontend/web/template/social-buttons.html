@@ -8,6 +8,12 @@
     <!-- ko if: heading -->
     <p class="sw-social__heading" data-bind="text: heading"></p>
     <!-- /ko -->
+    <div class="sw-social__inapp" role="note">
+        <p class="sw-social__inapp-text" data-bind="text: inAppText"></p>
+        <button type="button" class="action secondary sw-social__inapp-copy" data-sw-social-copy
+                data-bind="attr: {'data-copied': copiedText}, text: copyText"></button>
+        <span class="sw-social__inapp-url" data-sw-social-url hidden></span>
+    </div>
     <div class="sw-social__buttons" data-bind="foreach: buttons">
         <a class="sw-social__btn" rel="nofollow"
            data-bind="attr: {

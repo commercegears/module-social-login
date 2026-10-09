@@ -6,6 +6,7 @@ installation, configuration, provider setup and day-to-day use.
 - Demo (Luma): https://demo.softawarecommerce.com/customer/account/login/
 - Demo (Hyvä): https://demo.softawarecommerce.com/hyva/customer/account/login/
 - Admin demo: https://demo.softawarecommerce.com/try-admin/social-login
+- Product page (free): https://softawarecommerce.com/shop/magento-2-extensions/social-login-for-magento-2/
 - Changelog: [CHANGELOG.md](../CHANGELOG.md) · Questions: [FAQ](faq.md)
 
 ![Sign-in page with social login buttons](images/sign-in-luma.png)
@@ -24,7 +25,8 @@ client and PHP's OpenSSL extension.
 
 ## 2. Installation
 
-With Composer (recommended). Use the access keys from your account on shop.softawarecommerce.com:
+With Composer (recommended). Social Login is free; get it on the [product page](https://softawarecommerce.com/shop/magento-2-extensions/social-login-for-magento-2/) and use the Composer keys
+from your account on softawarecommerce.com (My account > Composer keys, https://softawarecommerce.com/my-modules/keys/):
 
 ```bash
 composer config repositories.softaware composer https://repo.softawarecommerce.com
@@ -102,7 +104,7 @@ register one callback URL per store view URL.
 
 | Provider | Where to create the app | What to enter in Magento |
 | --- | --- | --- |
-| Google | Google Cloud Console > APIs & Services > Credentials > Create OAuth client ID (Web application); add the callback under "Authorised redirect URIs". | Client ID, Client Secret |
+| Google | Google Cloud console > Google Auth Platform > Clients > Create client (Web application); add the callback under "Authorized redirect URIs". | Client ID, Client Secret |
 | Facebook | Meta for Developers: add the Facebook Login product, enter the callback under "Valid OAuth Redirect URIs", request the `email` permission. | App ID, App Secret, Graph API version |
 | X | X Developer Portal > User authentication settings: OAuth 2.0, type "Web App", callback URL. | Client ID, Client Secret; "Request Email Address" only if the app has the email permission |
 
@@ -123,6 +125,12 @@ another one or disconnect one. Disconnecting is refused when it would leave the 
 in (no password and no other provider).
 
 ![Connected Accounts in My Account](images/connected-accounts.png)
+
+**In-app browsers.** When the shop is opened inside Instagram, Facebook, Messenger, TikTok, LinkedIn, Snapchat,
+Pinterest, WeChat, LINE or another app's built-in browser, a note above the buttons asks the customer to open the
+page in their browser, with a **Copy link** button. Google does not allow sign-in in these built-in browsers, and
+other providers may not work there either. The buttons stay available. The note is detected in the browser, so
+cached pages work as usual; it appears on Luma (including the checkout) and Hyvä.
 
 **Hyvä and mobile.** The Hyvä templates are included and the buttons stack on small screens.
 
@@ -188,6 +196,7 @@ Installed add-ons such as Social Login Pro add their own checks. With
 | "redirect_uri_mismatch" or similar at the provider | The callback URL registered at the provider differs from the one shown in Magento (http vs https, www, store code, trailing slash). Copy it again exactly. |
 | The popup does not open | The browser blocked it; the module falls back to a full-page redirect. Choose **Full-page redirect** if you prefer. |
 | Customer is asked for the password | Expected when the provider has not verified the address or is not responsible for it (see *Accounts*). It happens once; afterwards the provider signs them in directly. |
+| Google shows "Access blocked" or `disallowed_useragent` | The customer opened the shop in an app's built-in browser (Instagram, Facebook and others). Google refuses sign-in there; the customer sees a note asking them to open the page in their browser. |
 | Sign-in fails | See `var/log/softaware_sociallogin.log` for the technical reason (no secrets or tokens are logged). |
 
 ## 12. More providers: Social Login Pro
@@ -195,7 +204,8 @@ Installed add-ons such as Social Login Pro add their own checks. With
 The add-on **Social Login Pro** (`softaware/module-social-login-pro`) adds Sign in with Apple, Microsoft (Entra
 ID), LinkedIn, Amazon and GitHub. After installing it (`composer require softaware/module-social-login-pro`, then
 the `bin/magento` commands from section 2), the new providers appear as groups in the same configuration section and
-use all the settings in this guide. Its own user guide describes the provider setup.
+use all the settings in this guide. Its own user guide describes the provider setup. Product page:
+https://softawarecommerce.com/shop/magento-2-extensions/social-login-pro-for-magento-2/
 
 ## 13. Uninstall
 

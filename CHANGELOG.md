@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.4.0 (2026-10-09)
+
+### Added
+
+- In-app browsers: when the shop is opened inside Instagram, Facebook, Messenger, TikTok, LinkedIn, Snapchat,
+  Pinterest, WeChat, LINE or an Android WebView, a note above the buttons asks the shopper to open the page in their
+  browser (Google blocks OAuth sign-in in these browsers), with a "Copy link" button. Detected in the browser, so
+  it is full page cache safe. Luma (sign-in and create-account pages, widget, authentication popup, checkout) and
+  Hyvä.
+
+### Changed
+
+- Facebook: default Graph API version is now `v26.0` (was `v23.0`). Saved values are kept; the field now has
+  "Use system value", so a store that saved the old default can switch back to the module default.
+- Google setup hint in the admin and docs uses the current Google Cloud console names (Google Auth Platform >
+  Clients, "Authorized redirect URIs").
+- Docs: product and Composer key links point to softawarecommerce.com (the shop moved from
+  shop.softawarecommerce.com); the product page tagline says the extension is free and has no dashes.
+- Doc screenshots retaken without the Magento logo of the Hyvä default theme and with the new Google hint.
+
 ## 1.3.0 (2026-10-07)
 
 ### Added
