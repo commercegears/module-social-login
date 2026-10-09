@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.1 (2026-10-09)
+
+### Changed
+- Facebook setup hint and user guide: the current Meta app dashboard path (Use cases > "Authenticate and request
+  data from users with Facebook Login" > Customize > Settings), with the older Facebook Login > Settings path for
+  existing apps.
+- Docs: no dashes as punctuation in headings and version ranges.
+
 ## 1.4.0 (2026-10-09)
 
 ### Added

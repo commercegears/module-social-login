@@ -1,4 +1,4 @@
-# Social Login for Magento 2 — User Guide
+# Social Login for Magento 2: User Guide
 
 Let customers sign in and register with **Google, Facebook and X (Twitter)** in one click. This guide covers
 installation, configuration, provider setup and day-to-day use.
@@ -15,8 +15,8 @@ installation, configuration, provider setup and day-to-day use.
 
 | | |
 | --- | --- |
-| Magento | Open Source or Adobe Commerce 2.4.7 – 2.4.9 |
-| PHP | 8.2 – 8.5 with `ext-openssl` and `ext-json` |
+| Magento | Open Source or Adobe Commerce 2.4.7 to 2.4.9 |
+| PHP | 8.2 to 8.5 with `ext-openssl` and `ext-json` |
 | Themes | Luma, Blank and themes based on them; Hyvä 1.3+ |
 | Other | `softaware/module-core` (installed automatically) |
 
@@ -105,7 +105,7 @@ register one callback URL per store view URL.
 | Provider | Where to create the app | What to enter in Magento |
 | --- | --- | --- |
 | Google | Google Cloud console > Google Auth Platform > Clients > Create client (Web application); add the callback under "Authorized redirect URIs". | Client ID, Client Secret |
-| Facebook | Meta for Developers: add the Facebook Login product, enter the callback under "Valid OAuth Redirect URIs", request the `email` permission. | App ID, App Secret, Graph API version |
+| Facebook | Meta for Developers: create the app with the use case "Authenticate and request data from users with Facebook Login", then Customize > Settings (older apps: Facebook Login > Settings), enter the callback under "Valid OAuth Redirect URIs", request the `email` permission. | App ID, App Secret, Graph API version |
 | X | X Developer Portal > User authentication settings: OAuth 2.0, type "Web App", callback URL. | Client ID, Client Secret; "Request Email Address" only if the app has the email permission |
 
 ## 6. What your customers see

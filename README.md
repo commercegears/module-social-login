@@ -90,7 +90,7 @@ Register the callback URL shown in the configuration exactly as displayed (one p
 
 - **Google**: Google Cloud console > Google Auth Platform > Clients > Create client (Web application), "Authorized
   redirect URIs".
-- **Facebook**: Facebook Login product, "Valid OAuth Redirect URIs", `email` permission.
+- **Facebook**: use case "Authenticate and request data from users with Facebook Login" (older apps: Facebook Login product), "Valid OAuth Redirect URIs", `email` permission.
 - **X**: User authentication settings, OAuth 2.0, type Web App, callback URL. Switch on "Request email" only if
   the app has the email permission.
 
@@ -149,7 +149,7 @@ to providers.
 
 ## Compatibility
 
-- Magento Open Source / Adobe Commerce 2.4.7 – 2.4.9, PHP 8.2 – 8.5, ext-openssl.
+- Magento Open Source / Adobe Commerce 2.4.7 to 2.4.9, PHP 8.2 to 8.5, ext-openssl.
 - Luma, Blank and themes based on them; Hyvä 1.3+ (tested with Hyvä 1.5). The Hyvä checkout uses the Luma
   checkout fallback, so the checkout buttons are the Luma ones.
 - Requires `softaware/module-core` ^1.0.

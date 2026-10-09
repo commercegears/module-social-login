@@ -137,7 +137,7 @@
     <virtualType name="Softaware\SocialLogin\Model\Config\Comment\FacebookCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
         <arguments>
             <argument name="providerCode" xsi:type="string">facebook</argument>
-            <argument name="hint" xsi:type="string">Meta for Developers &gt; your app &gt; Facebook Login &gt; Settings: add this URL to "Valid OAuth Redirect URIs". The app needs the "email" permission.</argument>
+            <argument name="hint" xsi:type="string">Meta for Developers &gt; your app &gt; Use cases &gt; "Authenticate and request data from users with Facebook Login" &gt; Customize &gt; Settings (older apps: Facebook Login &gt; Settings): add this URL to "Valid OAuth Redirect URIs". The app needs the "email" permission.</argument>
         </arguments>
     </virtualType>
     <virtualType name="Softaware\SocialLogin\Model\Config\Comment\TwitterCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">

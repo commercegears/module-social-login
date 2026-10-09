@@ -1,4 +1,4 @@
-# Social Login for Magento 2 — FAQ
+# Social Login for Magento 2: FAQ
 
 **Which providers are supported?**
 Google, Facebook and X (Twitter). Each one can be switched on separately, per website or store view.
@@ -67,4 +67,4 @@ They are kept and shown with their provider code in the admin and under Connecte
 removed. They are not counted as a way to sign in, so customers are never left without one.
 
 **Which Magento and PHP versions are supported?**
-Magento Open Source and Adobe Commerce 2.4.7 – 2.4.9, PHP 8.2 – 8.5.
+Magento Open Source and Adobe Commerce 2.4.7 to 2.4.9, PHP 8.2 to 8.5.
