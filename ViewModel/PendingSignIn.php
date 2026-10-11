@@ -1,19 +1,19 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\ViewModel;
+namespace CommerceGears\SocialLogin\ViewModel;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Softaware\SocialLogin\Model\Account\PendingStorage;
-use Softaware\SocialLogin\Model\Profile;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Model\Account\PendingStorage;
+use CommerceGears\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
 
 /**
  * Data for the "Complete your account" and "Connect your account" steps.

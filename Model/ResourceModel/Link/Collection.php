@@ -1,16 +1,16 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\ResourceModel\Link;
+namespace CommerceGears\SocialLogin\Model\ResourceModel\Link;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Softaware\SocialLogin\Model\Link;
-use Softaware\SocialLogin\Model\ResourceModel\Link as LinkResource;
+use CommerceGears\SocialLogin\Model\Link;
+use CommerceGears\SocialLogin\Model\ResourceModel\Link as LinkResource;
 
 class Collection extends AbstractCollection
 {

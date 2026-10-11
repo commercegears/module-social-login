@@ -1,25 +1,25 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Controller\Adminhtml\Link;
+namespace CommerceGears\SocialLogin\Controller\Adminhtml\Link;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
 
 /**
  * Removes one link (the customer account itself is not touched).
  */
 class Delete extends Action implements HttpPostActionInterface
 {
-    public const ADMIN_RESOURCE = 'Softaware_SocialLogin::links_delete';
+    public const ADMIN_RESOURCE = 'CommerceGears_SocialLogin::links_delete';
 
     public function __construct(
         Context $context,

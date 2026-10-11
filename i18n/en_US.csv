@@ -104,7 +104,7 @@ Enabled,Enabled
 "Button Style","Button Style"
 "Button Colour","Button Colour"
 "Where to Show the Buttons","Where to Show the Buttons"
-"The buttons are also available as the CMS widget ""Softaware Social Login Buttons"" (Content &gt; Widgets, or Insert Widget in a page or block) and as the layout block <code>Softaware\SocialLogin\Block\Buttons</code>.","The buttons are also available as the CMS widget ""Softaware Social Login Buttons"" (Content &gt; Widgets, or Insert Widget in a page or block) and as the layout block <code>Softaware\SocialLogin\Block\Buttons</code>."
+"The buttons are also available as the CMS widget ""CommerceGears Social Login Buttons"" (Content &gt; Widgets, or Insert Widget in a page or block) and as the layout block <code>CommerceGears\SocialLogin\Block\Buttons</code>.","The buttons are also available as the CMS widget ""CommerceGears Social Login Buttons"" (Content &gt; Widgets, or Insert Widget in a page or block) and as the layout block <code>CommerceGears\SocialLogin\Block\Buttons</code>."
 "Sign-in Page","Sign-in Page"
 "Create Account Page","Create Account Page"
 "Authentication Popup and Checkout Sign-in","Authentication Popup and Checkout Sign-in"
@@ -138,7 +138,7 @@ Facebook,Facebook
 "Leave empty for ""Continue with X"".","Leave empty for ""Continue with X""."
 "Test Provider (Developers Only)","Test Provider (Developers Only)"
 "<strong>For development only.</strong> Adds a ""Test provider"" button that lets anyone choose any identity. It works only when Magento runs in developer mode, and its email addresses are never treated as verified, so it cannot sign in to an existing account without that account's password. Never needed on a live store.","<strong>For development only.</strong> Adds a ""Test provider"" button that lets anyone choose any identity. It works only when Magento runs in developer mode, and its email addresses are never treated as verified, so it cannot sign in to an existing account without that account's password. Never needed on a live store."
-"Softaware Social Login Buttons","Softaware Social Login Buttons"
+"CommerceGears Social Login Buttons","CommerceGears Social Login Buttons"
 "Sign-in buttons of the enabled providers. Hidden for signed-in customers.","Sign-in buttons of the enabled providers. Hidden for signed-in customers."
 Heading,Heading
 "Leave empty for no heading.","Leave empty for no heading."

@@ -1,15 +1,15 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Provider;
+namespace CommerceGears\SocialLogin\Model\Provider;
 
-use Softaware\SocialLogin\Model\AuthRequest;
-use Softaware\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Model\AuthRequest;
+use CommerceGears\SocialLogin\Model\Profile;
 
 /**
  * X (Twitter) OAuth 2.0 with PKCE. Works as a confidential client (client secret, HTTP Basic auth)

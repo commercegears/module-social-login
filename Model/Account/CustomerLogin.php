@@ -1,19 +1,19 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Account;
+namespace CommerceGears\SocialLogin\Model\Account;
 
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;
 use Magento\Framework\Stdlib\CookieManagerInterface;
-use Softaware\SocialLogin\Exception\LoginRefusedException;
+use CommerceGears\SocialLogin\Exception\LoginRefusedException;
 
 /**
  * Signs the customer in the same way Magento's login form does.

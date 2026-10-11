@@ -1,5 +1,5 @@
 /**
- * Softaware Social Login: runs in the sign-in popup when the flow has finished.
+ * CommerceGears Social Login: runs in the sign-in popup when the flow has finished.
  * Sends the opening window to the next page and closes the popup; falls back to
  * continuing inside the popup when no opening window answers.
  */

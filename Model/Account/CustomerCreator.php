@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Account;
+namespace CommerceGears\SocialLogin\Model\Account;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
@@ -17,8 +17,8 @@ use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\Math\Random;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
-use Softaware\SocialLogin\Model\Config;
-use Softaware\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Profile;
 
 /**
  * Creates the store account for a new social sign-up (no password; the customer can set one later
@@ -83,7 +83,7 @@ class CustomerCreator
             $this->sendEmail($saved, EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED_NO_PASSWORD, $storeId);
         }
 
-        $this->eventManager->dispatch('softaware_sociallogin_customer_created', [
+        $this->eventManager->dispatch('commercegears_sociallogin_customer_created', [
             'customer' => $saved,
             'provider' => $profile->provider,
             'needs_confirmation' => $needsConfirmation,

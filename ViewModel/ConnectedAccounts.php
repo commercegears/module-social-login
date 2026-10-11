@@ -1,22 +1,22 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\ViewModel;
+namespace CommerceGears\SocialLogin\ViewModel;
 
 use Magento\Customer\Model\CustomerRegistry;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Softaware\SocialLogin\Api\Data\LinkInterface;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
-use Softaware\SocialLogin\Model\Account\SocialAccountService;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Api\Data\LinkInterface;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Model\Account\SocialAccountService;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
 
 /**
  * Data for My Account > Connected Accounts.

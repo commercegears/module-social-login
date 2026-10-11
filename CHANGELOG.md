@@ -1,10 +1,13 @@
 # Changelog
 
+## 2.0.0 (2026-10-11)
+- Improvement: renamed to CommerceGears (new Composer package, admin menu and settings paths)
+
 ## 1.4.2 (2026-10-11)
 - Improvement: button labels accept plain text only (up to 60 characters); sort orders 0 to 9999.
 - Improvement: the Test Provider settings are shown only in developer mode, the only mode in which they work.
 - Improvement: Linked Accounts mass delete says "1 social login link has been removed" instead of "link(s)".
-- Improvement: requires Softaware Core 1.3, which checks these settings on the server when they are saved.
+- Improvement: requires CommerceGears Core 1.3, which checks these settings on the server when they are saved.
 
 ## 1.4.1 (2026-10-09)
 - Improvement: Facebook setup hint and user guide show the current Meta app dashboard path.
@@ -13,7 +16,7 @@
 ## 1.4.0 (2026-10-09)
 - New: note above the buttons in in-app browsers (Instagram, Facebook, TikTok and others) with "Copy link".
 - Improvement: Facebook Graph API v26.0 by default, with "Use system value" to follow the module default.
-- Improvement: Google setup hint uses current Google Cloud console names; docs link to softawarecommerce.com.
+- Improvement: Google setup hint uses current Google Cloud console names; docs link to commercegears.com.
 - Improvement: documentation screenshots retaken.
 
 ## 1.3.0 (2026-10-07)
@@ -27,7 +30,7 @@
 - Fix: documented compatibility corrected to Magento 2.4.7 to 2.4.9.
 
 ## 1.2.0 (2026-10-06)
-- Improvement: requires Softaware Core instead of the retired Softaware Base; admin menu under "Softaware".
+- Improvement: requires CommerceGears Core instead of the retired CommerceGears Base; admin menu under "CommerceGears".
 
 ## 1.1.0 (2026-10-06)
 - Fix: open redirect after sign-in closed; return URLs are now parsed strictly.

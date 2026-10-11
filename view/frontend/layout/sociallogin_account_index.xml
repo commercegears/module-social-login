@@ -3,10 +3,10 @@
     <update handle="customer_account"/>
     <body>
         <referenceContainer name="content">
-            <block class="Magento\Framework\View\Element\Template" name="softaware.sociallogin.connected"
-                   template="Softaware_SocialLogin::account/connected.phtml" cacheable="false">
+            <block class="Magento\Framework\View\Element\Template" name="commercegears.sociallogin.connected"
+                   template="CommerceGears_SocialLogin::account/connected.phtml" cacheable="false">
                 <arguments>
-                    <argument name="view_model" xsi:type="object">Softaware\SocialLogin\ViewModel\ConnectedAccounts</argument>
+                    <argument name="view_model" xsi:type="object">CommerceGears\SocialLogin\ViewModel\ConnectedAccounts</argument>
                 </arguments>
             </block>
         </referenceContainer>

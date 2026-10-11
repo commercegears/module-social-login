@@ -1,16 +1,16 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Plugin;
+namespace CommerceGears\SocialLogin\Plugin;
 
 use Magento\Customer\Block\Account\AuthenticationPopup;
 use Magento\Framework\Serialize\Serializer\Json;
-use Softaware\SocialLogin\Model\ButtonsJsConfig;
+use CommerceGears\SocialLogin\Model\ButtonsJsConfig;
 
 /**
  * Adds the buttons to Luma's authentication popup ("Checkout using your account").
@@ -37,7 +37,7 @@ class AuthenticationPopupPlugin
         if (!isset($layout['components']['authenticationPopup'])) {
             return $result;
         }
-        $layout['components']['authenticationPopup']['children']['softaware-social-login'] = $component;
+        $layout['components']['authenticationPopup']['children']['commercegears-social-login'] = $component;
         return (string)$this->json->serialize($layout);
     }
 }

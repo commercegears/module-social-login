@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Controller\Test;
+namespace CommerceGears\SocialLogin\Controller\Test;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\Action\HttpPostActionInterface;
@@ -14,8 +14,8 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\ForwardFactory;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\View\Result\PageFactory;
-use Softaware\SocialLogin\Model\CallbackUrl;
-use Softaware\SocialLogin\Model\Provider\TestProvider;
+use CommerceGears\SocialLogin\Model\CallbackUrl;
+use CommerceGears\SocialLogin\Model\Provider\TestProvider;
 
 /**
  * TEST ONLY consent page of the local test provider (developer mode + switched on in config).

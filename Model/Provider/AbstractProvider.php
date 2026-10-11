@@ -1,16 +1,16 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Provider;
+namespace CommerceGears\SocialLogin\Model\Provider;
 
-use Softaware\SocialLogin\Exception\SocialLoginException;
-use Softaware\SocialLogin\Model\AuthRequest;
-use Softaware\SocialLogin\Model\Jwt\Base64Url;
+use CommerceGears\SocialLogin\Exception\SocialLoginException;
+use CommerceGears\SocialLogin\Model\AuthRequest;
+use CommerceGears\SocialLogin\Model\Jwt\Base64Url;
 
 /**
  * OAuth 2.0 authorisation code flow (RFC 6749) with optional PKCE (RFC 7636).

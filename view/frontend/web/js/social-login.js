@@ -1,5 +1,5 @@
 /**
- * Softaware Social Login: button behaviour for Luma (RequireJS module) and Hyvä (plain script).
+ * CommerceGears Social Login: button behaviour for Luma (RequireJS module) and Hyvä (plain script).
  * No jQuery, no Knockout.
  *
  * - Adds the current page as "return" URL to the sign-in link.
@@ -14,8 +14,8 @@
     if (typeof define === 'function' && define.amd) {
         define(['Magento_Customer/js/customer-data'], factory);
     } else {
-        window.SoftawareSocialLogin = factory(null);
-        window.SoftawareSocialLogin();
+        window.CommerceGearsSocialLogin = factory(null);
+        window.CommerceGearsSocialLogin();
     }
 }(function (customerData) {
     'use strict';

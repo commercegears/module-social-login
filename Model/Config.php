@@ -1,22 +1,22 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model;
+namespace CommerceGears\SocialLogin\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
 /**
- * Typed access to Stores > Configuration > Softaware > Social Login.
+ * Typed access to Stores > Configuration > CommerceGears > Social Login.
  */
 class Config
 {
-    public const SECTION = 'softaware_sociallogin';
+    public const SECTION = 'commercegears_sociallogin';
 
     public const LOGIN_MODE_REDIRECT = 'redirect';
     public const LOGIN_MODE_POPUP = 'popup';

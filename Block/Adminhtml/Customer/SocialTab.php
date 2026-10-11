@@ -1,27 +1,27 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Block\Adminhtml\Customer;
+namespace CommerceGears\SocialLogin\Block\Adminhtml\Customer;
 
 use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
 use Magento\Ui\Component\Layout\Tabs\TabInterface;
-use Softaware\SocialLogin\Api\Data\LinkInterface;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
-use Softaware\SocialLogin\ViewModel\ProviderIcons;
+use CommerceGears\SocialLogin\Api\Data\LinkInterface;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\ViewModel\ProviderIcons;
 
 /**
  * "Social Login" tab on the customer edit page: providers linked to this customer.
  */
 class SocialTab extends Template implements TabInterface
 {
-    protected $_template = 'Softaware_SocialLogin::customer/tab.phtml';
+    protected $_template = 'CommerceGears_SocialLogin::customer/tab.phtml';
 
     public function __construct(
         Context $context,
@@ -59,12 +59,12 @@ class SocialTab extends Template implements TabInterface
 
     public function canRemove(): bool
     {
-        return $this->_authorization->isAllowed('Softaware_SocialLogin::links_delete');
+        return $this->_authorization->isAllowed('CommerceGears_SocialLogin::links_delete');
     }
 
     public function getRemoveUrl(LinkInterface $link): string
     {
-        return $this->getUrl('softaware_sociallogin/link/delete', [
+        return $this->getUrl('commercegears_sociallogin/link/delete', [
             'id' => $link->getId(),
             'customer_id' => $this->getCustomerId(),
         ]);
@@ -102,7 +102,7 @@ class SocialTab extends Template implements TabInterface
 
     public function canShowTab()
     {
-        return $this->getCustomerId() > 0 && $this->_authorization->isAllowed('Softaware_SocialLogin::links');
+        return $this->getCustomerId() > 0 && $this->_authorization->isAllowed('CommerceGears_SocialLogin::links');
     }
 
     public function isHidden()

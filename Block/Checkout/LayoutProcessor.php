@@ -1,15 +1,15 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Block\Checkout;
+namespace CommerceGears\SocialLogin\Block\Checkout;
 
 use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
-use Softaware\SocialLogin\Model\ButtonsJsConfig;
+use CommerceGears\SocialLogin\Model\ButtonsJsConfig;
 
 /**
  * Adds the buttons to the checkout "Sign In" dropdown and, optionally, above the email field.
@@ -25,7 +25,7 @@ class LayoutProcessor implements LayoutProcessorInterface
     {
         $auth = $this->buttonsJsConfig->get('auth_popup', 'checkout_auth', 'before', (string)__('Sign in with'));
         if ($auth !== null && isset($jsLayout['components']['checkout']['children']['authentication'])) {
-            $jsLayout['components']['checkout']['children']['authentication']['children']['softaware-social-login'] = $auth;
+            $jsLayout['components']['checkout']['children']['authentication']['children']['commercegears-social-login'] = $auth;
         }
 
         $email = $this->buttonsJsConfig->get('checkout', 'checkout_email', 'before-login-form', (string)__('Sign in faster with'));
@@ -35,13 +35,13 @@ class LayoutProcessor implements LayoutProcessorInterface
                 ['children']['before-login-form'])) {
                 $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
                     ['shippingAddress']['children']['customer-email']['children']['before-login-form']['children']
-                    ['softaware-social-login'] = $email;
+                    ['commercegears-social-login'] = $email;
             }
             if (isset($steps['billing-step']['children']['payment']['children']['customer-email']
                 ['children']['before-login-form'])) {
                 $jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']
                     ['payment']['children']['customer-email']['children']['before-login-form']['children']
-                    ['softaware-social-login'] = $email;
+                    ['commercegears-social-login'] = $email;
             }
         }
         return $jsLayout;

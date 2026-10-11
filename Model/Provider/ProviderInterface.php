@@ -1,23 +1,23 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Provider;
+namespace CommerceGears\SocialLogin\Model\Provider;
 
-use Softaware\SocialLogin\Model\AuthRequest;
-use Softaware\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Model\AuthRequest;
+use CommerceGears\SocialLogin\Model\Profile;
 
 /**
- * An identity provider. Register new ones in di.xml on Softaware\SocialLogin\Model\Provider\ProviderPool.
+ * An identity provider. Register new ones in di.xml on CommerceGears\SocialLogin\Model\Provider\ProviderPool.
  */
 interface ProviderInterface
 {
     /**
-     * Lower-case code, also the config group id (softaware_sociallogin/<code>/...).
+     * Lower-case code, also the config group id (commercegears_sociallogin/<code>/...).
      */
     public function getCode(): string;
 
@@ -47,7 +47,7 @@ interface ProviderInterface
      * Exchanges the authorisation code and returns the verified identity.
      *
      * @param array $callbackParams Request parameters received on the callback
-     * @throws \Softaware\SocialLogin\Exception\SocialLoginException
+     * @throws \CommerceGears\SocialLogin\Exception\SocialLoginException
      */
     public function fetchProfile(AuthRequest $request, array $callbackParams): Profile;
 }

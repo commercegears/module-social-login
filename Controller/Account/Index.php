@@ -1,18 +1,18 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Controller\Account;
+namespace CommerceGears\SocialLogin\Controller\Account;
 
 use Magento\Customer\Controller\AbstractAccount;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\View\Result\PageFactory;
-use Softaware\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Config;
 
 /**
  * My Account > Connected Accounts. Login is enforced by Magento for AbstractAccount controllers.

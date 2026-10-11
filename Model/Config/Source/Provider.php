@@ -1,17 +1,17 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Config\Source;
+namespace CommerceGears\SocialLogin\Model\Config\Source;
 
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Data\OptionSourceInterface;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
-use Softaware\SocialLogin\Model\ResourceModel\Link as LinkResource;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Model\ResourceModel\Link as LinkResource;
 
 /**
  * Providers for the admin grid (column labels and filter): the registered providers plus provider codes that

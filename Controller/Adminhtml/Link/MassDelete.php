@@ -1,26 +1,26 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Controller\Adminhtml\Link;
+namespace CommerceGears\SocialLogin\Controller\Adminhtml\Link;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Ui\Component\MassAction\Filter;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
-use Softaware\SocialLogin\Model\ResourceModel\Link\CollectionFactory;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Model\ResourceModel\Link\CollectionFactory;
 
 /**
  * Removes the selected links.
  */
 class MassDelete extends Action implements HttpPostActionInterface
 {
-    public const ADMIN_RESOURCE = 'Softaware_SocialLogin::links_delete';
+    public const ADMIN_RESOURCE = 'CommerceGears_SocialLogin::links_delete';
 
     public function __construct(
         Context $context,

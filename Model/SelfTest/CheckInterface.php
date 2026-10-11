@@ -1,17 +1,17 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\SelfTest;
+namespace CommerceGears\SocialLogin\Model\SelfTest;
 
 /**
- * Additional checks for bin/magento softaware:social-login:self-test, e.g. from a module that adds providers.
+ * Additional checks for bin/magento commercegears:social-login:self-test, e.g. from a module that adds providers.
  * Register implementations in di.xml in the "checks" argument of
- * Softaware\SocialLogin\Console\Command\SelfTestCommand.
+ * CommerceGears\SocialLogin\Console\Command\SelfTestCommand.
  *
  * Checks must not contact any provider and must clean up whatever they create.
  */

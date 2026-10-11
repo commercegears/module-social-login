@@ -1,26 +1,26 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Block;
+namespace CommerceGears\SocialLogin\Block;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Widget\Block\BlockInterface;
-use Softaware\SocialLogin\Model\Config;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
-use Softaware\SocialLogin\Model\ThemeDetector;
-use Softaware\SocialLogin\ViewModel\ProviderIcons;
+use CommerceGears\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Model\ThemeDetector;
+use CommerceGears\SocialLogin\ViewModel\ProviderIcons;
 
 /**
  * Social sign-in buttons. Used on the login and registration pages, in the Hyvä authentication
- * popup, as a CMS widget ("Softaware Social Login Buttons") and as a layout block:
+ * popup, as a CMS widget ("CommerceGears Social Login Buttons") and as a layout block:
  *
- *   <block class="Softaware\SocialLogin\Block\Buttons" name="my.social.buttons">
+ *   <block class="CommerceGears\SocialLogin\Block\Buttons" name="my.social.buttons">
  *       <arguments><argument name="place" xsi:type="string">widget</argument></arguments>
  *   </block>
  *
@@ -29,8 +29,8 @@ use Softaware\SocialLogin\ViewModel\ProviderIcons;
  */
 class Buttons extends Template implements BlockInterface
 {
-    public const TEMPLATE_LUMA = 'Softaware_SocialLogin::buttons.phtml';
-    public const TEMPLATE_HYVA = 'Softaware_SocialLogin::hyva/buttons.phtml';
+    public const TEMPLATE_LUMA = 'CommerceGears_SocialLogin::buttons.phtml';
+    public const TEMPLATE_HYVA = 'CommerceGears_SocialLogin::hyva/buttons.phtml';
 
     protected $_template = self::TEMPLATE_LUMA;
 
@@ -134,7 +134,7 @@ class Buttons extends Template implements BlockInterface
 
     public function getScriptUrl(): string
     {
-        return $this->getViewFileUrl('Softaware_SocialLogin::js/social-login.js');
+        return $this->getViewFileUrl('CommerceGears_SocialLogin::js/social-login.js');
     }
 
     protected function _toHtml()

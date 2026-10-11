@@ -1,19 +1,19 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Controller\Account;
+namespace CommerceGears\SocialLogin\Controller\Account;
 
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Magento\Framework\View\Result\PageFactory;
-use Softaware\SocialLogin\Model\Account\PendingStorage;
+use CommerceGears\SocialLogin\Model\Account\PendingStorage;
 
 /**
  * "Connect your account": an account with this email exists; its password proves ownership.

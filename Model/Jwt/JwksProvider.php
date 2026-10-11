@@ -1,16 +1,16 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Jwt;
+namespace CommerceGears\SocialLogin\Model\Jwt;
 
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\Serialize\Serializer\Json;
-use Softaware\SocialLogin\Model\Http\HttpClient;
+use CommerceGears\SocialLogin\Model\Http\HttpClient;
 
 /**
  * Fetches and caches a provider's JWK set. Refetches once when a token names an unknown key
@@ -18,8 +18,8 @@ use Softaware\SocialLogin\Model\Http\HttpClient;
  */
 class JwksProvider
 {
-    private const CACHE_PREFIX = 'softaware_sociallogin_jwks_';
-    private const CACHE_TAG = 'SOFTAWARE_SOCIALLOGIN_JWKS';
+    private const CACHE_PREFIX = 'commercegears_sociallogin_jwks_';
+    private const CACHE_TAG = 'COMMERCEGEARS_SOCIALLOGIN_JWKS';
     private const LIFETIME = 21600;
     private const MIN_REFRESH_INTERVAL = 300;
 

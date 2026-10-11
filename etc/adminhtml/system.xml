@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="softaware_sociallogin" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="commercegears_sociallogin" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Social Login</label>
-            <tab>softaware</tab>
-            <resource>Softaware_SocialLogin::config</resource>
+            <tab>commercegears</tab>
+            <resource>CommerceGears_SocialLogin::config</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -15,20 +15,20 @@
                 <field id="login_mode" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Sign-in Window</label>
                     <comment><![CDATA[Popup keeps the shopper on the current page; browsers that block the popup fall back to a full-page redirect.]]></comment>
-                    <source_model>Softaware\SocialLogin\Model\Config\Source\LoginMode</source_model>
+                    <source_model>CommerceGears\SocialLogin\Model\Config\Source\LoginMode</source_model>
                 </field>
                 <field id="button_style" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button Style</label>
-                    <source_model>Softaware\SocialLogin\Model\Config\Source\ButtonStyle</source_model>
+                    <source_model>CommerceGears\SocialLogin\Model\Config\Source\ButtonStyle</source_model>
                 </field>
                 <field id="button_theme" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button Colour</label>
-                    <source_model>Softaware\SocialLogin\Model\Config\Source\ButtonTheme</source_model>
+                    <source_model>CommerceGears\SocialLogin\Model\Config\Source\ButtonTheme</source_model>
                 </field>
             </group>
             <group id="display" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Where to Show the Buttons</label>
-                <comment><![CDATA[The buttons are also available as the CMS widget "Softaware Social Login Buttons" (Content &gt; Widgets, or Insert Widget in a page or block) and as the layout block <code>Softaware\SocialLogin\Block\Buttons</code>.]]></comment>
+                <comment><![CDATA[The buttons are also available as the CMS widget "CommerceGears Social Login Buttons" (Content &gt; Widgets, or Insert Widget in a page or block) and as the layout block <code>CommerceGears\SocialLogin\Block\Buttons</code>.]]></comment>
                 <field id="login_page" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Sign-in Page</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -58,7 +58,7 @@
                 <field id="link_mode" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Existing Account with the Same Email</label>
                     <comment><![CDATA[Automatic linking only applies to addresses the provider has verified and is responsible for (for example Gmail and Google Workspace addresses at Google, or a verified X address). Other addresses, and addresses the shopper typed in, always require the account password.]]></comment>
-                    <source_model>Softaware\SocialLogin\Model\Config\Source\LinkMode</source_model>
+                    <source_model>CommerceGears\SocialLogin\Model\Config\Source\LinkMode</source_model>
                 </field>
                 <field id="send_welcome_email" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Send Welcome Email to New Customers</label>
@@ -67,11 +67,11 @@
                 </field>
                 <field id="customer_group" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Customer Group for Social Sign-ups</label>
-                    <source_model>Softaware\SocialLogin\Model\Config\Source\CustomerGroup</source_model>
+                    <source_model>CommerceGears\SocialLogin\Model\Config\Source\CustomerGroup</source_model>
                 </field>
                 <field id="redirect" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>After Sign-in</label>
-                    <source_model>Softaware\SocialLogin\Model\Config\Source\RedirectTarget</source_model>
+                    <source_model>CommerceGears\SocialLogin\Model\Config\Source\RedirectTarget</source_model>
                 </field>
                 <field id="redirect_custom_url" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Custom URL</label>
@@ -84,7 +84,7 @@
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><model>Softaware\SocialLogin\Model\Config\Comment\GoogleCallbackUrl</model></comment>
+                    <comment><model>CommerceGears\SocialLogin\Model\Config\Comment\GoogleCallbackUrl</model></comment>
                 </field>
                 <field id="client_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Client ID</label>
@@ -109,7 +109,7 @@
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><model>Softaware\SocialLogin\Model\Config\Comment\FacebookCallbackUrl</model></comment>
+                    <comment><model>CommerceGears\SocialLogin\Model\Config\Comment\FacebookCallbackUrl</model></comment>
                 </field>
                 <field id="client_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>App ID</label>
@@ -138,7 +138,7 @@
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><model>Softaware\SocialLogin\Model\Config\Comment\TwitterCallbackUrl</model></comment>
+                    <comment><model>CommerceGears\SocialLogin\Model\Config\Comment\TwitterCallbackUrl</model></comment>
                 </field>
                 <field id="client_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Client ID</label>

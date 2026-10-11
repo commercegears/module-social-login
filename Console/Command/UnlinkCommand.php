@@ -1,15 +1,15 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Console\Command;
+namespace CommerceGears\SocialLogin\Console\Command;
 
 use Magento\Framework\Exception\LocalizedException;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,8 +28,8 @@ class UnlinkCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('softaware:social-login:unlink')
-            ->setDescription('Removes a social login link by its ID (see softaware:social-login:links).')
+        $this->setName('commercegears:social-login:unlink')
+            ->setDescription('Removes a social login link by its ID (see commercegears:social-login:links).')
             ->addArgument('link_id', InputArgument::REQUIRED, 'Link ID');
     }
 

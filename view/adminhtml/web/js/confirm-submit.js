@@ -1,5 +1,5 @@
 /**
- * Softaware Social Login: asks for confirmation before submitting a form (admin).
+ * CommerceGears Social Login: asks for confirmation before submitting a form (admin).
  */
 define(['Magento_Ui/js/modal/confirm'], function (confirm) {
     'use strict';

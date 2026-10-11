@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Ui\Component\Listing\Column;
+namespace CommerceGears\SocialLogin\Ui\Component\Listing\Column;
 
 use Magento\Framework\AuthorizationInterface;
 use Magento\Framework\UrlInterface;
@@ -35,7 +35,7 @@ class LinkActions extends Column
         if (!isset($dataSource['data']['items'])) {
             return $dataSource;
         }
-        $canDelete = $this->authorization->isAllowed('Softaware_SocialLogin::links_delete');
+        $canDelete = $this->authorization->isAllowed('CommerceGears_SocialLogin::links_delete');
         foreach ($dataSource['data']['items'] as &$item) {
             $name = $this->getData('name');
             $item[$name]['customer'] = [
@@ -44,7 +44,7 @@ class LinkActions extends Column
             ];
             if ($canDelete) {
                 $item[$name]['delete'] = [
-                    'href' => $this->urlBuilder->getUrl('softaware_sociallogin/link/delete', ['id' => $item['link_id']]),
+                    'href' => $this->urlBuilder->getUrl('commercegears_sociallogin/link/delete', ['id' => $item['link_id']]),
                     'label' => __('Remove Link'),
                     'post' => true,
                     'confirm' => [

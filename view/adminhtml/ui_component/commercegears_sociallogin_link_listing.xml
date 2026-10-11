@@ -2,24 +2,24 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">softaware_sociallogin_link_listing.softaware_sociallogin_link_listing_data_source</item>
+            <item name="provider" xsi:type="string">commercegears_sociallogin_link_listing.commercegears_sociallogin_link_listing_data_source</item>
         </item>
     </argument>
     <settings>
-        <spinner>softaware_sociallogin_link_columns</spinner>
+        <spinner>commercegears_sociallogin_link_columns</spinner>
         <deps>
-            <dep>softaware_sociallogin_link_listing.softaware_sociallogin_link_listing_data_source</dep>
+            <dep>commercegears_sociallogin_link_listing.commercegears_sociallogin_link_listing_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="softaware_sociallogin_link_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="commercegears_sociallogin_link_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">link_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Softaware_SocialLogin::links</aclResource>
-        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="softaware_sociallogin_link_listing_data_source">
+        <aclResource>CommerceGears_SocialLogin::links</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="commercegears_sociallogin_link_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>link_id</primaryFieldName>
@@ -45,7 +45,7 @@
                         <message translate="true">Remove the selected links? The customer accounts are kept; the customers can no longer sign in with these providers until they connect them again.</message>
                         <title translate="true">Remove links</title>
                     </confirm>
-                    <url path="softaware_sociallogin/link/massDelete"/>
+                    <url path="commercegears_sociallogin/link/massDelete"/>
                     <type>delete</type>
                     <label translate="true">Remove link</label>
                 </settings>
@@ -53,7 +53,7 @@
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="softaware_sociallogin_link_columns">
+    <columns name="commercegears_sociallogin_link_columns">
         <selectionsColumn name="ids">
             <settings>
                 <indexField>link_id</indexField>
@@ -80,7 +80,7 @@
         </column>
         <column name="provider" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <options class="Softaware\SocialLogin\Model\Config\Source\Provider"/>
+                <options class="CommerceGears\SocialLogin\Model\Config\Source\Provider"/>
                 <filter>select</filter>
                 <dataType>select</dataType>
                 <label translate="true">Provider</label>
@@ -128,7 +128,7 @@
                 <label translate="true">Sign-ins</label>
             </settings>
         </column>
-        <actionsColumn name="actions" class="Softaware\SocialLogin\Ui\Component\Listing\Column\LinkActions">
+        <actionsColumn name="actions" class="CommerceGears\SocialLogin\Ui\Component\Listing\Column\LinkActions">
             <settings>
                 <indexField>link_id</indexField>
             </settings>

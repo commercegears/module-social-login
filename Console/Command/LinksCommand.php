@@ -1,14 +1,14 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Console\Command;
+namespace CommerceGears\SocialLogin\Console\Command;
 
-use Softaware\SocialLogin\Model\ResourceModel\Link\CollectionFactory;
+use CommerceGears\SocialLogin\Model\ResourceModel\Link\CollectionFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,7 +28,7 @@ class LinksCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('softaware:social-login:links')
+        $this->setName('commercegears:social-login:links')
             ->setDescription('Lists customer accounts linked to sign-in providers.')
             ->addOption('customer', 'c', InputOption::VALUE_REQUIRED, 'Customer ID or email')
             ->addOption('provider', 'p', InputOption::VALUE_REQUIRED, 'Provider code, e.g. google')

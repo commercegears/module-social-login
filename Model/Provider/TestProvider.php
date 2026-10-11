@@ -1,19 +1,19 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Provider;
+namespace CommerceGears\SocialLogin\Model\Provider;
 
 use Magento\Framework\App\State as AppState;
 use Magento\Framework\FlagManager;
 use Magento\Framework\UrlInterface;
-use Softaware\SocialLogin\Model\AuthRequest;
-use Softaware\SocialLogin\Model\Jwt\Base64Url;
-use Softaware\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Model\AuthRequest;
+use CommerceGears\SocialLogin\Model\Jwt\Base64Url;
+use CommerceGears\SocialLogin\Model\Profile;
 
 /**
  * TEST ONLY. A local identity provider for trying the whole flow without real provider apps.
@@ -26,10 +26,10 @@ use Softaware\SocialLogin\Model\Profile;
  */
 class TestProvider extends AbstractOidcProvider
 {
-    public const ISSUER = 'urn:softaware:sociallogin:test-idp';
-    public const CLIENT_ID = 'softaware-sociallogin-test';
-    public const JWKS_URI = 'local://softaware-sociallogin-test/jwks';
-    private const FLAG_KEY = 'softaware_sociallogin_test_key';
+    public const ISSUER = 'urn:commercegears:sociallogin:test-idp';
+    public const CLIENT_ID = 'commercegears-sociallogin-test';
+    public const JWKS_URI = 'local://commercegears-sociallogin-test/jwks';
+    private const FLAG_KEY = 'commercegears_sociallogin_test_key';
     private const KEY_ID = 'sw-test-1';
 
     public function __construct(

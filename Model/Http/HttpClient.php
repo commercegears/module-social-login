@@ -1,15 +1,15 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Http;
+namespace CommerceGears\SocialLogin\Model\Http;
 
 use Magento\Framework\HTTP\Client\CurlFactory;
-use Softaware\SocialLogin\Exception\SocialLoginException;
+use CommerceGears\SocialLogin\Exception\SocialLoginException;
 
 /**
  * Small JSON-over-HTTPS client for token, userinfo and JWKS endpoints.
@@ -18,7 +18,7 @@ use Softaware\SocialLogin\Exception\SocialLoginException;
 class HttpClient
 {
     private const TIMEOUT = 15;
-    private const USER_AGENT = 'Softaware-SocialLogin/1.0 (Magento 2)';
+    private const USER_AGENT = 'CommerceGears-SocialLogin/1.0 (Magento 2)';
 
     public function __construct(
         private readonly CurlFactory $curlFactory

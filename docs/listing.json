@@ -99,7 +99,7 @@
                 "Optional welcome email",
                 "Link existing customers automatically or after their password",
                 "Existing customers only mode for B2B and trade shops",
-                "Works with Softaware Customer Approval"
+                "Works with CommerceGears Customer Approval"
             ]
         },
         {
@@ -138,25 +138,25 @@
         "storefront": [
             {
                 "label": "Luma storefront",
-                "url": "https://demo.softawarecommerce.com/customer/account/login/",
+                "url": "https://demo.commercegears.com/customer/account/login/",
                 "image": "docs/images/sign-in-luma.png"
             },
             {
                 "label": "Hyvä storefront",
-                "url": "https://demo.softawarecommerce.com/hyva/customer/account/login/",
+                "url": "https://demo.commercegears.com/hyva/customer/account/login/",
                 "image": "docs/images/sign-in-hyva.png"
             }
         ],
         "admin": [
             {
                 "label": "Admin panel",
-                "url": "https://demo.softawarecommerce.com/try-admin/social-login",
+                "url": "https://demo.commercegears.com/try-admin/social-login",
                 "image": "docs/images/admin-settings.png"
             }
         ]
     },
     "upsell": {
-        "package": "softaware/module-social-login-pro",
+        "package": "commercegears/module-social-login-pro",
         "title": "Need Apple, Microsoft, LinkedIn, Amazon or GitHub?",
         "text": "Social Login Pro adds five more providers to the same buttons, settings and account rules.",
         "compare": [

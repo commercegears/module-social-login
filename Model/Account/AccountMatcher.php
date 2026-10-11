@@ -1,18 +1,18 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Account;
+namespace CommerceGears\SocialLogin\Model\Account;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
-use Softaware\SocialLogin\Model\Config;
-use Softaware\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Profile;
 
 /**
  * Decides how a provider identity maps to a customer account. Has no side effects.

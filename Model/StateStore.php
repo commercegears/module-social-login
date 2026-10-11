@@ -1,17 +1,17 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model;
+namespace CommerceGears\SocialLogin\Model;
 
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Framework\Serialize\Serializer\Json;
-use Softaware\SocialLogin\Model\Jwt\Base64Url;
+use CommerceGears\SocialLogin\Model\Jwt\Base64Url;
 
 /**
  * Pending authorisation requests, stored server-side (not in the PHP session, which a cross-site
@@ -20,7 +20,7 @@ use Softaware\SocialLogin\Model\Jwt\Base64Url;
  */
 class StateStore
 {
-    public const TABLE = 'softaware_social_login_state';
+    public const TABLE = 'commercegears_social_login_state';
     public const TTL = 900;
 
     public function __construct(

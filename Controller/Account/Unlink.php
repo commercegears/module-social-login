@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Controller\Account;
+namespace CommerceGears\SocialLogin\Controller\Account;
 
 use Magento\Customer\Controller\AbstractAccount;
 use Magento\Customer\Model\CustomerRegistry;
@@ -14,10 +14,10 @@ use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
-use Softaware\SocialLogin\Model\Account\SocialAccountService;
-use Softaware\SocialLogin\Model\Config;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Model\Account\SocialAccountService;
+use CommerceGears\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
 
 /**
  * Disconnects a provider (POST with form key). Refused when it is the only way to sign in.

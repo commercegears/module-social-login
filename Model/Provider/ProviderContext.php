@@ -1,17 +1,17 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Provider;
+namespace CommerceGears\SocialLogin\Model\Provider;
 
-use Softaware\SocialLogin\Model\Config;
-use Softaware\SocialLogin\Model\Http\HttpClient;
-use Softaware\SocialLogin\Model\Jwt\JwksProvider;
-use Softaware\SocialLogin\Model\Jwt\JwtValidator;
+use CommerceGears\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Http\HttpClient;
+use CommerceGears\SocialLogin\Model\Jwt\JwksProvider;
+use CommerceGears\SocialLogin\Model\Jwt\JwtValidator;
 
 /**
  * Shared dependencies of all providers. A provider that needs more declares its own constructor

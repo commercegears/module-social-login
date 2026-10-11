@@ -1,18 +1,18 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Config\Comment;
+namespace CommerceGears\SocialLogin\Model\Config\Comment;
 
 use Magento\Config\Model\Config\CommentInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Escaper;
 use Magento\Store\Model\StoreManagerInterface;
-use Softaware\SocialLogin\Model\CallbackUrl as CallbackUrlBuilder;
+use CommerceGears\SocialLogin\Model\CallbackUrl as CallbackUrlBuilder;
 
 /**
  * Shows the exact redirect/callback URL to register at the provider, for the store view selected

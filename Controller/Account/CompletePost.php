@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Controller\Account;
+namespace CommerceGears\SocialLogin\Controller\Account;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
@@ -14,9 +14,9 @@ use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Psr\Log\LoggerInterface;
-use Softaware\SocialLogin\Exception\LoginRefusedException;
-use Softaware\SocialLogin\Model\Account\SocialAccountService;
-use Softaware\SocialLogin\Model\FlowResponder;
+use CommerceGears\SocialLogin\Exception\LoginRefusedException;
+use CommerceGears\SocialLogin\Model\Account\SocialAccountService;
+use CommerceGears\SocialLogin\Model\FlowResponder;
 
 /**
  * Handles the "Complete your account" form (form key validated by Magento).

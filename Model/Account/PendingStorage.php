@@ -1,15 +1,15 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Account;
+namespace CommerceGears\SocialLogin\Model\Account;
 
 use Magento\Customer\Model\Session as CustomerSession;
-use Softaware\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Model\Profile;
 
 /**
  * Keeps a verified provider identity in the session while the customer completes a step
@@ -17,7 +17,7 @@ use Softaware\SocialLogin\Model\Profile;
  */
 class PendingStorage
 {
-    private const KEY = 'softaware_sociallogin_pending';
+    private const KEY = 'commercegears_sociallogin_pending';
     private const TTL = 900;
 
     public function __construct(

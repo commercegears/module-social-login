@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Console\Command;
+namespace CommerceGears\SocialLogin\Console\Command;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterfaceFactory;
@@ -15,25 +15,25 @@ use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\App\State as AppState;
 use Magento\Framework\Registry;
 use Magento\Store\Model\StoreManagerInterface;
-use Softaware\SocialLogin\Api\Data\LinkInterfaceFactory;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
-use Softaware\SocialLogin\Model\Account\AccountMatcher;
-use Softaware\SocialLogin\Model\Account\Decision;
-use Softaware\SocialLogin\Model\Account\SocialAccountService;
-use Softaware\SocialLogin\Model\AuthRequest;
-use Softaware\SocialLogin\Model\Config;
-use Softaware\SocialLogin\Model\Jwt\Base64Url;
-use Softaware\SocialLogin\Model\Jwt\Der;
-use Softaware\SocialLogin\Model\Jwt\JwtException;
-use Softaware\SocialLogin\Model\Jwt\JwtValidator;
-use Softaware\SocialLogin\Model\Profile;
-use Softaware\SocialLogin\Model\Provider\AbstractProvider;
-use Softaware\SocialLogin\Model\Provider\Google;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
-use Softaware\SocialLogin\Model\RedirectResolver;
-use Softaware\SocialLogin\Model\SelfTest\CheckInterface;
-use Softaware\SocialLogin\Model\SelfTest\Reporter;
-use Softaware\SocialLogin\Model\StateStore;
+use CommerceGears\SocialLogin\Api\Data\LinkInterfaceFactory;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Model\Account\AccountMatcher;
+use CommerceGears\SocialLogin\Model\Account\Decision;
+use CommerceGears\SocialLogin\Model\Account\SocialAccountService;
+use CommerceGears\SocialLogin\Model\AuthRequest;
+use CommerceGears\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Jwt\Base64Url;
+use CommerceGears\SocialLogin\Model\Jwt\Der;
+use CommerceGears\SocialLogin\Model\Jwt\JwtException;
+use CommerceGears\SocialLogin\Model\Jwt\JwtValidator;
+use CommerceGears\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Model\Provider\AbstractProvider;
+use CommerceGears\SocialLogin\Model\Provider\Google;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Model\RedirectResolver;
+use CommerceGears\SocialLogin\Model\SelfTest\CheckInterface;
+use CommerceGears\SocialLogin\Model\SelfTest\Reporter;
+use CommerceGears\SocialLogin\Model\StateStore;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -77,7 +77,7 @@ class SelfTestCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('softaware:social-login:self-test')
+        $this->setName('commercegears:social-login:self-test')
             ->setDescription('Tests PKCE, ID token validation, the state store, return URLs, email trust and account matching (no provider calls).')
             ->addOption('accounts', null, InputOption::VALUE_NONE, 'Also test account matching with temporary "Test SocialLogin" customers (removed afterwards).');
     }

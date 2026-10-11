@@ -3,10 +3,10 @@
 Let customers sign in and register with **Google, Facebook and X (Twitter)** in one click. This guide covers
 installation, configuration, provider setup and day-to-day use.
 
-- Demo (Luma): https://demo.softawarecommerce.com/customer/account/login/
-- Demo (Hyvä): https://demo.softawarecommerce.com/hyva/customer/account/login/
-- Admin demo: https://demo.softawarecommerce.com/try-admin/social-login
-- Product page (free): https://softawarecommerce.com/shop/magento-2-extensions/social-login-for-magento-2/
+- Demo (Luma): https://demo.commercegears.com/customer/account/login/
+- Demo (Hyvä): https://demo.commercegears.com/hyva/customer/account/login/
+- Admin demo: https://demo.commercegears.com/try-admin/social-login
+- Product page (free): https://commercegears.com/shop/magento-2-extensions/social-login-for-magento-2/
 - Changelog: [CHANGELOG.md](../CHANGELOG.md) · Questions: [FAQ](faq.md)
 
 ![Sign-in page with social login buttons](images/sign-in-luma.png)
@@ -18,20 +18,20 @@ installation, configuration, provider setup and day-to-day use.
 | Magento | Open Source or Adobe Commerce 2.4.7 to 2.4.9 |
 | PHP | 8.2 to 8.5 with `ext-openssl` and `ext-json` |
 | Themes | Luma, Blank and themes based on them; Hyvä 1.3+ |
-| Other | `softaware/module-core` (installed automatically) |
+| Other | `commercegears/module-core` (installed automatically) |
 
 No provider SDKs or JWT libraries are installed: the module talks to the providers through Magento's own HTTP
 client and PHP's OpenSSL extension.
 
 ## 2. Installation
 
-With Composer (recommended). Social Login is free; get it on the [product page](https://softawarecommerce.com/shop/magento-2-extensions/social-login-for-magento-2/) and use the Composer keys
-from your account on softawarecommerce.com (My account > Composer keys, https://softawarecommerce.com/my-modules/keys/):
+With Composer (recommended). Social Login is free; get it on the [product page](https://commercegears.com/shop/magento-2-extensions/social-login-for-magento-2/) and use the Composer keys
+from your account on commercegears.com (My account > Composer keys, https://commercegears.com/my-modules/keys/):
 
 ```bash
-composer config repositories.softaware composer https://repo.softawarecommerce.com
-composer config --auth http-basic.repo.softawarecommerce.com PUBLIC_KEY PRIVATE_KEY
-composer require softaware/module-social-login
+composer config repositories.commercegears composer https://repo.commercegears.com
+composer config --auth http-basic.repo.commercegears.com PUBLIC_KEY PRIVATE_KEY
+composer require commercegears/module-social-login
 bin/magento setup:upgrade
 bin/magento setup:di:compile            # production mode only
 bin/magento setup:static-content:deploy # production mode only
@@ -41,11 +41,11 @@ bin/magento cache:flush
 On Hyvä, the module's templates are picked automatically. If you build Tailwind CSS from your theme, run your
 usual Hyvä build after installing so the button styles are included.
 
-To update later: `composer update softaware/module-social-login`, then the same `bin/magento` commands.
+To update later: `composer update commercegears/module-social-login`, then the same `bin/magento` commands.
 
 ## 3. Quick start (10 minutes)
 
-1. **Stores > Configuration > Softaware > Social Login** (also under **Softaware > Social Login > Configuration**).
+1. **Stores > Configuration > CommerceGears > Social Login** (also under **CommerceGears > Social Login > Configuration**).
 2. **General > Enabled = Yes.**
 3. Open a provider group, e.g. **Google**, set **Enabled = Yes**. Below the field you now see the
    **callback URL** for the current store view, for example
@@ -143,13 +143,13 @@ cached pages work as usual; it appears on Luma (including the checkout) and Hyv�
 
 ## 7. Widget and layout block
 
-**CMS widget:** Content > Widgets > Add Widget > "Softaware Social Login Buttons" (heading, style, colour), or
+**CMS widget:** Content > Widgets > Add Widget > "CommerceGears Social Login Buttons" (heading, style, colour), or
 Insert Widget in a page or block.
 
 **Layout XML:**
 
 ```xml
-<block class="Softaware\SocialLogin\Block\Buttons" name="my.social.buttons">
+<block class="CommerceGears\SocialLogin\Block\Buttons" name="my.social.buttons">
     <arguments>
         <argument name="place" xsi:type="string">widget</argument>
         <argument name="title" xsi:type="string">Sign in with</argument>
@@ -162,7 +162,7 @@ so it is safe on full-page-cached pages.
 
 ## 8. Admin tools
 
-- **Softaware > Social Login > Linked Accounts**: every link between a customer and a provider, with filters, last
+- **CommerceGears > Social Login > Linked Accounts**: every link between a customer and a provider, with filters, last
   sign-in and number of sign-ins; remove links singly or in bulk.
 - **Customers > edit customer > Social Login** tab: the customer's links.
 - **ACL**: separate permissions for viewing links, removing links and the configuration.
@@ -173,9 +173,9 @@ code and can be removed; customers can remove them under Connected Accounts too.
 ## 9. Command line
 
 ```bash
-bin/magento softaware:social-login:links [--customer=<id|email>] [--provider=google] [--limit=50]
-bin/magento softaware:social-login:unlink <link_id>
-bin/magento softaware:social-login:self-test [--accounts]
+bin/magento commercegears:social-login:links [--customer=<id|email>] [--provider=google] [--limit=50]
+bin/magento commercegears:social-login:unlink <link_id>
+bin/magento commercegears:social-login:self-test [--accounts]
 ```
 
 `self-test` lists the registered providers and checks the security pieces (PKCE, ID token validation including
@@ -200,24 +200,24 @@ Installed add-ons such as Social Login Pro add their own checks. With
 | The popup does not open | The browser blocked it; the module falls back to a full-page redirect. Choose **Full-page redirect** if you prefer. |
 | Customer is asked for the password | Expected when the provider has not verified the address or is not responsible for it (see *Accounts*). It happens once; afterwards the provider signs them in directly. |
 | Google shows "Access blocked" or `disallowed_useragent` | The customer opened the shop in an app's built-in browser (Instagram, Facebook and others). Google refuses sign-in there; the customer sees a note asking them to open the page in their browser. |
-| Sign-in fails | See `var/log/softaware_sociallogin.log` for the technical reason (no secrets or tokens are logged). |
+| Sign-in fails | See `var/log/commercegears_sociallogin.log` for the technical reason (no secrets or tokens are logged). |
 
 ## 12. More providers: Social Login Pro
 
-The add-on **Social Login Pro** (`softaware/module-social-login-pro`) adds Sign in with Apple, Microsoft (Entra
-ID), LinkedIn, Amazon and GitHub. After installing it (`composer require softaware/module-social-login-pro`, then
+The add-on **Social Login Pro** (`commercegears/module-social-login-pro`) adds Sign in with Apple, Microsoft (Entra
+ID), LinkedIn, Amazon and GitHub. After installing it (`composer require commercegears/module-social-login-pro`, then
 the `bin/magento` commands from section 2), the new providers appear as groups in the same configuration section and
 use all the settings in this guide. Its own user guide describes the provider setup. Product page:
-https://softawarecommerce.com/shop/magento-2-extensions/social-login-pro-for-magento-2/
+https://commercegears.com/shop/magento-2-extensions/social-login-pro-for-magento-2/
 
 ## 13. Uninstall
 
 ```bash
-bin/magento module:disable Softaware_SocialLogin
-composer remove softaware/module-social-login
+bin/magento module:disable CommerceGears_SocialLogin
+composer remove commercegears/module-social-login
 bin/magento setup:upgrade
 ```
 
-If Social Login Pro is installed, remove it first (`composer remove softaware/module-social-login-pro`).
+If Social Login Pro is installed, remove it first (`composer remove commercegears/module-social-login-pro`).
 
 Customers created through social sign-in keep their accounts; they can set a password with "Forgot Your Password?".

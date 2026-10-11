@@ -1,16 +1,16 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model;
+namespace CommerceGears\SocialLogin\Model;
 
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Store\Model\StoreManagerInterface;
-use Softaware\SocialLogin\Model\Provider\ProviderInterface;
+use CommerceGears\SocialLogin\Model\Provider\ProviderInterface;
 
 /**
  * Creates state, nonce and PKCE verifier, stores them and returns the provider's consent URL.

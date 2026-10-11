@@ -1,5 +1,5 @@
 {
-    "softaware_social_login": {
+    "commercegears_social_login": {
         "column": {
             "link_id": true,
             "customer_id": true,
@@ -13,16 +13,16 @@
             "login_count": true
         },
         "index": {
-            "SOFTAWARE_SOCIAL_LOGIN_PROVIDER": true
+            "COMMERCEGEARS_SOCIAL_LOGIN_PROVIDER": true
         },
         "constraint": {
             "PRIMARY": true,
-            "SOFTAWARE_SOCIAL_LOGIN_PROVIDER_PROVIDER_USER_ID_WEBSITE_ID": true,
-            "SOFTAWARE_SOCIAL_LOGIN_CUSTOMER_ID_PROVIDER": true,
-            "SOFTAWARE_SOCIAL_LOGIN_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+            "COMMERCEGEARS_SOCIAL_LOGIN_PROVIDER_PROVIDER_USER_ID_WEBSITE_ID": true,
+            "COMMERCEGEARS_SOCIAL_LOGIN_CUSTOMER_ID_PROVIDER": true,
+            "COMMERCEGEARS_SOCIAL_LOGIN_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
         }
     },
-    "softaware_social_login_state": {
+    "commercegears_social_login_state": {
         "column": {
             "state_hash": true,
             "binding_hash": true,
@@ -31,7 +31,7 @@
             "created_at": true
         },
         "index": {
-            "SOFTAWARE_SOCIAL_LOGIN_STATE_CREATED_AT": true
+            "COMMERCEGEARS_SOCIAL_LOGIN_STATE_CREATED_AT": true
         },
         "constraint": {
             "PRIMARY": true

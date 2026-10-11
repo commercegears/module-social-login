@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Controller\Auth;
+namespace CommerceGears\SocialLogin\Controller\Auth;
 
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\App\Action\HttpGetActionInterface;
@@ -18,12 +18,12 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Magento\Framework\UrlInterface;
 use Psr\Log\LoggerInterface;
-use Softaware\SocialLogin\Exception\SocialLoginException;
-use Softaware\SocialLogin\Model\AuthorizationStarter;
-use Softaware\SocialLogin\Model\AuthRequest;
-use Softaware\SocialLogin\Model\Config;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
-use Softaware\SocialLogin\Model\RedirectResolver;
+use CommerceGears\SocialLogin\Exception\SocialLoginException;
+use CommerceGears\SocialLogin\Model\AuthorizationStarter;
+use CommerceGears\SocialLogin\Model\AuthRequest;
+use CommerceGears\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Model\RedirectResolver;
 
 /**
  * GET: start a sign-in. POST (form key checked by Magento): connect a provider to the signed-in account.

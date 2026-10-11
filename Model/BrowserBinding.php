@@ -1,16 +1,16 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model;
+namespace CommerceGears\SocialLogin\Model;
 
 use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;
 use Magento\Framework\Stdlib\CookieManagerInterface;
-use Softaware\SocialLogin\Model\Jwt\Base64Url;
+use CommerceGears\SocialLogin\Model\Jwt\Base64Url;
 
 /**
  * Random value in a short-lived cookie that ties a pending authorisation to the browser that

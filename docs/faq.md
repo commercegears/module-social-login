@@ -34,7 +34,7 @@ Yes: set **Create New Accounts** to **No**. Shoppers without an account are aske
 useful for B2B and trade-only shops.
 
 **Does it work with customer approval?**
-Yes, with Softaware Customer Approval: social sign-ups get an approval status like any other registration, and
+Yes, with CommerceGears Customer Approval: social sign-ups get an approval status like any other registration, and
 pending or rejected customers are not signed in.
 
 **What if the provider does not give an email address?**
@@ -42,7 +42,7 @@ X never returns one unless your app has the email permission. The customer then 
 
 **Can customers remove a connection?**
 Yes, under **My Account > Connected Accounts**. The module refuses to remove the last way to sign in (no password
-and no other provider). Admins can remove links under **Softaware > Social Login > Linked Accounts**.
+and no other provider). Admins can remove links under **CommerceGears > Social Login > Linked Accounts**.
 
 **Is it GDPR friendly?**
 Only the link between the customer and the provider account is stored, no access tokens. Links are deleted with the

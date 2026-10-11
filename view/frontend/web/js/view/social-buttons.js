@@ -1,16 +1,16 @@
 /**
- * Softaware Social Login: buttons inside Knockout-rendered areas (Luma authentication popup, checkout).
+ * CommerceGears Social Login: buttons inside Knockout-rendered areas (Luma authentication popup, checkout).
  */
 define([
     'uiComponent',
-    'Softaware_SocialLogin/js/social-login',
+    'CommerceGears_SocialLogin/js/social-login',
     'mage/translate'
 ], function (Component, socialLogin, $t) {
     'use strict';
 
     return Component.extend({
         defaults: {
-            template: 'Softaware_SocialLogin/social-buttons',
+            template: 'CommerceGears_SocialLogin/social-buttons',
             buttons: [],
             heading: '',
             place: 'auth_popup',

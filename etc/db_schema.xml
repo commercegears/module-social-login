@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="softaware_social_login" resource="default" engine="innodb" comment="Softaware Social Login: customer accounts linked to identity providers">
+    <table name="commercegears_social_login" resource="default" engine="innodb" comment="CommerceGears Social Login: customer accounts linked to identity providers">
         <column xsi:type="int" name="link_id" unsigned="true" nullable="false" identity="true" comment="Link ID"/>
         <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" identity="false" comment="Customer ID"/>
         <column xsi:type="smallint" name="website_id" unsigned="true" nullable="false" identity="false" default="0" comment="Website ID of the customer"/>
@@ -14,23 +14,23 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="link_id"/>
         </constraint>
-        <constraint xsi:type="unique" referenceId="SOFTAWARE_SOCIAL_LOGIN_PROVIDER_USER_WEBSITE">
+        <constraint xsi:type="unique" referenceId="COMMERCEGEARS_SOCIAL_LOGIN_PROVIDER_USER_WEBSITE">
             <column name="provider"/>
             <column name="provider_user_id"/>
             <column name="website_id"/>
         </constraint>
-        <constraint xsi:type="unique" referenceId="SOFTAWARE_SOCIAL_LOGIN_CUSTOMER_PROVIDER">
+        <constraint xsi:type="unique" referenceId="COMMERCEGEARS_SOCIAL_LOGIN_CUSTOMER_PROVIDER">
             <column name="customer_id"/>
             <column name="provider"/>
         </constraint>
-        <constraint xsi:type="foreign" referenceId="SOFTAWARE_SOCIAL_LOGIN_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID"
-                    table="softaware_social_login" column="customer_id"
+        <constraint xsi:type="foreign" referenceId="COMMERCEGEARS_SOCIAL_LOGIN_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID"
+                    table="commercegears_social_login" column="customer_id"
                     referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
-        <index referenceId="SOFTAWARE_SOCIAL_LOGIN_PROVIDER" indexType="btree">
+        <index referenceId="COMMERCEGEARS_SOCIAL_LOGIN_PROVIDER" indexType="btree">
             <column name="provider"/>
         </index>
     </table>
-    <table name="softaware_social_login_state" resource="default" engine="innodb" comment="Softaware Social Login: pending authorisation requests (state, nonce, PKCE verifier)">
+    <table name="commercegears_social_login_state" resource="default" engine="innodb" comment="CommerceGears Social Login: pending authorisation requests (state, nonce, PKCE verifier)">
         <column xsi:type="varchar" name="state_hash" nullable="false" length="64" comment="SHA-256 of the state value"/>
         <column xsi:type="varchar" name="binding_hash" nullable="false" length="64" comment="SHA-256 of the browser binding cookie"/>
         <column xsi:type="varchar" name="provider" nullable="false" length="32" comment="Provider code"/>
@@ -39,7 +39,7 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="state_hash"/>
         </constraint>
-        <index referenceId="SOFTAWARE_SOCIAL_LOGIN_STATE_CREATED_AT" indexType="btree">
+        <index referenceId="COMMERCEGEARS_SOCIAL_LOGIN_STATE_CREATED_AT" indexType="btree">
             <column name="created_at"/>
         </index>
     </table>

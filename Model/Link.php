@@ -1,20 +1,20 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model;
+namespace CommerceGears\SocialLogin\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Softaware\SocialLogin\Api\Data\LinkInterface;
-use Softaware\SocialLogin\Model\ResourceModel\Link as LinkResource;
+use CommerceGears\SocialLogin\Api\Data\LinkInterface;
+use CommerceGears\SocialLogin\Model\ResourceModel\Link as LinkResource;
 
 class Link extends AbstractModel implements LinkInterface
 {
-    protected $_eventPrefix = 'softaware_sociallogin_link';
+    protected $_eventPrefix = 'commercegears_sociallogin_link';
 
     protected function _construct()
     {

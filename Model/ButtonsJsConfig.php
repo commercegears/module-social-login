@@ -1,16 +1,16 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model;
+namespace CommerceGears\SocialLogin\Model;
 
 use Magento\Framework\UrlInterface;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
-use Softaware\SocialLogin\ViewModel\ProviderIcons;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\ViewModel\ProviderIcons;
 
 /**
  * jsLayout configuration of the Knockout buttons component used inside Luma's authentication
@@ -48,7 +48,7 @@ class ButtonsJsConfig
             return null;
         }
         return [
-            'component' => 'Softaware_SocialLogin/js/view/social-buttons',
+            'component' => 'CommerceGears_SocialLogin/js/view/social-buttons',
             'displayArea' => $displayArea,
             'sortOrder' => 5,
             'config' => [

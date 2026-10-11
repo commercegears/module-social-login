@@ -1,13 +1,13 @@
 <?php
 /**
- * Softaware Social Login: sign-in buttons (Hyvä, Tailwind).
+ * CommerceGears Social Login: sign-in buttons (Hyvä, Tailwind).
  *
- * @var \Softaware\SocialLogin\Block\Buttons $block
+ * @var \CommerceGears\SocialLogin\Block\Buttons $block
  * @var \Magento\Framework\Escaper $escaper
  */
 $style = $block->getButtonStyle();
-$iconOnly = $style === \Softaware\SocialLogin\Model\Config::STYLE_ICON;
-$dark = $block->getButtonTheme() === \Softaware\SocialLogin\Model\Config::THEME_DARK;
+$iconOnly = $style === \CommerceGears\SocialLogin\Model\Config::STYLE_ICON;
+$dark = $block->getButtonTheme() === \CommerceGears\SocialLogin\Model\Config::THEME_DARK;
 $popup = $block->isPopupMode();
 $heading = $block->getHeading();
 

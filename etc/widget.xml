@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
-    <widget id="softaware_sociallogin_buttons" class="Softaware\SocialLogin\Block\Buttons" is_email_compatible="false">
-        <label translate="true">Softaware Social Login Buttons</label>
+    <widget id="commercegears_sociallogin_buttons" class="CommerceGears\SocialLogin\Block\Buttons" is_email_compatible="false">
+        <label translate="true">CommerceGears Social Login Buttons</label>
         <description translate="true">Sign-in buttons of the enabled providers. Hidden for signed-in customers.</description>
         <parameters>
             <parameter name="title" xsi:type="text" visible="true" sort_order="10">

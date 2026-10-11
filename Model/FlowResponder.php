@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model;
+namespace CommerceGears\SocialLogin\Model;
 
 use Magento\Framework\Controller\Result\Raw;
 use Magento\Framework\Controller\ResultFactory;
@@ -16,8 +16,8 @@ use Magento\Framework\Message\ManagerInterface as MessageManager;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Asset\Repository as AssetRepository;
 use Magento\Store\Model\StoreManagerInterface;
-use Softaware\SocialLogin\Model\Account\Result;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Model\Account\Result;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
 
 /**
  * Builds the response at the end of a step: a redirect, or in popup mode a tiny page that hands
@@ -94,7 +94,7 @@ class FlowResponder
             return $redirect;
         }
         $script = $this->assetRepository->getUrlWithParams(
-            'Softaware_SocialLogin::js/popup-callback.js',
+            'CommerceGears_SocialLogin::js/popup-callback.js',
             ['_secure' => true]
         );
         $html = '<!doctype html><html lang="en"><head><meta charset="utf-8">'

@@ -1,21 +1,21 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model;
+namespace CommerceGears\SocialLogin\Model;
 
 use Magento\Customer\Model\Config\Share as ShareConfig;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Softaware\SocialLogin\Api\Data\LinkInterface;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
-use Softaware\SocialLogin\Model\ResourceModel\Link as LinkResource;
-use Softaware\SocialLogin\Model\ResourceModel\Link\CollectionFactory;
+use CommerceGears\SocialLogin\Api\Data\LinkInterface;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Model\ResourceModel\Link as LinkResource;
+use CommerceGears\SocialLogin\Model\ResourceModel\Link\CollectionFactory;
 
 class LinkRepository implements LinkRepositoryInterface
 {

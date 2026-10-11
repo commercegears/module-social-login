@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Config\Structure;
+namespace CommerceGears\SocialLogin\Model\Config\Structure;
 
 use Magento\Config\Model\Config\Structure\ElementVisibilityInterface;
 use Magento\Framework\App\State as AppState;
@@ -13,7 +13,7 @@ use Magento\Framework\App\State as AppState;
  */
 class TestProviderVisibility implements ElementVisibilityInterface
 {
-    private const GROUP_PATH = 'softaware_sociallogin/test';
+    private const GROUP_PATH = 'commercegears_sociallogin/test';
 
     public function __construct(
         private readonly AppState $appState

@@ -1,19 +1,19 @@
-# Softaware Social Login for Magento 2
+# CommerceGears Social Login for Magento 2
 
 Lets customers sign in and register with **Google, Facebook and X (Twitter)**. OAuth 2.0 and OpenID Connect are
 implemented directly on Magento's HTTP client and PHP's OpenSSL extension; no provider SDKs or JWT libraries are
 installed. Works with Luma-based themes and Hyvä.
 
-Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
+Package `commercegears/module-social-login`, module `CommerceGears_SocialLogin`.
 
 ![Sign-in page with social login buttons](docs/images/sign-in-luma.png)
 
 ## Demo and documentation
 
-- Storefront demo: [Luma](https://demo.softawarecommerce.com/customer/account/login/) ·
-  [Hyvä](https://demo.softawarecommerce.com/hyva/customer/account/login/)
-- Admin demo: https://demo.softawarecommerce.com/try-admin/social-login
-- Product page (free): https://softawarecommerce.com/shop/magento-2-extensions/social-login-for-magento-2/
+- Storefront demo: [Luma](https://demo.commercegears.com/customer/account/login/) ·
+  [Hyvä](https://demo.commercegears.com/hyva/customer/account/login/)
+- Admin demo: https://demo.commercegears.com/try-admin/social-login
+- Product page (free): https://commercegears.com/shop/magento-2-extensions/social-login-for-magento-2/
 - [User guide](docs/user-guide.md) (installation, settings, provider setup, troubleshooting) · [FAQ](docs/faq.md) ·
   [Changelog](CHANGELOG.md)
 
@@ -24,7 +24,7 @@ Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
   for the selected store view is shown under each provider in the configuration.
 - **Where**: sign-in page, create-account page, Luma authentication popup ("Checkout using your account"), the
   "Sign In" link on the checkout page, the checkout email step (optional), Hyvä authentication popup, CMS widget
-  **Softaware Social Login Buttons**, and a layout block (`Softaware\SocialLogin\Block\Buttons`).
+  **CommerceGears Social Login Buttons**, and a layout block (`CommerceGears\SocialLogin\Block\Buttons`).
 - **Look**: icon and text, or icon only; light or dark. Sign-in in a **popup window** or a **full-page redirect**.
 - **In-app browsers**: in the built-in browsers of Instagram, Facebook and other apps (where Google blocks OAuth
   sign-in) a note above the buttons asks the shopper to open the page in their browser, with a "Copy link" button.
@@ -53,13 +53,13 @@ Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
     optional welcome email ("Welcome Email (without password)" template). Addresses the provider has not verified
     get Magento's confirmation email instead; the account can be used once it is confirmed.
   - **Create New Accounts** can be switched off: then only existing customers can sign in with a provider.
-  - Works with Softaware Customer Approval: social sign-ups get an approval status like any registration, and
+  - Works with CommerceGears Customer Approval: social sign-ups get an approval status like any registration, and
     pending or rejected customers are not signed in (they see the approval message).
   - When the provider returns no email (X without the email permission) or no name, the customer completes a
     short form.
 - **My Account > Connected Accounts**: see linked providers, connect another, disconnect. Disconnecting is refused
   when it would leave the customer without a way to sign in (no password and no other provider).
-- **Admin**: Softaware > Social Login > Linked Accounts (grid with filters, remove links); "Social Login" tab on
+- **Admin**: CommerceGears > Social Login > Linked Accounts (grid with filters, remove links); "Social Login" tab on
   the customer edit page; ACL for viewing, removing and configuration.
 - **GDPR**: links are deleted together with the customer (foreign key `ON DELETE CASCADE`). Pending sign-in data is
   deleted after 15 minutes (cron).
@@ -70,8 +70,8 @@ Package `softaware/module-social-login`, module `Softaware_SocialLogin`.
 
 ## Configuration
 
-Stores > Configuration > Softaware > Social Login (`softaware_sociallogin/*`), also reachable from
-Softaware > Social Login > Configuration.
+Stores > Configuration > CommerceGears > Social Login (`commercegears_sociallogin/*`), also reachable from
+CommerceGears > Social Login > Configuration.
 
 | Group | Settings |
 | --- | --- |
@@ -96,10 +96,10 @@ Register the callback URL shown in the configuration exactly as displayed (one p
 
 ### Widget and layout block
 
-Content > Widgets > Add Widget > "Softaware Social Login Buttons" (heading, style, colour). In layout XML:
+Content > Widgets > Add Widget > "CommerceGears Social Login Buttons" (heading, style, colour). In layout XML:
 
 ```xml
-<block class="Softaware\SocialLogin\Block\Buttons" name="my.social.buttons">
+<block class="CommerceGears\SocialLogin\Block\Buttons" name="my.social.buttons">
     <arguments>
         <argument name="place" xsi:type="string">widget</argument>
         <argument name="title" xsi:type="string">Sign in with</argument>
@@ -112,10 +112,10 @@ browser, so it can be used on full-page-cached pages.
 
 ## Social Login Pro
 
-The add-on **Social Login Pro** (`softaware/module-social-login-pro`) adds Sign in with Apple, Microsoft (Entra ID),
+The add-on **Social Login Pro** (`commercegears/module-social-login-pro`) adds Sign in with Apple, Microsoft (Entra ID),
 LinkedIn, Amazon and GitHub. Its providers appear in the same configuration section, the same button rows, the
 Connected Accounts page and the admin tools, and use the same settings described here. Product page:
-https://softawarecommerce.com/shop/magento-2-extensions/social-login-pro-for-magento-2/
+https://commercegears.com/shop/magento-2-extensions/social-login-pro-for-magento-2/
 
 ## Adding a provider (developers)
 
@@ -123,11 +123,11 @@ The module is built to be extended by other modules:
 
 | Extension point | How |
 | --- | --- |
-| Provider | Implement `Softaware\SocialLogin\Model\Provider\ProviderInterface` (or extend `AbstractProvider` / `AbstractOidcProvider`) and add it to the `providers` argument of `Softaware\SocialLogin\Model\Provider\ProviderPool` in your `di.xml`. Providers that need more services declare their own constructor arguments and pass `ProviderContext` on to the parent. |
-| Settings | Add a group with the provider code as id to section `softaware_sociallogin` in your `etc/adminhtml/system.xml`; values are read from `softaware_sociallogin/<code>/...` (`enabled`, `client_id`, `client_secret`, `label`, `sort_order`). |
-| Callback URL in the admin | A virtual type of `Softaware\SocialLogin\Model\Config\Comment\CallbackUrl` with the arguments `providerCode` and `hint`, used as the comment model of the group's `enabled` field. |
-| Button icon | Add an inline SVG (as a class constant) to the `icons` argument of `Softaware\SocialLogin\ViewModel\ProviderIcons`. Codes without an icon get a neutral one. |
-| Self-test | Implement `Softaware\SocialLogin\Model\SelfTest\CheckInterface` and add it to the `checks` argument of `Softaware\SocialLogin\Console\Command\SelfTestCommand`. |
+| Provider | Implement `CommerceGears\SocialLogin\Model\Provider\ProviderInterface` (or extend `AbstractProvider` / `AbstractOidcProvider`) and add it to the `providers` argument of `CommerceGears\SocialLogin\Model\Provider\ProviderPool` in your `di.xml`. Providers that need more services declare their own constructor arguments and pass `ProviderContext` on to the parent. |
+| Settings | Add a group with the provider code as id to section `commercegears_sociallogin` in your `etc/adminhtml/system.xml`; values are read from `commercegears_sociallogin/<code>/...` (`enabled`, `client_id`, `client_secret`, `label`, `sort_order`). |
+| Callback URL in the admin | A virtual type of `CommerceGears\SocialLogin\Model\Config\Comment\CallbackUrl` with the arguments `providerCode` and `hint`, used as the comment model of the group's `enabled` field. |
+| Button icon | Add an inline SVG (as a class constant) to the `icons` argument of `CommerceGears\SocialLogin\ViewModel\ProviderIcons`. Codes without an icon get a neutral one. |
+| Self-test | Implement `CommerceGears\SocialLogin\Model\SelfTest\CheckInterface` and add it to the `checks` argument of `CommerceGears\SocialLogin\Console\Command\SelfTestCommand`. |
 
 Links whose provider is not installed (for example after removing a module) are kept and handled safely: the admin
 grid, the customer tab and Connected Accounts show them with their provider code, they can always be removed, and
@@ -136,9 +136,9 @@ they do not count as a way to sign in when a customer disconnects another provid
 ## CLI
 
 ```
-bin/magento softaware:social-login:links [--customer=<id|email>] [--provider=google] [--limit=50]
-bin/magento softaware:social-login:unlink <link_id>
-bin/magento softaware:social-login:self-test [--accounts]
+bin/magento commercegears:social-login:links [--customer=<id|email>] [--provider=google] [--limit=50]
+bin/magento commercegears:social-login:unlink <link_id>
+bin/magento commercegears:social-login:self-test [--accounts]
 ```
 
 `self-test` lists the registered providers and checks PKCE (RFC 7636 test vector), ID token validation (RS256 and
@@ -152,7 +152,7 @@ to providers.
 - Magento Open Source / Adobe Commerce 2.4.7 to 2.4.9, PHP 8.2 to 8.5, ext-openssl.
 - Luma, Blank and themes based on them; Hyvä 1.3+ (tested with Hyvä 1.5). The Hyvä checkout uses the Luma
   checkout fallback, so the checkout buttons are the Luma ones.
-- Requires `softaware/module-core` ^1.0.
+- Requires `commercegears/module-core` ^1.0.
 
 ## Limitations
 
@@ -167,4 +167,4 @@ to providers.
 
 ## Log
 
-`var/log/softaware_sociallogin.log` (failed sign-ins with the technical reason; no secrets or tokens).
+`var/log/commercegears_sociallogin.log` (failed sign-ins with the technical reason; no secrets or tokens).

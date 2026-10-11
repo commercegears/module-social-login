@@ -1,8 +1,8 @@
 <?php
 /**
- * Softaware Social Login: customer edit tab.
+ * CommerceGears Social Login: customer edit tab.
  *
- * @var \Softaware\SocialLogin\Block\Adminhtml\Customer\SocialTab $block
+ * @var \CommerceGears\SocialLogin\Block\Adminhtml\Customer\SocialTab $block
  * @var \Magento\Framework\Escaper $escaper
  */
 $links = $block->getLinks();
@@ -42,7 +42,7 @@ $links = $block->getLinks();
                     <?php if ($block->canRemove()): ?>
                         <td>
                             <form action="<?= $escaper->escapeUrl($block->getRemoveUrl($link)) ?>" method="post"
-                                  data-mage-init='<?= $escaper->escapeHtmlAttr(json_encode(['Softaware_SocialLogin/js/confirm-submit' => [
+                                  data-mage-init='<?= $escaper->escapeHtmlAttr(json_encode(['CommerceGears_SocialLogin/js/confirm-submit' => [
                                       'title' => (string)__('Remove link'),
                                       'message' => (string)__('Remove this link? The customer account is kept.'),
                                   ]])) ?>'>

@@ -1,92 +1,92 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Softaware\SocialLogin\Api\LinkRepositoryInterface" type="Softaware\SocialLogin\Model\LinkRepository"/>
-    <preference for="Softaware\SocialLogin\Api\Data\LinkInterface" type="Softaware\SocialLogin\Model\Link"/>
+    <preference for="CommerceGears\SocialLogin\Api\LinkRepositoryInterface" type="CommerceGears\SocialLogin\Model\LinkRepository"/>
+    <preference for="CommerceGears\SocialLogin\Api\Data\LinkInterface" type="CommerceGears\SocialLogin\Model\Link"/>
 
     <!--
         Providers: add your own by implementing ProviderInterface (or extending AbstractProvider /
         AbstractOidcProvider) and adding it to this argument from your module's di.xml. Its settings live in
-        softaware_sociallogin/<code>/... (add a group with that id to the section in your system.xml).
+        commercegears_sociallogin/<code>/... (add a group with that id to the section in your system.xml).
     -->
-    <type name="Softaware\SocialLogin\Model\Provider\ProviderPool">
+    <type name="CommerceGears\SocialLogin\Model\Provider\ProviderPool">
         <arguments>
             <argument name="providers" xsi:type="array">
-                <item name="google" xsi:type="object">Softaware\SocialLogin\Model\Provider\Google</item>
-                <item name="facebook" xsi:type="object">Softaware\SocialLogin\Model\Provider\Facebook</item>
-                <item name="twitter" xsi:type="object">Softaware\SocialLogin\Model\Provider\X</item>
-                <item name="test" xsi:type="object">Softaware\SocialLogin\Model\Provider\TestProvider</item>
+                <item name="google" xsi:type="object">CommerceGears\SocialLogin\Model\Provider\Google</item>
+                <item name="facebook" xsi:type="object">CommerceGears\SocialLogin\Model\Provider\Facebook</item>
+                <item name="twitter" xsi:type="object">CommerceGears\SocialLogin\Model\Provider\X</item>
+                <item name="test" xsi:type="object">CommerceGears\SocialLogin\Model\Provider\TestProvider</item>
             </argument>
         </arguments>
     </type>
-    <type name="Softaware\SocialLogin\Model\Provider\TestProvider">
+    <type name="CommerceGears\SocialLogin\Model\Provider\TestProvider">
         <arguments>
             <argument name="urlBuilder" xsi:type="object">Magento\Framework\Url</argument>
         </arguments>
     </type>
 
     <!-- Callback URLs are storefront URLs, also when shown in the admin -->
-    <virtualType name="Softaware\SocialLogin\Model\FrontendUrlFactory" type="Magento\Framework\UrlFactory">
+    <virtualType name="CommerceGears\SocialLogin\Model\FrontendUrlFactory" type="Magento\Framework\UrlFactory">
         <arguments>
             <argument name="instanceName" xsi:type="string">Magento\Framework\Url</argument>
         </arguments>
     </virtualType>
-    <type name="Softaware\SocialLogin\Model\CallbackUrl">
+    <type name="CommerceGears\SocialLogin\Model\CallbackUrl">
         <arguments>
-            <argument name="urlFactory" xsi:type="object">Softaware\SocialLogin\Model\FrontendUrlFactory</argument>
+            <argument name="urlFactory" xsi:type="object">CommerceGears\SocialLogin\Model\FrontendUrlFactory</argument>
         </arguments>
     </type>
 
-    <!-- Log file: var/log/softaware_sociallogin.log (no secrets, codes or tokens are logged) -->
-    <virtualType name="Softaware\SocialLogin\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+    <!-- Log file: var/log/commercegears_sociallogin.log (no secrets, codes or tokens are logged) -->
+    <virtualType name="CommerceGears\SocialLogin\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
-            <argument name="fileName" xsi:type="string">/var/log/softaware_sociallogin.log</argument>
+            <argument name="fileName" xsi:type="string">/var/log/commercegears_sociallogin.log</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Softaware\SocialLogin\Logger\Logger" type="Magento\Framework\Logger\Monolog">
+    <virtualType name="CommerceGears\SocialLogin\Logger\Logger" type="Magento\Framework\Logger\Monolog">
         <arguments>
-            <argument name="name" xsi:type="string">softaware_sociallogin</argument>
+            <argument name="name" xsi:type="string">commercegears_sociallogin</argument>
             <argument name="handlers" xsi:type="array">
-                <item name="file" xsi:type="object">Softaware\SocialLogin\Logger\Handler</item>
+                <item name="file" xsi:type="object">CommerceGears\SocialLogin\Logger\Handler</item>
             </argument>
         </arguments>
     </virtualType>
-    <type name="Softaware\SocialLogin\Controller\Auth\Start">
+    <type name="CommerceGears\SocialLogin\Controller\Auth\Start">
         <arguments>
-            <argument name="logger" xsi:type="object">Softaware\SocialLogin\Logger\Logger</argument>
+            <argument name="logger" xsi:type="object">CommerceGears\SocialLogin\Logger\Logger</argument>
         </arguments>
     </type>
-    <type name="Softaware\SocialLogin\Controller\Auth\Callback">
+    <type name="CommerceGears\SocialLogin\Controller\Auth\Callback">
         <arguments>
-            <argument name="logger" xsi:type="object">Softaware\SocialLogin\Logger\Logger</argument>
+            <argument name="logger" xsi:type="object">CommerceGears\SocialLogin\Logger\Logger</argument>
         </arguments>
     </type>
-    <type name="Softaware\SocialLogin\Controller\Account\CompletePost">
+    <type name="CommerceGears\SocialLogin\Controller\Account\CompletePost">
         <arguments>
-            <argument name="logger" xsi:type="object">Softaware\SocialLogin\Logger\Logger</argument>
+            <argument name="logger" xsi:type="object">CommerceGears\SocialLogin\Logger\Logger</argument>
         </arguments>
     </type>
-    <type name="Softaware\SocialLogin\Controller\Account\ConfirmPost">
+    <type name="CommerceGears\SocialLogin\Controller\Account\ConfirmPost">
         <arguments>
-            <argument name="logger" xsi:type="object">Softaware\SocialLogin\Logger\Logger</argument>
+            <argument name="logger" xsi:type="object">CommerceGears\SocialLogin\Logger\Logger</argument>
         </arguments>
     </type>
-    <type name="Softaware\SocialLogin\Model\Account\CustomerCreator">
+    <type name="CommerceGears\SocialLogin\Model\Account\CustomerCreator">
         <arguments>
-            <argument name="logger" xsi:type="object">Softaware\SocialLogin\Logger\Logger</argument>
+            <argument name="logger" xsi:type="object">CommerceGears\SocialLogin\Logger\Logger</argument>
         </arguments>
     </type>
 
     <!-- Admin grid -->
-    <type name="Softaware\SocialLogin\Model\ResourceModel\Link\Grid\Collection">
+    <type name="CommerceGears\SocialLogin\Model\ResourceModel\Link\Grid\Collection">
         <arguments>
-            <argument name="mainTable" xsi:type="string">softaware_social_login</argument>
-            <argument name="resourceModel" xsi:type="string">Softaware\SocialLogin\Model\ResourceModel\Link</argument>
+            <argument name="mainTable" xsi:type="string">commercegears_social_login</argument>
+            <argument name="resourceModel" xsi:type="string">CommerceGears\SocialLogin\Model\ResourceModel\Link</argument>
         </arguments>
     </type>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="softaware_sociallogin_link_listing_data_source" xsi:type="string">Softaware\SocialLogin\Model\ResourceModel\Link\Grid\Collection</item>
+                <item name="commercegears_sociallogin_link_listing_data_source" xsi:type="string">CommerceGears\SocialLogin\Model\ResourceModel\Link\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
@@ -95,13 +95,13 @@
         Button icons (inline SVG) per provider code. Add-ons add theirs to the "icons" argument;
         unknown codes get a neutral icon.
     -->
-    <type name="Softaware\SocialLogin\ViewModel\ProviderIcons">
+    <type name="CommerceGears\SocialLogin\ViewModel\ProviderIcons">
         <arguments>
             <argument name="icons" xsi:type="array">
-                <item name="google" xsi:type="const">Softaware\SocialLogin\ViewModel\ProviderIcons::GOOGLE</item>
-                <item name="facebook" xsi:type="const">Softaware\SocialLogin\ViewModel\ProviderIcons::FACEBOOK</item>
-                <item name="twitter" xsi:type="const">Softaware\SocialLogin\ViewModel\ProviderIcons::X</item>
-                <item name="test" xsi:type="const">Softaware\SocialLogin\ViewModel\ProviderIcons::TEST</item>
+                <item name="google" xsi:type="const">CommerceGears\SocialLogin\ViewModel\ProviderIcons::GOOGLE</item>
+                <item name="facebook" xsi:type="const">CommerceGears\SocialLogin\ViewModel\ProviderIcons::FACEBOOK</item>
+                <item name="twitter" xsi:type="const">CommerceGears\SocialLogin\ViewModel\ProviderIcons::X</item>
+                <item name="test" xsi:type="const">CommerceGears\SocialLogin\ViewModel\ProviderIcons::TEST</item>
             </argument>
         </arguments>
     </type>
@@ -110,37 +110,37 @@
     <type name="Magento\Framework\Console\CommandListInterface">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="softaware_sociallogin_links" xsi:type="object">Softaware\SocialLogin\Console\Command\LinksCommand</item>
-                <item name="softaware_sociallogin_unlink" xsi:type="object">Softaware\SocialLogin\Console\Command\UnlinkCommand</item>
-                <item name="softaware_sociallogin_selftest" xsi:type="object">Softaware\SocialLogin\Console\Command\SelfTestCommand</item>
+                <item name="commercegears_sociallogin_links" xsi:type="object">CommerceGears\SocialLogin\Console\Command\LinksCommand</item>
+                <item name="commercegears_sociallogin_unlink" xsi:type="object">CommerceGears\SocialLogin\Console\Command\UnlinkCommand</item>
+                <item name="commercegears_sociallogin_selftest" xsi:type="object">CommerceGears\SocialLogin\Console\Command\SelfTestCommand</item>
             </argument>
         </arguments>
     </type>
     <!-- Extra self-test checks (Model\SelfTest\CheckInterface): add-ons add theirs to the "checks" argument -->
-    <type name="Softaware\SocialLogin\Console\Command\SelfTestCommand">
+    <type name="CommerceGears\SocialLogin\Console\Command\SelfTestCommand">
         <arguments>
-            <argument name="providerPool" xsi:type="object">Softaware\SocialLogin\Model\Provider\ProviderPool\Proxy</argument>
+            <argument name="providerPool" xsi:type="object">CommerceGears\SocialLogin\Model\Provider\ProviderPool\Proxy</argument>
             <argument name="checks" xsi:type="array"/>
         </arguments>
     </type>
 
     <!--
         Admin config: callback URL shown under each provider's "Enabled" switch. For another provider, declare
-        a virtual type of Softaware\SocialLogin\Model\Config\Comment\CallbackUrl with its providerCode and hint.
+        a virtual type of CommerceGears\SocialLogin\Model\Config\Comment\CallbackUrl with its providerCode and hint.
     -->
-    <virtualType name="Softaware\SocialLogin\Model\Config\Comment\GoogleCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
+    <virtualType name="CommerceGears\SocialLogin\Model\Config\Comment\GoogleCallbackUrl" type="CommerceGears\SocialLogin\Model\Config\Comment\CallbackUrl">
         <arguments>
             <argument name="providerCode" xsi:type="string">google</argument>
             <argument name="hint" xsi:type="string">Google Cloud console &gt; Google Auth Platform &gt; Clients: create a client of type "Web application" and add this URL under "Authorized redirect URIs".</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Softaware\SocialLogin\Model\Config\Comment\FacebookCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
+    <virtualType name="CommerceGears\SocialLogin\Model\Config\Comment\FacebookCallbackUrl" type="CommerceGears\SocialLogin\Model\Config\Comment\CallbackUrl">
         <arguments>
             <argument name="providerCode" xsi:type="string">facebook</argument>
             <argument name="hint" xsi:type="string">Meta for Developers &gt; your app &gt; Use cases &gt; "Authenticate and request data from users with Facebook Login" &gt; Customize &gt; Settings (older apps: Facebook Login &gt; Settings): add this URL to "Valid OAuth Redirect URIs". The app needs the "email" permission.</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Softaware\SocialLogin\Model\Config\Comment\TwitterCallbackUrl" type="Softaware\SocialLogin\Model\Config\Comment\CallbackUrl">
+    <virtualType name="CommerceGears\SocialLogin\Model\Config\Comment\TwitterCallbackUrl" type="CommerceGears\SocialLogin\Model\Config\Comment\CallbackUrl">
         <arguments>
             <argument name="providerCode" xsi:type="string">twitter</argument>
             <argument name="hint" xsi:type="string">X Developer Portal &gt; your app &gt; User authentication settings: enable OAuth 2.0 (type "Web App"), and enter this URL as "Callback URI / Redirect URL".</argument>

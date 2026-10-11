@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login
+ * CommerceGears Social Login
  *
- * @copyright Copyright (c) Softaware Commerce (https://www.softawarecommerce.co.uk/)
+ * @copyright Copyright (c) CommerceGears (https://www.commercegearscommerce.co.uk/)
  */
 declare(strict_types=1);
 
-namespace Softaware\SocialLogin\Model\Account;
+namespace CommerceGears\SocialLogin\Model\Account;
 
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
@@ -17,14 +17,14 @@ use Magento\Customer\Model\Config\Share as ShareConfig;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\Validator\EmailAddress as EmailValidator;
 use Magento\Store\Model\StoreManagerInterface;
-use Softaware\SocialLogin\Api\Data\LinkInterface;
-use Softaware\SocialLogin\Api\Data\LinkInterfaceFactory;
-use Softaware\SocialLogin\Api\LinkRepositoryInterface;
-use Softaware\SocialLogin\Exception\SocialLoginException;
-use Softaware\SocialLogin\Model\AuthRequest;
-use Softaware\SocialLogin\Model\Config;
-use Softaware\SocialLogin\Model\Profile;
-use Softaware\SocialLogin\Model\Provider\ProviderPool;
+use CommerceGears\SocialLogin\Api\Data\LinkInterface;
+use CommerceGears\SocialLogin\Api\Data\LinkInterfaceFactory;
+use CommerceGears\SocialLogin\Api\LinkRepositoryInterface;
+use CommerceGears\SocialLogin\Exception\SocialLoginException;
+use CommerceGears\SocialLogin\Model\AuthRequest;
+use CommerceGears\SocialLogin\Model\Config;
+use CommerceGears\SocialLogin\Model\Profile;
+use CommerceGears\SocialLogin\Model\Provider\ProviderPool;
 
 /**
  * Turns a verified provider identity into a signed-in (or newly linked) customer.

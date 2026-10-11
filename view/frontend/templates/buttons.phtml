@@ -1,12 +1,12 @@
 <?php
 /**
- * Softaware Social Login: sign-in buttons (Luma).
+ * CommerceGears Social Login: sign-in buttons (Luma).
  *
- * @var \Softaware\SocialLogin\Block\Buttons $block
+ * @var \CommerceGears\SocialLogin\Block\Buttons $block
  * @var \Magento\Framework\Escaper $escaper
  */
 $style = $block->getButtonStyle();
-$iconOnly = $style === \Softaware\SocialLogin\Model\Config::STYLE_ICON;
+$iconOnly = $style === \CommerceGears\SocialLogin\Model\Config::STYLE_ICON;
 $popup = $block->isPopupMode();
 $heading = $block->getHeading();
 ?>
@@ -39,5 +39,5 @@ $heading = $block->getHeading();
     <?php endif; ?>
 </div>
 <script type="text/x-magento-init">
-    {"*": {"Softaware_SocialLogin/js/social-login": {}}}
+    {"*": {"CommerceGears_SocialLogin/js/social-login": {}}}
 </script>

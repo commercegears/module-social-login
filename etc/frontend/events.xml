@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="hyva_config_generate_before">
-        <observer name="softaware_sociallogin_hyva_config" instance="Softaware\SocialLogin\Observer\RegisterModuleForHyvaConfig"/>
+        <observer name="commercegears_sociallogin_hyva_config" instance="CommerceGears\SocialLogin\Observer\RegisterModuleForHyvaConfig"/>
     </event>
 </config>
