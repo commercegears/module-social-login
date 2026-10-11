@@ -30,7 +30,7 @@
 - Fix: documented compatibility corrected to Magento 2.4.7 to 2.4.9.
 
 ## 1.2.0 (2026-10-06)
-- Improvement: requires CommerceGears Core instead of the retired CommerceGears Base; admin menu under "CommerceGears".
+- Improvement: admin menu and permissions moved under "CommerceGears".
 
 ## 1.1.0 (2026-10-06)
 - Fix: open redirect after sign-in closed; return URLs are now parsed strictly.
