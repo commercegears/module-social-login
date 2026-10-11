@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- The test provider settings are shown only in developer mode. -->
+    <type name="Magento\Config\Model\Config\Structure\ElementVisibilityComposite">
+        <arguments>
+            <argument name="visibility" xsi:type="array">
+                <item name="softawareSocialLoginTestProvider" xsi:type="object">Softaware\SocialLogin\Model\Config\Structure\TestProviderVisibility</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

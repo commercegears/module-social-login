@@ -1,117 +1,42 @@
 # Changelog
 
-## 1.4.1 (2026-10-09)
+## 1.4.2 (2026-10-11)
+- Button labels accept plain text only (up to 60 characters); sort orders must be whole numbers from 0 to 9999.
+- The Test Provider settings group is shown only in developer mode, the only mode in which it works.
+- Linked Accounts mass delete message: "1 social login link has been removed" instead of "link(s)".
+- Requires Softaware Core 1.3, which checks these settings on the server when they are saved.
 
-### Changed
-- Facebook setup hint and user guide: the current Meta app dashboard path (Use cases > "Authenticate and request
-  data from users with Facebook Login" > Customize > Settings), with the older Facebook Login > Settings path for
-  existing apps.
+## 1.4.1 (2026-10-09)
+- Facebook setup hint and user guide show the current Meta app dashboard path.
 - Docs: no dashes as punctuation in headings and version ranges.
 
 ## 1.4.0 (2026-10-09)
-
-### Added
-
-- In-app browsers: when the shop is opened inside Instagram, Facebook, Messenger, TikTok, LinkedIn, Snapchat,
-  Pinterest, WeChat, LINE or an Android WebView, a note above the buttons asks the shopper to open the page in their
-  browser (Google blocks OAuth sign-in in these browsers), with a "Copy link" button. Detected in the browser, so
-  it is full page cache safe. Luma (sign-in and create-account pages, widget, authentication popup, checkout) and
-  Hyvä.
-
-### Changed
-
-- Facebook: default Graph API version is now `v26.0` (was `v23.0`). Saved values are kept; the field now has
-  "Use system value", so a store that saved the old default can switch back to the module default.
-- Google setup hint in the admin and docs uses the current Google Cloud console names (Google Auth Platform >
-  Clients, "Authorized redirect URIs").
-- Docs: product and Composer key links point to softawarecommerce.com (the shop moved from
-  shop.softawarecommerce.com); the product page tagline says the extension is free and has no dashes.
-- Doc screenshots retaken without the Magento logo of the Hyvä default theme and with the new Google hint.
+- Note above the buttons in in-app browsers (Instagram, Facebook, TikTok and others) with a "Copy link" button.
+- Facebook Graph API v26.0 by default, with "Use system value" to follow the module default.
+- Google setup hint uses the current Google Cloud console names; docs link to softawarecommerce.com.
+- Doc screenshots retaken.
 
 ## 1.3.0 (2026-10-07)
-
-### Added
-
-- Works with **Social Login Pro** (Apple, Microsoft, LinkedIn, Amazon and GitHub): the add-on's providers appear in
-  the same configuration section, button rows, Connected Accounts page, admin grid and self-test.
-- Extension points for modules that add providers: button icons per provider code (`icons` argument of
-  `ViewModel\ProviderIcons`), self-test checks (`Model\SelfTest\CheckInterface`, `checks` argument of the
-  self-test command), and the callback URL comment for the admin (documented in the README together with the
-  provider pool and the settings).
-- Links of providers that are not installed are handled safely: the Linked Accounts grid (column and filter), the
-  customer tab and Connected Accounts show them with their provider code, customers and admins can remove them, and
-  they do not count as a way to sign in when the customer disconnects another provider.
-- Self-test: lists the registered providers; ES256 ID token checks (valid token, tampered payload, algorithm
-  whitelist); a rejected issuer for issuer patterns; the handling of links whose provider is not installed.
-
-### Documentation
-
-- README, user guide and FAQ: provider extension points for developers, Social Login Pro; new screenshots.
+- Works with Social Login Pro: Apple, Microsoft, LinkedIn, Amazon and GitHub in the same settings and buttons.
+- Extension points for modules that add providers (icons, self-test checks, callback URL comment).
+- Links of providers that are no longer installed are shown and can be removed safely.
+- Self-test covers ES256 ID tokens, issuer checks and links of removed providers.
 
 ## 1.2.1 (2026-10-07)
-
-### Documentation
-
-- User guide (`docs/user-guide.md`) with installation, every setting, provider setup, admin tools, CLI, privacy
-  and troubleshooting; FAQ (`docs/faq.md`); screenshots (`docs/images/`).
-- README: demo links, links to the guide and FAQ; compatibility corrected to Magento 2.4.7 – 2.4.9 (what the
-  package requires) and `softaware/module-core` ^1.0.
+- User guide, FAQ and screenshots; README compatibility corrected to Magento 2.4.7 to 2.4.9.
 
 ## 1.2.0 (2026-10-06)
-
-### Changed
-
-- Requires `softaware/module-core` instead of `softaware/module-base`. The admin menu and ACL now sit under `Softaware_Core::core` ("Softaware"); roles that had access keep it (migrated by module-core). After updating all SoftAware modules, `softaware/module-base` can be removed.
+- Requires Softaware Core instead of the retired Softaware Base; admin menu and ACL under "Softaware".
 
 ## 1.1.0 (2026-10-06)
+- Security: open redirect after sign-in fixed; return URLs are parsed strictly.
+- Security: accounts from unverified email addresses always need email confirmation before use.
+- Automatic linking by email only for providers responsible for the address (Gmail at Google).
+- New setting Create New Accounts to let only existing customers sign in with a provider.
+- Fixed confirmation emails and confirmed state with "Require Emails Confirmation" switched on.
 
-### Security
-- Open redirect after sign-in fixed: return URLs such as `https:///evil.example/` or
-  `https://evil.example\@your-shop/` passed the "own host" check (PHP and browsers read them differently) and
-  sent the customer to another site after signing in. Return URLs are now parsed strictly (no backslashes,
-  control characters, user info or empty hosts) before the host check.
-- Pre-account hijacking: an account created from an email address the provider has not verified (typed in by
-  the shopper, the test provider) now always needs Magento's email confirmation before it can be used,
-  whether or not the store requires confirmation. Before, anybody could create an account in someone else's name
-  through a provider without email (e.g. X) and keep access through the linked provider after the real owner
-  had reset the password.
-- Linking to an existing account by email is limited to providers that are responsible for the address: Google
-  only for Gmail and Google Workspace addresses (Google's own guidance); Facebook addresses ask for the password
-  once (the Graph API has no verification flag). Everything else asks for the account password once, as before for unverified addresses.
-  The same rule applies when an unconfirmed account is confirmed through a provider.
-
-### Added
-- Accounts > **Create New Accounts** (default Yes). Set to No to let only existing customers sign in with a
-  provider; shoppers without an account are asked to register first.
-- Hint on the "Connect your account" password step for customers who signed up with another provider and have no
-  password.
-- Self-test: return URL (open redirect) checks and email trust rules per provider.
-
-### Fixed
-- With "Require Emails Confirmation" switched on, a new social customer with an unverified address got the
-  "welcome (no password)" email without a confirmation link and could never activate the account. The
-  confirmation email is now sent.
-- With "Require Emails Confirmation" switched on, accounts created from a verified address stayed unconfirmed in
-  the database (password sign-in later said "not confirmed"). They are now confirmed.
-- When another module refused the sign-in (e.g. Softaware Customer Approval: account waiting for approval), the
-  customer saw two messages; now only the other module's explanation is shown. A refused sign-in is also detected
-  when the session ends up with a different customer.
-
-## 1.0.0
-
-First release.
-
-- Sign-in and registration with Google, Facebook and X (Twitter), implemented directly on OAuth 2.0 / OpenID
-  Connect (no provider SDKs).
-- State, nonce and PKCE (S256) where supported; ID token signature validation via JWKS (RS256/ES256) for Google;
-  browser-bound, single-use state stored server-side.
-- Buttons on the sign-in and create-account pages, the Luma authentication popup, the checkout sign-in and
-  (optional) checkout email step, the Hyvä authentication popup, a CMS widget and a layout block. Icon+text or
-  icon-only, light or dark, popup or full-page redirect.
-- Account matching: verified email links automatically (or asks for the password, configurable); missing email
-  or name is asked for on a short form; new customers get a configurable group and optional welcome email.
-- My Account > Connected Accounts (connect, disconnect with lock-out protection).
-- Admin grid Softaware > Social Login > Linked Accounts, "Social Login" tab on the customer edit page.
-- CLI: `softaware:social-login:links`, `softaware:social-login:unlink`, `softaware:social-login:self-test`.
-- Luma and Hyvä templates; en_US and de_DE translations.
-- Test provider for development (developer mode only, disabled by default).
+## 1.0.0 (2026-10-06)
+- First release: sign-in and registration with Google, Facebook and X, built on OAuth 2.0 and OpenID Connect.
+- Buttons on sign-in, create-account, authentication popup, checkout, CMS widget and layout block (Luma and Hyvä).
+- Account matching by verified email, short form for a missing email or name, customer group and welcome email.
+- Connected Accounts in My Account, Linked Accounts grid and customer tab in the admin, CLI commands.

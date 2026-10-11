@@ -39,7 +39,11 @@ class MassDelete extends Action implements HttpPostActionInterface
             $this->linkRepository->delete($link);
             $count++;
         }
-        $this->messageManager->addSuccessMessage(__('%1 social login link(s) have been removed.', $count));
+        $this->messageManager->addSuccessMessage(
+            $count === 1
+                ? __('1 social login link has been removed.')
+                : __('%1 social login links have been removed.', $count)
+        );
         return $this->resultRedirectFactory->create()->setPath('*/*/index');
     }
 }

@@ -79,7 +79,7 @@ Softaware > Social Login > Configuration.
 | Where to Show the Buttons | Sign-in page, create-account page, authentication popup and checkout sign-in, checkout email step |
 | Accounts | Create new accounts (yes/no), existing account with the same email (link automatically / ask for password), welcome email, customer group, after sign-in (stay on page / My Account / custom URL) |
 | Google, Facebook, X | Enabled (with the callback URL), client ID, client secret, button label, sort order; Facebook: Graph API version; X: request email |
-| Test Provider | Enabled (developer mode only) |
+| Test Provider | Enabled (group shown and provider working in developer mode only) |
 
 Scope: default, website and store view (credentials can differ per domain). Provider codes (config group and
 callback URL segment): `google`, `facebook`, `twitter` (X), `test`.

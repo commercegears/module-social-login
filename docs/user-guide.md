@@ -95,7 +95,10 @@ The buttons are also available as a CMS widget and a layout block (section 7).
 ### Providers
 
 Each provider has **Enabled**, its credentials (stored encrypted), an optional **Button Label** (empty = "Continue
-with …") and a **Sort Order** for the button position.
+with …", plain text up to 60 characters) and a **Sort Order** for the button position (0 to 9999).
+
+The **Test Provider (Developers Only)** group is shown only when Magento runs in developer mode, the only mode in
+which the test provider works.
 
 ## 5. Setting up the providers
 
