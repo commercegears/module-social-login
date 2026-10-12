@@ -6,7 +6,7 @@ installation, configuration, provider setup and day-to-day use.
 - Demo (Luma): https://demo.commercegears.com/customer/account/login/
 - Demo (Hyvä): https://demo.commercegears.com/hyva/customer/account/login/
 - Admin demo: https://demo.commercegears.com/try-admin/social-login
-- Product page (free): https://commercegears.com/shop/magento-2-extensions/social-login-for-magento-2/
+- Product page (free): https://commercegears.com/magento-2-extensions/social-login-for-magento-2/
 - Changelog: [CHANGELOG.md](../CHANGELOG.md) · Questions: [FAQ](faq.md)
 
 ![Sign-in page with social login buttons](images/sign-in-luma.png)
@@ -25,7 +25,7 @@ client and PHP's OpenSSL extension.
 
 ## 2. Installation
 
-With Composer (recommended). Social Login is free; get it on the [product page](https://commercegears.com/shop/magento-2-extensions/social-login-for-magento-2/) and use the Composer keys
+With Composer (recommended). Social Login is free; get it on the [product page](https://commercegears.com/magento-2-extensions/social-login-for-magento-2/) and use the Composer keys
 from your account on commercegears.com (My account > Composer keys, https://commercegears.com/my-modules/keys/):
 
 ```bash
@@ -208,7 +208,7 @@ The add-on **Social Login Pro** (`commercegears/module-social-login-pro`) adds S
 ID), LinkedIn, Amazon and GitHub. After installing it (`composer require commercegears/module-social-login-pro`, then
 the `bin/magento` commands from section 2), the new providers appear as groups in the same configuration section and
 use all the settings in this guide. Its own user guide describes the provider setup. Product page:
-https://commercegears.com/shop/magento-2-extensions/social-login-pro-for-magento-2/
+https://commercegears.com/magento-2-extensions/social-login-pro-for-magento-2/
 
 ## 13. Uninstall
 

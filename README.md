@@ -13,7 +13,7 @@ Package `commercegears/module-social-login`, module `CommerceGears_SocialLogin`.
 - Storefront demo: [Luma](https://demo.commercegears.com/customer/account/login/) ·
   [Hyvä](https://demo.commercegears.com/hyva/customer/account/login/)
 - Admin demo: https://demo.commercegears.com/try-admin/social-login
-- Product page (free): https://commercegears.com/shop/magento-2-extensions/social-login-for-magento-2/
+- Product page (free): https://commercegears.com/magento-2-extensions/social-login-for-magento-2/
 - [User guide](docs/user-guide.md) (installation, settings, provider setup, troubleshooting) · [FAQ](docs/faq.md) ·
   [Changelog](CHANGELOG.md)
 
@@ -115,7 +115,7 @@ browser, so it can be used on full-page-cached pages.
 The add-on **Social Login Pro** (`commercegears/module-social-login-pro`) adds Sign in with Apple, Microsoft (Entra ID),
 LinkedIn, Amazon and GitHub. Its providers appear in the same configuration section, the same button rows, the
 Connected Accounts page and the admin tools, and use the same settings described here. Product page:
-https://commercegears.com/shop/magento-2-extensions/social-login-pro-for-magento-2/
+https://commercegears.com/magento-2-extensions/social-login-pro-for-magento-2/
 
 ## Adding a provider (developers)
 
