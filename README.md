@@ -149,7 +149,7 @@ to providers.
 
 ## Compatibility
 
-- Magento Open Source / Adobe Commerce 2.4.7 to 2.4.9, PHP 8.2 to 8.5, ext-openssl.
+- Magento Open Source / Adobe Commerce 2.4.6 to 2.4.9, PHP 8.2 to 8.5 (Magento 2.4.6: PHP 8.2), ext-openssl.
 - Luma, Blank and themes based on them; Hyvä 1.3+ (tested with Hyvä 1.5). The Hyvä checkout uses the Luma
   checkout fallback, so the checkout buttons are the Luma ones.
 - Requires `commercegears/module-core` ^1.0.
