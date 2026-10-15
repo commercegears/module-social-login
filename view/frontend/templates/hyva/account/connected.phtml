@@ -61,8 +61,15 @@ $rows = $viewModel->getRows();
     <?php if (!$viewModel->hasPassword()): ?>
         <div class="message info mb-6">
             <span>
-                <?= $escaper->escapeHtml(__('Your account does not have a password yet. To set one, use')) ?>
-                <a href="<?= $escaper->escapeUrl($viewModel->getForgotPasswordUrl()) ?>"><?= $escaper->escapeHtml(__('Forgot Your Password?')) ?></a>
+                <?php /* One sentence so translations can order the words freely; %1 is the link. */ ?>
+                <?= $escaper->escapeHtml(
+                    __(
+                        'Your account does not have a password yet. To set one, use %1',
+                        '<a href="' . $escaper->escapeUrl($viewModel->getForgotPasswordUrl()) . '">'
+                            . $escaper->escapeHtml(__('Forgot Your Password?')) . '</a>'
+                    ),
+                    ['a']
+                ) ?>
             </span>
         </div>
     <?php endif; ?>
